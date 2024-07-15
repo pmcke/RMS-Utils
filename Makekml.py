@@ -28,13 +28,17 @@ if os.path.isfile(file_path):
             for line in f:
                 if line.strip() == 'Begin point on the trajectory:':
                     blat = float(next(f)[14:24])
+                    _ = next(f) 
                     blong = float(next(f)[14:24])
+                    _ = next(f) 
                     balt = float(next(f)[14:24])
-                    print(blat, blong, balt)
+                    # print(blat, blong, balt)
                     for item in range(3):  # Skip 3 lines
                         _ = next(f) 
                     elat = float(next(f)[14:24])
+                    _ = next(f) 
                     elong = float(next(f)[14:24])
+                    _ = next(f) 
                     ealt = float(next(f)[14:24])
                     break
 
