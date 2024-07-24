@@ -3,9 +3,9 @@
 It has a single argument and that is the path to the folder where you want the script to start looking.
 - WARNING: Just make sure that none of these edited .config files gets back to the system running RMS.
 # Makekml.py
-- After running "wmpl\Formats\ECSV.py" or "wmpl\Trajectory\Correl ateRMS.py" a file is generated with a name ending in report.txt. Use the full path of this file as an arguement and it will generate a KML in the same folder as report.txt with a track of the meteor in 3D.
+- After running "wmpl\Formats\ECSV.py" or "wmpl\Trajectory\CorrelateRMS.py" a file is generated with a name ending in report.txt. Use the full path of this file as an arguement and it will generate a KML in the same folder as report.txt with a track of the meteor in 3D.
 - You need to install the simplekml library before using this "pip install simplekml
-- I need to find a better way to get the details from report.txt as the format of this file has changed a couple of times since I wrote it.
+- I need to find a better way to get the details from report.txt as the format of this file has changed a couple of times since I wrote it. Use the version tagged ECSV when using ECSV.py and the one tagged CorrelateRMS when using CorrelateRMS.py
 # extract_bz2.py
 - When you get a whole lot of bz2 files to extract, this can do it all in one go. Use the path to the folder where the files are as an arguement
 # extract_captured_stack.py
