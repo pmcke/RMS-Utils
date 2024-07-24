@@ -10,3 +10,4 @@ It has a single argument and that is the path to the folder where you want the s
 - When you get a whole lot of bz2 files to extract, this can do it all in one go. Use the path to the folder where the files are as an arguement
 # extract_captured_stack.py
 - Extracts only files ending in the name captured_stack.jpg from a list of .bz2 files. Use the path to the folder where the files are as an arguement
+- This is useful for quickly assessing the bz2 files produced by the event monitor. Before starting, extract the captured_stack.jpg image to see what is there
