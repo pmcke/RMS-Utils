@@ -40,9 +40,3 @@ def extract_bz2_files(folder_path):
 folder_path = sys.argv[1]
 # folder_path = 'path/to/your/folder'
 extract_bz2_files(folder_path)
-
-# Example usage:
-# Replace with the path to your folder containing .bz2 files
-folder_path = sys.argv[1]
-# folder_path = 'path/to/your/folder'
-extract_bz2_files(folder_path)
