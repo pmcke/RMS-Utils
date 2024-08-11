@@ -22,5 +22,5 @@
 # extr_FTPd.py
 
 - Extracts files with the pattern _FTPdetectinfo_.* and *platepars_all*.* from bz2 files in the path
-  -Places the resulting files in a folder named after the first 6 characteers of the archive name.
+- Places the resulting files in a folder named after the first 6 characteers of the archive name.
 - 99% of this is written by ChatGPT
