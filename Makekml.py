@@ -7,6 +7,9 @@ and creates a kml file called Fireball.kml in the same folder as the *report.txt
 
 It only has one argument and that is the full path and file name of the *.txt file. That can be obtained in Windows 
 by right clicking on the file name and selecting Copy as Path.
+
+With help from OpenAI, this version is flexible, and can extract the data, even if there are slight variations in the format of the report file.
+
 """
 import simplekml
 import os
@@ -19,63 +22,42 @@ def extract_coordinates(file):
     elat, elong, ealt = None, None, None
 
     # Define regular expressions for latitude, longitude, and altitude
-    # coord_pattern = re.compile(r"[-+]?\d*\.\d+")
-    
-    # Define patterns for different lines
     lat_pattern = re.compile(r"Lat \(\+N\)\s*=\s*([-+]?\d*\.\d+)")
     lon_pattern = re.compile(r"Lon \(\+E\)\s*=\s*([-+]?\d*\.\d+)")
     ht_pattern = re.compile(r"Ht WGS84\s*=\s*([\d.]+)")
-
-
 
     begin_found = False
     end_found = False
 
     for line in file:
-        if line.strip().startswith('Begin point on the trajectory:'):
-            # Extract the beginning coordinates
+        if "Begin point on the trajectory:" in line:
             begin_found = True
-            blat_line = next(file)
-            blong_line = next(file)
-            balt_line = next(file)
-            
-            # Search for latitude, longitude, and altitude
-            blat_match = lat_pattern.search(blat_line)
-            blong_match = lon_pattern.search(blong_line)
-            balt_match = ht_pattern.search(balt_line)
-            
-            if blat_match and blong_match and balt_match:
-                blat = float(blat_match.group(1))
-                blong = float(blong_match.group(1))
-                balt = float(balt_match.group(1))
-            else:
-                raise ValueError("Failed to extract beginning coordinates.")
-        
-        if line.strip().startswith('End point on the trajectory:'):
-            # Extract the end coordinates
+
+        if begin_found and not blat and lat_pattern.search(line):
+            blat = float(lat_pattern.search(line).group(1))
+        if begin_found and not blong and lon_pattern.search(line):
+            blong = float(lon_pattern.search(line).group(1))
+        if begin_found and not balt and ht_pattern.search(line):
+            balt = float(ht_pattern.search(line).group(1))
+
+        if "End point on the trajectory:" in line:
             end_found = True
-            elat_line = next(file)
-            elong_line = next(file)
-            ealt_line = next(file)
-            
-            # Search for latitude, longitude, and altitude
-            elat_match = lat_pattern.search(elat_line)
-            elong_match = lon_pattern.search(elong_line)
-            ealt_match = ht_pattern.search(ealt_line)
-            
-            if elat_match and elong_match and ealt_match:
-                elat = float(elat_match.group(1))
-                elong = float(elong_match.group(1))
-                ealt = float(ealt_match.group(1))
-            else:
-                raise ValueError("Failed to extract end coordinates.")
-        
-        if begin_found and end_found:
+
+        if end_found and not elat and lat_pattern.search(line):
+            elat = float(lat_pattern.search(line).group(1))
+        if end_found and not elong and lon_pattern.search(line):
+            elong = float(lon_pattern.search(line).group(1))
+        if end_found and not ealt and ht_pattern.search(line):
+            ealt = float(ht_pattern.search(line).group(1))
+
+        # Stop if both sets of coordinates are found
+        if begin_found and end_found and all([blat, blong, balt, elat, elong, ealt]):
             break
 
+    if not all([blat, blong, balt, elat, elong, ealt]):
+        raise ValueError("Failed to extract both beginning and end coordinates.")
+
     return (blat, blong, balt), (elat, elong, ealt)
-
-
 
 def create_kml(blat, blong, balt, elat, elong, ealt, outputfile):
     kml = simplekml.Kml()

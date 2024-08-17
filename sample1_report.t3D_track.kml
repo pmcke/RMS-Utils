@@ -21,7 +21,7 @@
             <styleUrl>#4</styleUrl>
             <LineString id="2">
                 <altitudeMode>absolute</altitudeMode>
-                <coordinates>170.150876,-44.260622,89919.61 170.276993,-43.8813,33176.06</coordinates>
+                <coordinates>146.23522,-38.675875,109918.86 145.252488,-38.721387,74233.59</coordinates>
             </LineString>
         </Placemark>
         <Placemark id="7">
@@ -31,7 +31,7 @@
                 <altitudeMode>absolute</altitudeMode>
                 <outerBoundaryIs>
                     <LinearRing id="10">
-                        <coordinates>170.150876,-44.260622,89919.61 170.276993,-43.8813,33176.06 170.276993,-43.8813,0 170.150876,-44.260622,0 170.150876,-44.260622,89919.61</coordinates>
+                        <coordinates>146.23522,-38.675875,109918.86 145.252488,-38.721387,74233.59 145.252488,-38.721387,0 146.23522,-38.675875,0 146.23522,-38.675875,109918.86</coordinates>
                     </LinearRing>
                 </outerBoundaryIs>
             </Polygon>
