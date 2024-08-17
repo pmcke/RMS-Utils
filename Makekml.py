@@ -94,7 +94,7 @@ if __name__ == "__main__":
                 raise ValueError("Failed to extract coordinates.")
 
             output_directory = os.path.dirname(file_path)
-            date_time = os.path.basename(file_path)[:16]
+            date_time = os.path.basename(file_path)[:15]
             outputfile = os.path.join(output_directory, date_time + "3D_track.kml")
 
             create_kml(blat, blong, balt, elat, elong, ealt, outputfile)
