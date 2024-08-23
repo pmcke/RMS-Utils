@@ -1,5 +1,5 @@
 """ 
-Usage python Gaia2BSC5.py <directory_path>
+Usage python gaia2Bsc55.py <directory_path>
 Writen by Peter McKellar with help from Chat GPT
 This looks for .config files in a directory and below, then changes the star_catalog line from gaia to BSC5
 """

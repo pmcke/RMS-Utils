@@ -1,5 +1,5 @@
 """
-Makekml.py by Peter McKellar with input from Jesse Stayte and ChatGPT. 26 September 2023
+makeKml.py by Peter McKellar with input from Jesse Stayte and ChatGPT. 26 September 2023
 
 After running the trajectory solver, one of the resulting files is a text file with name 
 ending in report.txt. This script extracts the beginning lat, long & alt and the end lat, long & alt from that file 

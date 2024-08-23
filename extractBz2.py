@@ -1,6 +1,6 @@
 
 """
-extract_bz2.py Extracts all the bz2 archives in a folder.
+extractBz2.py Extracts all the bz2 archives in a folder.
 Usage python - 
 """
 import sys
