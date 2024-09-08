@@ -38,7 +38,7 @@ def changeline(config_file):
 
 
 if len(sys.argv) < 2:
-    print("Usage: python Gaia2BSC5.py <directory_path>")
+    print("Usage: python gaia2Bsc5.py <directory_path>")
     sys.exit(1)
 
 dir_path = sys.argv[1]
