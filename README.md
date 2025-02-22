@@ -4,6 +4,10 @@
   It has a single argument and that is the path to the folder where you want the script to start looking.
 - WARNING: Just make sure that none of these edited .config files gets back to the system running RMS.
 
+# gaia2Gmnsc.py
+
+- Same as gaia2Bsc5.py but updates to the new GMN Star Catalog
+
 # makeKml.py
 
 - After running "wmpl\Formats\ECSV.py" or "wmpl\Trajectory\CorrelateRMS.py" a file is generated with a name ending in report.txt. Use the full path of this file as an argument and it will generate a KML in the same folder as report.txt with a track of the meteor in 3D.
