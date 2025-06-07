@@ -5,7 +5,7 @@ import os
 from datetime import datetime
 import argparse
 
-def load_and_plot(filepath, label, ax, stats, start_time, end_time):
+def load_and_plot(filepath, label, ax, stats, start_time, end_time, hide_lines):
     if not os.path.exists(filepath):
         print(f"File not found: {filepath}")
         return False
@@ -16,13 +16,15 @@ def load_and_plot(filepath, label, ax, stats, start_time, end_time):
         print(f"Error reading {filepath}: {e}")
         return False
 
-    if df.shape[1] < 3:
-        print(f"{label}: Unexpected format (less than 3 columns)")
+    if df.shape[1] < 5:
+        print(f"{label}: Unexpected format (less than 5 columns)")
         return False
 
     df['timestamp'] = pd.to_datetime(df[0] + ' ' + df[1], errors='coerce')
-    df['value'] = pd.to_numeric(df[2], errors='coerce')
-    df = df.dropna(subset=['timestamp', 'value'])
+    df['lux'] = pd.to_numeric(df[2], errors='coerce')
+    df['visible'] = pd.to_numeric(df[3], errors='coerce')
+    df['infrared'] = pd.to_numeric(df[4], errors='coerce')
+    df = df.dropna(subset=['timestamp', 'lux', 'visible', 'infrared'])
 
     if start_time and end_time:
         df = df[df['timestamp'].dt.time.between(start_time, end_time)]
@@ -31,17 +33,42 @@ def load_and_plot(filepath, label, ax, stats, start_time, end_time):
         print(f"{label}: No data in selected time range")
         return False
 
-    ax.plot(df['timestamp'], df['value'], label=label)
+    # Plot each series
+    if 'lux' not in hide_lines:
+        ax.plot(df['timestamp'], df['lux'], label=f"{label} - Lux Data")
+    if 'visible' not in hide_lines:
+        ax.plot(df['timestamp'], df['visible'], label=f"{label} - Visible Light")
+    if 'infrared' not in hide_lines:
+        ax.plot(df['timestamp'], df['infrared'], label=f"{label} - Infrared Light")
 
-    min_val = df['value'].min()
-    max_val = df['value'].max()
+    # Extract min/max stats for each
+    def extract_stats(column):
+        min_val = df[column].min()
+        max_val = df[column].max()
+        min_time = df.loc[df[column].idxmin(), 'timestamp']
+        max_time = df.loc[df[column].idxmax(), 'timestamp']
+        return min_val, min_time, max_val, max_time
+
+    lux_min, lux_min_time, lux_max, lux_max_time = extract_stats('lux')
+    vis_min, vis_min_time, vis_max, vis_max_time = extract_stats('visible')
+    ir_min, ir_min_time, ir_max, ir_max_time = extract_stats('infrared')
+
     stats.append({
         "label": label,
-        "min_value": min_val,
-        "max_value": max_val
+        "lux_min": lux_min, "lux_min_time": lux_min_time,
+        "lux_max": lux_max, "lux_max_time": lux_max_time,
+        "visible_min": vis_min, "visible_min_time": vis_min_time,
+        "visible_max": vis_max, "visible_max_time": vis_max_time,
+        "infrared_min": ir_min, "infrared_min_time": ir_min_time,
+        "infrared_max": ir_max, "infrared_max_time": ir_max_time
     })
-    print(f"{label} - Min: {min_val:.3f}, Max: {max_val:.3f}")
+
+    print(f"{label} - Lux: {lux_min:.2f} at {lux_min_time}, {lux_max:.2f} at {lux_max_time}")
+    print(f"{label} - Visible: {vis_min} at {vis_min_time}, {vis_max} at {vis_max_time}")
+    print(f"{label} - Infrared: {ir_min} at {ir_min_time}, {ir_max} at {ir_max_time}")
+
     return True
+
 
 def parse_time(timestr):
     try:
@@ -60,7 +87,11 @@ def main():
     parser.add_argument("--end", help="End time in HH:MM", default=None)
     parser.add_argument("--path", help="Path to directory containing data files", default=".")
     parser.add_argument("--skip", nargs="+", help="Labels to skip (e.g. RAW MAX)", default=[])
+    parser.add_argument("--hide", nargs="+", help="Data lines to hide: lux, visible, infrared", default=[])
+    
+
     args = parser.parse_args()
+    hide_lines = [h.lower() for h in args.hide]
 
     skip_keywords = [kw.lower() for kw in args.skip]
     start_time = parse_time(args.start) if args.start else None
@@ -84,9 +115,10 @@ def main():
         fig, ax = plt.subplots(figsize=(12, 6))
         ax.set_title(f"{label} Readings for {args.date}")
         ax.set_xlabel("Timestamp")
-        ax.set_ylabel("Measurement (Column 2)")
+        ax.set_ylabel("Lux Data")
 
-        success = load_and_plot(filepath, label, ax, stats, start_time, end_time)
+
+        success = load_and_plot(filepath, label, ax, stats, start_time, end_time, hide_lines)
 
         if success:
             ax.legend()

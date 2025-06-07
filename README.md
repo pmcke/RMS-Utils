@@ -28,3 +28,10 @@
 - Extracts files with the pattern _FTPdetectinfo_.* and *platepars_all*.* from bz2 files in the path
 - Places the resulting files in a folder named after the first 6 characters of the archive name.
 - 99% of this is written by ChatGPT
+
+# plot_r_gain_data.py
+
+- This is for analysing the data produced by the lux meter on the Fireballs360 system.
+- Works with files with the name R*GAIN*???\_<date>.csv
+- At a minimum it needs as an argument the date in the file name in the format YYYYMMDD
+- Other arguements are described with "python plot_r_gain_data.py -h"
