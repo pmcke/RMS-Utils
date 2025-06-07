@@ -50,6 +50,9 @@ def parse_time(timestr):
         print(f"Invalid time format: {timestr}. Use HH:MM.")
         sys.exit(1)
 
+def clean_label(label):
+    return label.replace(" ", "_").upper()
+
 def main():
     parser = argparse.ArgumentParser(description="Plot R Gain data for a given date.")
     parser.add_argument("date", help="Date in format YYYYMMDD")
@@ -59,9 +62,7 @@ def main():
     parser.add_argument("--skip", nargs="+", help="Labels to skip (e.g. RAW MAX)", default=[])
     args = parser.parse_args()
 
-    # Normalize skip keywords
     skip_keywords = [kw.lower() for kw in args.skip]
-
     start_time = parse_time(args.start) if args.start else None
     end_time = parse_time(args.end) if args.end else None
 
@@ -72,38 +73,49 @@ def main():
         "RAW":      os.path.join(args.path, f"R{args.date}.csv")
     }
 
-    stats = []
-    fig, ax = plt.subplots(figsize=(12, 6))
-    ax.set_title(f"R Gain Readings for {args.date}")
-    ax.set_xlabel("Timestamp")
-    ax.set_ylabel("Measurement (Column 2)")
+    all_stats = []
 
-    any_plotted = False
     for label, filepath in files.items():
         if any(skip_kw in label.lower() for skip_kw in skip_keywords):
             print(f"Skipping {label}")
             continue
+
+        stats = []
+        fig, ax = plt.subplots(figsize=(12, 6))
+        ax.set_title(f"{label} Readings for {args.date}")
+        ax.set_xlabel("Timestamp")
+        ax.set_ylabel("Measurement (Column 2)")
+
         success = load_and_plot(filepath, label, ax, stats, start_time, end_time)
-        any_plotted = any_plotted or success
 
-    if any_plotted:
-        ax.legend()
-        ax.grid(True)
-        plt.tight_layout()
+        if success:
+            ax.legend()
+            ax.grid(True)
+            plt.tight_layout()
 
-        # Save plot
-        plot_filename = f"r_gain_plot_{args.date}.png"
-        plt.savefig(plot_filename)
-        print(f"Plot saved to: {plot_filename}")
-        plt.close()
+            label_clean = clean_label(label)
 
-        # Save stats
-        stats_df = pd.DataFrame(stats)
+            # Save plot
+            plot_filename = f"r_gain_plot_{args.date}_{label_clean}.png"
+            plt.savefig(plot_filename)
+            plt.close()
+            print(f"Plot saved to: {plot_filename}")
+
+            # Add to master stats
+            all_stats.extend(stats)
+        else:
+            print(f"No data plotted for {label}")
+
+    # Write a single combined stats file
+    if all_stats:
+        stats_df = pd.DataFrame(all_stats)
         stats_filename = f"r_gain_stats_{args.date}.csv"
         stats_df.to_csv(stats_filename, index=False)
-        print(f"Stats saved to: {stats_filename}")
+        print(f"Combined stats saved to: {stats_filename}")
     else:
-        print("No data plotted.")
+        print("No stats collected.")
+
+
 
 if __name__ == "__main__":
     main()
