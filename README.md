@@ -32,6 +32,6 @@
 # plot_r_gain_data.py
 
 - This is for analysing the data produced by the lux meter on the Fireballs360 system.
-- Works with files with the name R_GAIN\_??\_<date>.csv
+- Works with files with the name R\_GAIN\_???\_YYYYMMDD.csv
 - At a minimum it needs as an argument the date in the file name in the format YYYYMMDD
 - Other arguements are described with "python plot_r_gain_data.py -h"
