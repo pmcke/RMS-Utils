@@ -39,3 +39,8 @@
 # new_extractBz2.py
 
 - A re-work of extractBz2 which allows for a second arguement being a different folder to write the files to. Plus it reduces the path down to only the folder that the files are actually in.
+
+# add_txt.py
+
+- Adds text to a png or jpg file. This is useful to add your station number to the image you use for wallpaper
+  Usage: python add_text.py <image_path> "Your Text Here"
