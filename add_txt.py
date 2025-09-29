@@ -29,7 +29,7 @@ def add_top_text(image_path, text, output_path="output.jpg"):
 
     # Position text at top center
     x = (img.width - text_width) // 2
-    y = 10  # small margin from top
+    y = 100  # small margin from top # This value was originally 10
 
     # Draw outline for visibility
     outline_range = 2
