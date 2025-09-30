@@ -2,7 +2,7 @@ import sys
 import re
 from PIL import Image, ImageDraw, ImageFont, ImageStat
 
-def add_top_text(image_path, text):
+def add_top_text(image_path, text, y_fraction=0.10):
     # Open image
     img = Image.open(image_path).convert("RGB")
     draw = ImageDraw.Draw(img)
@@ -28,9 +28,9 @@ def add_top_text(image_path, text):
     # Get text size
     text_width, text_height = draw.textsize(text, font=font)
 
-    # Position text at ~10% down the image
+    # Position text at chosen fraction of height
     x = (img.width - text_width) // 2
-    y = int(img.height * 0.10)
+    y = int(img.height * y_fraction)
 
     # Draw outline for visibility
     outline_range = 2
@@ -54,8 +54,9 @@ def add_top_text(image_path, text):
 
 if __name__ == "__main__":
     if len(sys.argv) < 3:
-        print("Usage: python add_text.py <image_path> \"Your Text Here\"")
+        print("Usage: python add_text.py <image_path> \"Your Text Here\" [y_fraction]")
     else:
         image_path = sys.argv[1]
         text = sys.argv[2]
-        add_top_text(image_path, text)
+        y_fraction = float(sys.argv[3]) if len(sys.argv) > 3 else 0.10
+        add_top_text(image_path, text, y_fraction)

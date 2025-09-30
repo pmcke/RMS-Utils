@@ -1,12 +1,8 @@
-# gaia2Bsc5.py
-
-- RMS uses the Gaia star catalogue which only used faint stars. When using Skyfit2 it might be easer to use the BSC5 catalogue, which includes familiar constelations. This script looks recursively for any instance of the file named .config and changes the line 'star_catalog_file: gaia_dr2_mag_11.5.npy' to 'star_catalog_file: BSC5'. This is especially useful if there are many .config files to edit.
-  It has a single argument and that is the path to the folder where you want the script to start looking.
-- WARNING: Just make sure that none of these edited .config files gets back to the system running RMS.
-
 # gaia2Gmnsc.py
 
-- Same as gaia2Bsc5.py but updates to the new GMN Star Catalog
+- Changes the line in any .config file below the path in the arguement from 'star_catalog_file: gaia_dr2_mag_11.5.npy' to 'star_catalog_file: GMN_StarCatalog'. This is now the star catalog that should be used both on the Pi and when using Skyfit2.
+
+  It has a single argument and that is the path to the folder where you want the script to start looking.
 
 # makeKml.py
 
