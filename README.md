@@ -39,4 +39,4 @@
 # add_txt.py
 
 - Adds text to a png or jpg file. This is useful to add your station number to the image you use for wallpaper
-  Usage: python add_text.py <image_path> "Your Text Here"
+  Usage: python add_text.py <image_path> "Your Text Here" y_fraction (Default is 0.1 which is 10% of the way down the image)
