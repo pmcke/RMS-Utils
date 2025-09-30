@@ -1,7 +1,8 @@
 import sys
+import re
 from PIL import Image, ImageDraw, ImageFont, ImageStat
 
-def add_top_text(image_path, text, output_path="output.jpg"):
+def add_top_text(image_path, text):
     # Open image
     img = Image.open(image_path).convert("RGB")
     draw = ImageDraw.Draw(img)
@@ -27,9 +28,9 @@ def add_top_text(image_path, text, output_path="output.jpg"):
     # Get text size
     text_width, text_height = draw.textsize(text, font=font)
 
-    # Position text at top center
+    # Position text at ~10% down the image
     x = (img.width - text_width) // 2
-    y = 100  # small margin from top # This value was originally 10
+    y = int(img.height * 0.10)
 
     # Draw outline for visibility
     outline_range = 2
@@ -40,6 +41,12 @@ def add_top_text(image_path, text, output_path="output.jpg"):
 
     # Draw main text
     draw.text((x, y), text, font=font, fill=text_color)
+
+    # --- Make output filename ---
+    safe_text = re.sub(r'[^a-zA-Z0-9_-]', '_', text.strip())  # clean for filename
+    base_name = image_path.rsplit('.', 1)[0]
+    ext = image_path.rsplit('.', 1)[-1]
+    output_path = f"{base_name}_{safe_text}.{ext}"
 
     # Save output
     img.save(output_path)
