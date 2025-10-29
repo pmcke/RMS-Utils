@@ -201,7 +201,7 @@
         "type": "ui_tab",
         "name": "CPU Stats",
         "icon": "dashboard",
-        "order": 1,
+        "order": 2,
         "disabled": false,
         "hidden": false
     },
@@ -221,7 +221,7 @@
         "type": "ui_tab",
         "name": "Star Count",
         "icon": "dashboard",
-        "order": 2,
+        "order": 3,
         "disabled": false,
         "hidden": false
     },
@@ -232,7 +232,7 @@
         "tab": "97f96d314c1c3f3f",
         "order": 2,
         "disp": true,
-        "width": 17,
+        "width": 23,
         "collapse": false,
         "className": ""
     },
@@ -339,19 +339,20 @@
     {
         "id": "c0aa544ce73090f0",
         "type": "ui_tab",
-        "name": "After Processing",
+        "name": "Meteor Count",
         "icon": "dashboard",
+        "order": 1,
         "disabled": false,
         "hidden": false
     },
     {
         "id": "9aeeb46ed3a84dc4",
         "type": "ui_group",
-        "name": "After Processing",
+        "name": "Meteor Count",
         "tab": "c0aa544ce73090f0",
         "order": 1,
         "disp": true,
-        "width": 19,
+        "width": 18,
         "collapse": false,
         "className": ""
     },
@@ -369,7 +370,7 @@
         "rh": 0,
         "inputs": 0,
         "x": 140,
-        "y": 260,
+        "y": 160,
         "wires": [
             [
                 "b9781be18a189f6c"
@@ -391,7 +392,7 @@
         "org": "organisation",
         "bucket": "bucket",
         "x": 850,
-        "y": 260,
+        "y": 160,
         "wires": []
     },
     {
@@ -407,7 +408,7 @@
         "finalize": "",
         "libs": [],
         "x": 490,
-        "y": 260,
+        "y": 160,
         "wires": [
             [
                 "f7f08a7477dbfcf3"
@@ -436,7 +437,7 @@
         "payload": "iso",
         "payloadType": "date",
         "x": 160,
-        "y": 440,
+        "y": 340,
         "wires": [
             [
                 "bfaf27df6b9af85e",
@@ -459,7 +460,7 @@
         "finalize": "",
         "libs": [],
         "x": 590,
-        "y": 440,
+        "y": 340,
         "wires": [
             [
                 "b6966d6af6ae7b5e"
@@ -505,7 +506,7 @@
         "useDifferentColor": false,
         "className": "",
         "x": 810,
-        "y": 440,
+        "y": 340,
         "wires": [
             []
         ]
@@ -522,7 +523,7 @@
         "retentionPolicy": "",
         "org": "organisation",
         "x": 370,
-        "y": 440,
+        "y": 340,
         "wires": [
             [
                 "0438fdd668f30db5"
@@ -542,7 +543,7 @@
         "finalize": "",
         "libs": [],
         "x": 590,
-        "y": 500,
+        "y": 400,
         "wires": [
             [
                 "2d9d0e154d60f953"
@@ -588,7 +589,7 @@
         "useDifferentColor": false,
         "className": "",
         "x": 790,
-        "y": 500,
+        "y": 400,
         "wires": [
             []
         ]
@@ -605,7 +606,7 @@
         "retentionPolicy": "",
         "org": "organisation",
         "x": 390,
-        "y": 500,
+        "y": 400,
         "wires": [
             [
                 "53eb1428aa4eb850"
@@ -625,7 +626,7 @@
         "finalize": "",
         "libs": [],
         "x": 590,
-        "y": 560,
+        "y": 460,
         "wires": [
             [
                 "7d761dd0944946a3"
@@ -671,7 +672,7 @@
         "useDifferentColor": false,
         "className": "",
         "x": 800,
-        "y": 560,
+        "y": 460,
         "wires": [
             []
         ]
@@ -688,7 +689,7 @@
         "retentionPolicy": "",
         "org": "organisation",
         "x": 380,
-        "y": 560,
+        "y": 460,
         "wires": [
             [
                 "747116a54301b8d1"
@@ -708,7 +709,7 @@
         "finalize": "",
         "libs": [],
         "x": 590,
-        "y": 620,
+        "y": 520,
         "wires": [
             [
                 "a4e7bd2816cf9746"
@@ -754,7 +755,7 @@
         "useDifferentColor": false,
         "className": "",
         "x": 800,
-        "y": 620,
+        "y": 520,
         "wires": [
             []
         ]
@@ -771,7 +772,7 @@
         "retentionPolicy": "",
         "org": "organisation",
         "x": 370,
-        "y": 620,
+        "y": 520,
         "wires": [
             [
                 "f003449d36a189f4"
@@ -799,11 +800,12 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 150,
-        "y": 120,
+        "x": 110,
+        "y": 280,
         "wires": [
             [
-                "f1681a746afd97cb"
+                "f1681a746afd97cb",
+                "b087cd8357a5511c"
             ]
         ]
     },
@@ -811,7 +813,7 @@
         "id": "1984fb125f0c1406",
         "type": "function",
         "z": "793d83fb15a6a9ba",
-        "name": "Format Data",
+        "name": "Format Data for bar graph",
         "func": "// Expecting msg.payload as an array of { time, value, topic }\nlet data = msg.payload || [];\n\n// Read daytime flag (set by your time-range + Change nodes)\nconst isDaytime = flow.get(\"daytime\") === true;\n\n// Extract alphanumeric camera ID (e.g. NZ0014, NZ001P, NZ002K)\nfunction extractCameraID(topic) {\n    let match = topic?.match(/nz[0-9a-z]+/i);\n    return match ? match[0].toUpperCase() : (topic || \"UNKNOWN\");\n}\n\nlet grouped = {};\nlet latestGlobalTime = 0;\n\nfor (let entry of data) {\n    if (!entry) continue;\n\n    const id = extractCameraID(entry.topic);\n    const t  = new Date(entry.time).getTime();\n    let val  = Number(entry.value_num);\n\n    if (!Number.isFinite(val) || !Number.isFinite(t)) continue;\n\n    // 🔸 Force starcount to 0 during daytime\n    // (only when the metric is starcount; other metrics unaffected)\n    if (isDaytime && /\\/starcount$/i.test(entry.topic)) {\n        val = 0;\n    }\n\n    if (!grouped[id]) grouped[id] = { sum: 0, count: 0, latestVal: val, latestTime: t };\n\n    grouped[id].sum += val;\n    grouped[id].count += 1;\n\n    if (t > grouped[id].latestTime) {\n        grouped[id].latestVal = val;\n        grouped[id].latestTime = t;\n    }\n    if (t > latestGlobalTime) latestGlobalTime = t;\n}\n\n// Prepare chart data arrays\nconst labels   = Object.keys(grouped).sort();\nconst averages = labels.map(id => grouped[id].count ? grouped[id].sum / grouped[id].count : 0);\nlet latests    = labels.map(id => grouped[id].latestVal);\n\n// Format for Node-RED bar chart\nmsg.payload = [{\n    series: ['Average (1h)', 'Latest value'],\n    data: [averages, latests],\n    labels: labels\n}];\n\n// Extra info for debugging / dashboard text node\nmsg.lastUpdate = latestGlobalTime ? new Date(latestGlobalTime).toLocaleString() : '';\nmsg.daytime = isDaytime;\n\nreturn msg;\n",
         "outputs": 1,
         "timeout": 0,
@@ -832,20 +834,20 @@
         "id": "a881f5fc5b9df303",
         "type": "ui_chart",
         "z": "793d83fb15a6a9ba",
-        "name": "Star Count Chart",
+        "name": "Star Count Bar Chart",
         "group": "90a11db5be370378",
         "order": 1,
-        "width": 0,
-        "height": 0,
-        "label": "Star Count Chart",
+        "width": 23,
+        "height": 5,
+        "label": "Star Count Now",
         "chartType": "bar",
         "legend": "true",
         "xformat": "HH:mm",
         "interpolate": "linear",
-        "nodata": "",
+        "nodata": "Waiting......",
         "dot": false,
-        "ymin": "0",
-        "ymax": "250",
+        "ymin": "",
+        "ymax": "",
         "removeOlder": 1,
         "removeOlderPoints": "",
         "removeOlderUnit": "3600",
@@ -866,7 +868,7 @@
         "outputs": 1,
         "useDifferentColor": false,
         "className": "",
-        "x": 850,
+        "x": 900,
         "y": 120,
         "wires": [
             []
@@ -877,7 +879,7 @@
         "type": "influxdb in",
         "z": "793d83fb15a6a9ba",
         "influxdb": "1742aa216cfb6307",
-        "name": " Star Count Querry",
+        "name": " Star Count Querry for bar chart",
         "query": "SELECT \"value_num\",\"topic\"\nFROM \"messages\"\nWHERE \"topic\" =~ /meteorcams\\/nz[0-9A-Za-z]+\\/starcount/\n  AND time > now() - 1h\nORDER BY time ASC\n",
         "rawOutput": false,
         "precision": "",
@@ -887,8 +889,7 @@
         "y": 120,
         "wires": [
             [
-                "1984fb125f0c1406",
-                "2c583a7e7d299335"
+                "1984fb125f0c1406"
             ]
         ]
     },
@@ -897,7 +898,7 @@
         "type": "ui_text",
         "z": "793d83fb15a6a9ba",
         "group": "90a11db5be370378",
-        "order": 1,
+        "order": 2,
         "width": 0,
         "height": 0,
         "name": "Last Updated",
@@ -909,7 +910,7 @@
         "font": "",
         "fontSize": 16,
         "color": "#000000",
-        "x": 850,
+        "x": 910,
         "y": 180,
         "wires": []
     },
@@ -1011,11 +1012,13 @@
         "x": 730,
         "y": 400,
         "wires": [
-            []
+            [
+                "02d8397ed90f1550"
+            ]
         ]
     },
     {
-        "id": "2c583a7e7d299335",
+        "id": "bdacdb43465b8c3b",
         "type": "debug",
         "z": "793d83fb15a6a9ba",
         "name": "debug 1",
@@ -1026,9 +1029,108 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 900,
-        "y": 40,
+        "x": 1160,
+        "y": 120,
         "wires": []
+    },
+    {
+        "id": "02d8397ed90f1550",
+        "type": "debug",
+        "z": "793d83fb15a6a9ba",
+        "name": "debug 3",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 920,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "b087cd8357a5511c",
+        "type": "influxdb in",
+        "z": "793d83fb15a6a9ba",
+        "influxdb": "1742aa216cfb6307",
+        "name": "Star Count Querry for Line Graph",
+        "query": "SELECT \"value_num\",\"topic\"\nFROM \"messages\"\nWHERE \"topic\" =~ /meteorcams\\/nz[0-9A-Za-z]+\\/starcount/\nORDER BY time ASC\nLIMIT 2000\n",
+        "rawOutput": false,
+        "precision": "",
+        "retentionPolicy": "",
+        "org": "organisation",
+        "x": 320,
+        "y": 60,
+        "wires": [
+            [
+                "d953527e8adbef1d"
+            ]
+        ]
+    },
+    {
+        "id": "d953527e8adbef1d",
+        "type": "function",
+        "z": "793d83fb15a6a9ba",
+        "name": "Format Data for Line Chart",
+        "func": "// Expecting msg.payload to be a single array containing ALL topics' data\nlet data = msg.payload;\n\n// Extract the camera ID — works for numbers and letters (e.g. NZ0014, NZ002K, NZ001P)\nfunction extractCameraID(topic) {\n    let match = topic.match(/nz[0-9a-z]+/i);\n    return match ? match[0].toUpperCase() : topic;\n}\n\n// Group by camera/topic\nlet seriesMap = {};\nfor (let entry of data) {\n    let label = extractCameraID(entry.topic);\n    if (!seriesMap[label]) seriesMap[label] = [];\n    seriesMap[label].push({\n        x: new Date(entry.time),\n        y: Number(entry.value_num)\n    });\n}\n\n// Sort each series by time\nfor (let label in seriesMap) {\n    seriesMap[label].sort((a, b) => a.x - b.x);\n}\n\n// Build combined chart payload\nmsg.payload = [{\n    series: Object.keys(seriesMap),\n    data: Object.values(seriesMap),\n    labels: []\n}];\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 620,
+        "y": 60,
+        "wires": [
+            [
+                "eb6999d6270f080d"
+            ]
+        ]
+    },
+    {
+        "id": "eb6999d6270f080d",
+        "type": "ui_chart",
+        "z": "793d83fb15a6a9ba",
+        "name": "Star Count Line Chart",
+        "group": "90a11db5be370378",
+        "order": 3,
+        "width": 23,
+        "height": 5,
+        "label": "Star Count Over Time",
+        "chartType": "line",
+        "legend": "true",
+        "xformat": "HH:mm",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": true,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 900,
+        "y": 60,
+        "wires": [
+            []
+        ]
     },
     {
         "id": "17d0e2e1dd75a69b",
@@ -1057,7 +1159,8 @@
             [
                 "1ef863210a284383",
                 "1274f98cfd0c2a0e",
-                "c7e0d87824779259"
+                "c7e0d87824779259",
+                "a45e9af1fc16c4b8"
             ]
         ]
     },
@@ -1105,8 +1208,8 @@
         "type": "ui_text",
         "z": "e881957e79a14179",
         "group": "9aeeb46ed3a84dc4",
-        "order": 1,
-        "width": 9,
+        "order": 2,
+        "width": 6,
         "height": 5,
         "name": "Next Capture Start",
         "label": "Next Capture Start",
@@ -1165,8 +1268,8 @@
         "type": "ui_text",
         "z": "e881957e79a14179",
         "group": "9aeeb46ed3a84dc4",
-        "order": 2,
-        "width": 10,
+        "order": 4,
+        "width": 6,
         "height": 5,
         "name": "Detection Count",
         "label": "Detection Count",
@@ -1196,8 +1299,7 @@
         "y": 320,
         "wires": [
             [
-                "40b40ae5218f8a62",
-                "7674a2259bb833f3"
+                "40b40ae5218f8a62"
             ]
         ]
     },
@@ -1226,8 +1328,8 @@
         "type": "ui_text",
         "z": "e881957e79a14179",
         "group": "9aeeb46ed3a84dc4",
-        "order": 2,
-        "width": 10,
+        "order": 3,
+        "width": 6,
         "height": 5,
         "name": "Meteor Count",
         "label": "Meteor Count",
@@ -1243,7 +1345,23 @@
         "wires": []
     },
     {
-        "id": "7674a2259bb833f3",
+        "id": "fc25e372dcc4a394",
+        "type": "ui_table",
+        "z": "e881957e79a14179",
+        "group": "9aeeb46ed3a84dc4",
+        "name": "Meteor Counts",
+        "order": 1,
+        "width": 18,
+        "height": 6,
+        "columns": [],
+        "outputs": 0,
+        "cts": false,
+        "x": 1020,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "5a4cfb873622f4ce",
         "type": "debug",
         "z": "e881957e79a14179",
         "name": "debug 2",
@@ -1254,18 +1372,59 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 920,
-        "y": 420,
+        "x": 940,
+        "y": 480,
         "wires": []
     },
     {
-        "id": "f3cc92b0a936a854",
+        "id": "a45e9af1fc16c4b8",
+        "type": "influxdb in",
+        "z": "e881957e79a14179",
+        "influxdb": "35d5b4ab694d1161",
+        "name": "Querry for Table",
+        "query": "SELECT \n  LAST(\"value_str\") AS value_str, \n  LAST(\"value_num\") AS value_num\nFROM \"messages\"\nWHERE \"topic\" =~ /meteorcams\\/[A-Za-z]{2}[0-9A-Za-z]{4}\\/(nextcapstart|meteorcount|detectioncount)/\nGROUP BY \"topic\" fill(none)\n",
+        "rawOutput": false,
+        "precision": "",
+        "retentionPolicy": "",
+        "org": "organisation",
+        "x": 460,
+        "y": 400,
+        "wires": [
+            [
+                "1c8d0fa30f457bab"
+            ]
+        ]
+    },
+    {
+        "id": "1c8d0fa30f457bab",
+        "type": "function",
+        "z": "e881957e79a14179",
+        "name": "Process Data",
+        "func": "// ---------- Node-RED Function: Influx result → ui-table (show 0s) ----------\n//\n// Input: msg.payload = [\n//   { topic: \"meteorcams/nz0014/nextcapstart\", value_str: \"2025-10-30 07:12:10 UTC\" },\n//   { topic: \"meteorcams/nz0014/meteorcount\",  value_num: 3 },\n//   { topic: \"meteorcams/nz0014/detectioncount\", value_num: 0 },\n//   ...\n// ]\n//\n// Output: msg.payload = [\n//   { Camera: \"NZ0014\", \"Next Capture\": \"...\", \"Meteor Count\": 3, \"Detection Count\": 0 },\n//   { Camera: \"NZ001P\", \"Next Capture\": \"\", \"Meteor Count\": 0, \"Detection Count\": 0 },\n//   ...\n// ]\n// ---------------------------------------------------------------------------\n\nlet data = msg.payload || [];\n\n// Helper — extract the NZ camera ID\nfunction extractCameraID(topic) {\n    let match = topic?.match(/nz[0-9a-z]+/i);\n    return match ? match[0].toUpperCase() : \"UNKNOWN\";\n}\n\nlet grouped = {};\n\n// Pass 1 — create entries for every camera we see\nfor (let row of data) {\n    if (!row || !row.topic) continue;\n    const cam = extractCameraID(row.topic);\n    if (!grouped[cam]) {\n        grouped[cam] = {\n            Camera: cam,\n            \"Next Capture\": \"\",\n            \"Meteor Count\": 0,\n            \"Detection Count\": 0\n        };\n    }\n}\n\n// Pass 2 — populate values\nfor (let row of data) {\n    const cam = extractCameraID(row.topic);\n    if (!grouped[cam]) continue;\n\n    if (/nextcapstart$/i.test(row.topic)) {\n        grouped[cam][\"Next Capture\"] = row.value_str || \"\";\n    } \n    else if (/meteorcount$/i.test(row.topic)) {\n        grouped[cam][\"Meteor Count\"] = Number(row.value_num) || 0;\n    } \n    else if (/detectioncount$/i.test(row.topic)) {\n        grouped[cam][\"Detection Count\"] = Number(row.value_num) || 0;\n    }\n}\n\n// Convert to array and sort\nmsg.payload = Object.values(grouped).sort((a, b) => a.Camera.localeCompare(b.Camera));\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 740,
+        "y": 400,
+        "wires": [
+            [
+                "fc25e372dcc4a394",
+                "5a4cfb873622f4ce"
+            ]
+        ]
+    },
+    {
+        "id": "dfef7d118d423552",
         "type": "global-config",
         "env": [],
         "modules": {
             "node-red-contrib-influxdb": "0.7.0",
             "node-red-dashboard": "3.6.6",
-            "node-red-contrib-time-range-switch": "1.2.0"
+            "node-red-contrib-time-range-switch": "1.2.0",
+            "node-red-node-ui-table": "0.4.5"
         }
     }
 ]
