@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
 Wrapper for SetiUploader that first runs logMeteorStats.sh
-with the stationID from config, logging its output, then
-invokes the original SetiUploader in the same way as before.
+with the stationID from config, logs its output, then invokes
+the original SetiUploader exactly as RMS would.
 """
 
 import subprocess
@@ -53,6 +53,7 @@ def rmsExternal(captured_night_dir, archived_night_dir, config):
                     cmd,
                     stdout=log_file,
                     stderr=log_file,
+                    env=os.environ.copy(),  # ensure same environment
                     check=True,
                     text=True,
                 )
@@ -80,12 +81,22 @@ def rmsExternal(captured_night_dir, archived_night_dir, config):
 
     if SETI_UPLOADER_AVAILABLE and real_rmsExternal is not None:
         try:
+            # Ensure correct working directory (important for FTP and path handling)
+            cams_dir = "/home/rms/source/RMS/CAMS"
+            try:
+                os.chdir(cams_dir)
+                print(f"Changed working directory to {os.getcwd()}")
+            except Exception as e:
+                print(f"Could not change working directory: {e}")
+
+            # Run uploader with safe stdout redirection
             with open(log_path, "a") as log_file:
                 log_file.write("\n--- Starting SetiUploader.py ---\n")
                 log_file.flush()
-                with contextlib.redirect_stdout(log_file), contextlib.redirect_stderr(log_file):
+                with contextlib.redirect_stdout(log_file):
                     real_rmsExternal(captured_night_dir, archived_night_dir, config)
                 log_file.write("--- SetiUploader.py finished ---\n")
+
         except Exception:
             with open(log_path, "a") as log_file:
                 log_file.write("Error running SetiUploader.py:\n")
