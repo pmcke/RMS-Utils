@@ -24,6 +24,14 @@
         "env": []
     },
     {
+        "id": "8600a2de96944330",
+        "type": "tab",
+        "label": "Flow 4",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
         "id": "a9722a2199202b7a",
         "type": "tls-config",
         "name": "",
@@ -352,9 +360,69 @@
         "tab": "c0aa544ce73090f0",
         "order": 1,
         "disp": true,
-        "width": 18,
+        "width": 25,
         "collapse": false,
         "className": ""
+    },
+    {
+        "id": "936ac1d07cbb8f13",
+        "type": "ui_spacer",
+        "z": "e881957e79a14179",
+        "name": "spacer",
+        "group": "9aeeb46ed3a84dc4",
+        "order": 2,
+        "width": 7,
+        "height": 1
+    },
+    {
+        "id": "9d0a930576799dff",
+        "type": "ui_spacer",
+        "z": "e881957e79a14179",
+        "name": "spacer",
+        "group": "9aeeb46ed3a84dc4",
+        "order": 3,
+        "width": 7,
+        "height": 1
+    },
+    {
+        "id": "1930aeb00d8df4e2",
+        "type": "ui_spacer",
+        "z": "e881957e79a14179",
+        "name": "spacer",
+        "group": "9aeeb46ed3a84dc4",
+        "order": 4,
+        "width": 7,
+        "height": 1
+    },
+    {
+        "id": "68745d310de14c7f",
+        "type": "ui_spacer",
+        "z": "e881957e79a14179",
+        "name": "spacer",
+        "group": "9aeeb46ed3a84dc4",
+        "order": 5,
+        "width": 7,
+        "height": 1
+    },
+    {
+        "id": "121ec3a6a435409a",
+        "type": "ui_spacer",
+        "z": "e881957e79a14179",
+        "name": "spacer",
+        "group": "9aeeb46ed3a84dc4",
+        "order": 6,
+        "width": 7,
+        "height": 1
+    },
+    {
+        "id": "5a10f73229e999e2",
+        "type": "ui_spacer",
+        "z": "e881957e79a14179",
+        "name": "spacer",
+        "group": "9aeeb46ed3a84dc4",
+        "order": 7,
+        "width": 7,
+        "height": 1
     },
     {
         "id": "e855c146d762af4d",
@@ -370,10 +438,12 @@
         "rh": 0,
         "inputs": 0,
         "x": 140,
-        "y": 160,
+        "y": 280,
         "wires": [
             [
-                "b9781be18a189f6c"
+                "de0a77bdf223ac6d",
+                "c89a0b84d701a049",
+                "0b6987b41968c9e3"
             ]
         ]
     },
@@ -382,44 +452,117 @@
         "type": "influxdb out",
         "z": "d11a3bcc6c1d79cc",
         "influxdb": "35d5b4ab694d1161",
-        "name": "Meteor Cams Database",
-        "measurement": "",
+        "name": "Live Stats",
+        "measurement": "live_messages",
         "precision": "",
-        "retentionPolicy": "",
+        "retentionPolicy": "24hours",
         "database": "database",
         "precisionV18FluxV20": "ms",
         "retentionPolicyV18Flux": "",
         "org": "organisation",
         "bucket": "bucket",
-        "x": 850,
-        "y": 160,
+        "x": 1300,
+        "y": 200,
         "wires": []
     },
     {
         "id": "b9781be18a189f6c",
         "type": "function",
         "z": "d11a3bcc6c1d79cc",
-        "name": "Format Data for Database with 'topic' as a tag",
-        "func": "// ---------- Node-RED Function: MQTT → InfluxDB v1.x ----------\n//\n// Input examples:\n// meteorcams/nz0014/nextcapstart : \"2025-10-26 07:11:02.642132 UTC\"\n// meteorcams/nz001p/meteorcount  : 123\n//\n// Output for InfluxDB v1.x Out node:\n//   msg.measurement = \"messages\"\n//   msg.payload = [\n//       { value_num: 123 },                       // fields object\n//       { topic: \"meteorcams/nz001p/meteorcount\" } // tags object\n//   ]\n//\n// ------------------------------------------------------------\n\nlet topic = msg.topic || \"\";\n\n// Normalise to lowercase, keep the FULL topic path\nlet topicTag = topic.toLowerCase();\n\n// Build the fields object\nlet fields = {};\nif (typeof msg.payload === \"number\" || (!isNaN(msg.payload) && msg.payload !== \"\")) {\n    fields.value_num = Number(msg.payload);\n} else {\n    fields.value_str = String(msg.payload);\n}\n\n// Build the tags object\nlet tags = { topic: topicTag };\n\n// Assign measurement and payload array\nmsg.measurement = \"messages\";\nmsg.payload = [fields, tags];\n\nreturn msg;\n",
+        "name": "Format Data for Database for Live Data",
+        "func": "// ---------- Node-RED Function: MQTT → InfluxDB v1.x ----------\n//\n// Input examples:\n// meteorcams/nz0014/nextcapstart : \"2025-10-26 07:11:02.642132 UTC\"\n// meteorcams/nz001p/meteorcount  : 123\n//\n// Output for InfluxDB v1.x Out node:\n//   msg.measurement = \"live_messages\"\n//   msg.payload = [\n//       { value_num: 123 },                       // fields object\n//       { topic: \"meteorcams/nz001p/meteorcount\" } // tags object\n//   ]\n//\n// ------------------------------------------------------------\n\nlet topic = msg.topic || \"\";\n\n// Normalise to lowercase, keep the FULL topic path\nlet topicTag = topic.toLowerCase();\n\n// Build the fields object\nlet fields = {};\nif (typeof msg.payload === \"number\" || (!isNaN(msg.payload) && msg.payload !== \"\")) {\n    fields.value_num = Number(msg.payload);\n} else {\n    fields.value_str = String(msg.payload);\n}\n\n// Build the tags object\nlet tags = { topic: topicTag };\n\n// Assign measurement and payload array\nmsg.measurement = \"live_messages\";\nmsg.payload = [fields, tags];\n\nreturn msg;\n",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "// Code added here will be run once\n// whenever the node is started.\n// Force numeric conversion\n\n",
         "finalize": "",
         "libs": [],
-        "x": 490,
-        "y": 160,
+        "x": 820,
+        "y": 60,
         "wires": [
             [
-                "f7f08a7477dbfcf3"
+                "438f8fab9308904a"
             ]
         ]
     },
     {
-        "id": "1d0a6de9c6a3b2f4",
+        "id": "de0a77bdf223ac6d",
+        "type": "switch",
+        "z": "d11a3bcc6c1d79cc",
+        "name": "Split streams to different measurements",
+        "property": "topic",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "regex",
+                "v": "^meteorcams\\/[^/]+\\/(cputemp|starcount|diskspace|memusedpct|swapusedpct|camerastatus)$",
+                "vt": "str",
+                "case": false
+            },
+            {
+                "t": "regex",
+                "v": "^meteorcams\\/[^/]+\\/(detectioncount|meteorcount|nextcapstart)$",
+                "vt": "str",
+                "case": false
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 520,
+        "y": 220,
+        "wires": [
+            [
+                "b9781be18a189f6c"
+            ],
+            [
+                "9b786a2d84183bf9"
+            ]
+        ]
+    },
+    {
+        "id": "9b786a2d84183bf9",
+        "type": "function",
+        "z": "d11a3bcc6c1d79cc",
+        "name": "Format Data for Database for Meteor Data",
+        "func": "// ---------- Node-RED Function: MQTT → InfluxDB v1.x ----------\n//\n// Input examples:\n// meteorcams/nz0014/nextcapstart : \"2025-10-26 07:11:02.642132 UTC\"\n// meteorcams/nz001p/meteorcount  : 123\n//\n// Output for InfluxDB v1.x Out node:\n//   msg.measurement = \"1month.meteor_messages\"\n//   msg.payload = [\n//       { value_num: 123 },                       // fields object\n//       { topic: \"meteorcams/nz001p/meteorcount\" } // tags object\n//   ]\n//\n// ------------------------------------------------------------\n\nlet topic = msg.topic || \"\";\n\n// Normalise to lowercase, keep the FULL topic path\nlet topicTag = topic.toLowerCase();\n\n// Build the fields object\nlet fields = {};\nif (typeof msg.payload === \"number\" || (!isNaN(msg.payload) && msg.payload !== \"\")) {\n    fields.value_num = Number(msg.payload);\n} else {\n    fields.value_str = String(msg.payload);\n}\n\n// Build the tags object\nlet tags = { topic: topicTag };\n\n// Assign measurement and payload array\nmsg.measurement = \"meteor_messages\";\nmsg.payload = [fields, tags];\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 960,
+        "y": 420,
+        "wires": [
+            [
+                "5a0d2cf59736dd08"
+            ]
+        ]
+    },
+    {
+        "id": "c89a0b84d701a049",
+        "type": "function",
+        "z": "d11a3bcc6c1d79cc",
+        "name": "Last Seen",
+        "func": "// updateLastSeen.js\n// Called on every MQTT message from meteorcams/#\nlet match = msg.topic.match(/nz[0-9a-z]+/i);\nif (!match) return null;\n\nlet id = match[0].toUpperCase();\nlet lastSeen = flow.get(\"lastSeen\") || {};\nlastSeen[id] = Date.now();\nflow.set(\"lastSeen\", lastSeen);\n\n// optional: for debugging only\n// node.status({text:`${id} seen @ ${new Date().toLocaleTimeString()}`});\nreturn null;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 920,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "fee01bcbe80d830f",
         "type": "inject",
         "z": "d11a3bcc6c1d79cc",
-        "name": "Auto Refresh",
+        "name": "Inject every 10 miins",
         "props": [
             {
                 "p": "payload"
@@ -429,355 +572,156 @@
                 "vt": "str"
             }
         ],
-        "repeat": "900",
+        "repeat": "300",
         "crontab": "",
-        "once": true,
+        "once": false,
         "onceDelay": 0.1,
         "topic": "",
-        "payload": "iso",
+        "payload": "",
         "payloadType": "date",
-        "x": 160,
-        "y": 340,
+        "x": 420,
+        "y": 1000,
         "wires": [
             [
-                "bfaf27df6b9af85e",
-                "4f460c1d2c638608",
-                "38564dae9ff9fed8",
-                "b582266d4bc2160b"
+                "94b8acdb42f02dfd"
             ]
         ]
     },
     {
-        "id": "0438fdd668f30db5",
+        "id": "94b8acdb42f02dfd",
         "type": "function",
         "z": "d11a3bcc6c1d79cc",
-        "name": "Format Data",
-        "func": "// Expecting msg.payload to be a single array containing ALL topics' data\nlet data = msg.payload;\n\n// Extract the camera ID — works for numbers and letters (e.g. NZ0014, NZ002K, NZ001P)\nfunction extractCameraID(topic) {\n    let match = topic.match(/nz[0-9a-z]+/i);\n    return match ? match[0].toUpperCase() : topic;\n}\n\n// Group by camera/topic\nlet seriesMap = {};\nfor (let entry of data) {\n    let label = extractCameraID(entry.topic);\n    if (!seriesMap[label]) seriesMap[label] = [];\n    seriesMap[label].push({\n        x: new Date(entry.time),\n        y: Number(entry.value_num)\n    });\n}\n\n// Sort each series by time\nfor (let label in seriesMap) {\n    seriesMap[label].sort((a, b) => a.x - b.x);\n}\n\n// Build combined chart payload\nmsg.payload = [{\n    series: Object.keys(seriesMap),\n    data: Object.values(seriesMap),\n    labels: []\n}];\n\nreturn msg;\n",
+        "name": "Check for Missing Devices",
+        "func": "const now = Date.now();\nconst THRESHOLD = 30 * 60 * 1000;   // 30 minutes of silence\nconst REMIND_INTERVAL = 60 * 60 * 1000; // 1 hour repeat\n\nconst lastSeen = flow.get(\"lastSeen\") || {};\nlet lastAlert = flow.get(\"lastAlert\") || {};\n\nlet missing = [];\nfor (let [id, t] of Object.entries(lastSeen)) {\n    let minsAgo = ((now - t) / 60000).toFixed(1);\n\n    // device is late\n    if (now - t > THRESHOLD) {\n        let lastAlertTime = lastAlert[id] || 0;\n\n        // only alert if never alerted before or an hour has passed\n        if (now - lastAlertTime > REMIND_INTERVAL) {\n            missing.push(`${id} (last seen ${minsAgo} min ago)`);\n            lastAlert[id] = now;  // record alert time\n        }\n    } else {\n        // device is reporting again → clear its alert record\n        delete lastAlert[id];\n    }\n}\n\n// store updated alert state\nflow.set(\"lastAlert\", lastAlert);\n\nif (missing.length > 0) {\n    msg.topic = \"MeteorCam Offline Alert. Full power outage\";\n    msg.payload = `Devices offline >30 min:\\n${missing.join(\"\\n\")}`;\n    return msg; // send one email\n}\nreturn null;\n",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 590,
-        "y": 340,
+        "x": 740,
+        "y": 1000,
         "wires": [
             [
-                "b6966d6af6ae7b5e"
+                "1bb94944c3976a7a"
             ]
         ]
     },
     {
-        "id": "b6966d6af6ae7b5e",
-        "type": "ui_chart",
+        "id": "1bb94944c3976a7a",
+        "type": "e-mail",
         "z": "d11a3bcc6c1d79cc",
-        "name": "CPU Temp Chart",
-        "group": "b90dd2b3db9b35f7",
-        "order": 1,
-        "width": 12,
-        "height": 5,
-        "label": "CPU Temp Chart",
-        "chartType": "line",
-        "legend": "true",
-        "xformat": "HH:mm",
-        "interpolate": "linear",
-        "nodata": "",
-        "dot": false,
-        "ymin": "20",
-        "ymax": "60",
-        "removeOlder": 1,
-        "removeOlderPoints": "",
-        "removeOlderUnit": "3600",
-        "cutout": 0,
-        "useOneColor": false,
-        "useUTC": true,
-        "colors": [
-            "#1f77b4",
-            "#aec7e8",
-            "#ff7f0e",
-            "#2ca02c",
-            "#98df8a",
-            "#d62728",
-            "#ff9896",
-            "#9467bd",
-            "#c5b0d5"
-        ],
-        "outputs": 1,
-        "useDifferentColor": false,
-        "className": "",
-        "x": 810,
-        "y": 340,
-        "wires": [
-            []
-        ]
+        "server": "smtp.gmail.com",
+        "port": "465",
+        "authtype": "BASIC",
+        "saslformat": true,
+        "token": "oauth2Response.access_token",
+        "secure": true,
+        "tls": true,
+        "name": "gmn@mckellar.net.nz",
+        "dname": "Email Out",
+        "x": 980,
+        "y": 1100,
+        "wires": []
     },
     {
-        "id": "bfaf27df6b9af85e",
-        "type": "influxdb in",
-        "z": "d11a3bcc6c1d79cc",
-        "influxdb": "1742aa216cfb6307",
-        "name": " Temp Querry",
-        "query": "SELECT \"value_num\",\"topic\"\nFROM \"messages\"\nWHERE \"topic\" =~ /meteorcams\\/nz[0-9A-Za-z]+\\/cputemp/\nORDER BY time ASC\nLIMIT 2000\n",
-        "rawOutput": false,
-        "precision": "",
-        "retentionPolicy": "",
-        "org": "organisation",
-        "x": 370,
-        "y": 340,
-        "wires": [
-            [
-                "0438fdd668f30db5"
-            ]
-        ]
-    },
-    {
-        "id": "53eb1428aa4eb850",
+        "id": "0b6987b41968c9e3",
         "type": "function",
         "z": "d11a3bcc6c1d79cc",
-        "name": "Format Data",
-        "func": "// Expecting msg.payload to be a single array containing ALL topics' data\nlet data = msg.payload;\n\n// Extract the camera ID — works for numbers and letters (e.g. NZ0014, NZ002K, NZ001P)\nfunction extractCameraID(topic) {\n    let match = topic.match(/nz[0-9a-z]+/i);\n    return match ? match[0].toUpperCase() : topic;\n}\n\n// Group by camera/topic\nlet seriesMap = {};\nfor (let entry of data) {\n    let label = extractCameraID(entry.topic);\n    if (!seriesMap[label]) seriesMap[label] = [];\n    seriesMap[label].push({\n        x: new Date(entry.time),\n        y: Number(entry.value_num)\n    });\n}\n\n// Sort each series by time\nfor (let label in seriesMap) {\n    seriesMap[label].sort((a, b) => a.x - b.x);\n}\n\n// Build combined chart payload\nmsg.payload = [{\n    series: Object.keys(seriesMap),\n    data: Object.values(seriesMap),\n    labels: []\n}];\n\nreturn msg;\n",
+        "name": "Alerts when a camera only goes off line",
+        "func": "// ---------- Node-RED Function: Grouped Camera Offline Email Alert ----------\n// Expects topics like: meteorcams/nz0014/camerastatus with payload \"1\" or \"0\"\n// First alert after 10 min offline, then every 60 min while still offline\n// --------------------------------------------------------------------------\n\nconst OFFLINE_DELAY = 10 * 60 * 1000;   // ✅ 10 minutes\nconst REMIND_INTERVAL = 60 * 60 * 1000; // 60 minutes\n\nconst topic = msg.topic || \"\";\nconst payload = String(msg.payload).trim();\nconst match = topic.match(/^meteorcams\\/([0-9a-z]+)\\/camerastatus$/i);\nif (!match) return null; // ignore unrelated topics\n\nconst id = match[1].toUpperCase();\nconst now = Date.now();\n\n// --- store latest status ---\nlet statusMap = flow.get(\"cameraStatus\") || {};\nstatusMap[id] = { value: payload, lastUpdate: now };\nflow.set(\"cameraStatus\", statusMap);\n\n// timers are global for the flow (we alert on *any* offline camera)\nlet offlineTimer = flow.get(\"offlineTimer\");\nlet remindTimer  = flow.get(\"remindTimer\");\n\n// Helper: build & send ONE email listing all offline cams\nfunction sendGroupedEmail(label) {\n    const sMap = flow.get(\"cameraStatus\") || {};\n    const now = Date.now();\n    let offline = [];\n\n    for (const [cam, info] of Object.entries(sMap)) {\n        if (info.value === \"0\") {\n            const minsAgo = ((now - info.lastUpdate) / 60000).toFixed(1);\n            offline.push(`${cam} (last seen ${minsAgo} min ago)`);\n        }\n    }\n\n    if (offline.length > 0) {\n        node.send({\n            topic: `Cameras offline >${label}`,\n            payload: offline.join(\"\\n\")\n        });\n    }\n}\n\n// ---------- Handle incoming status ----------\nif (payload === \"0\") {\n    // if this is the first offline camera, start the 10-min timer\n    if (!offlineTimer && !remindTimer) {\n        offlineTimer = setTimeout(() => {\n            // after 10 mins, check again which are offline and send ONE email\n            sendGroupedEmail(\"10 min\");\n\n            // then repeat every 60 mins\n            remindTimer = setInterval(() => {\n                sendGroupedEmail(\"60 min\");\n            }, REMIND_INTERVAL);\n\n            flow.set(\"remindTimer\", remindTimer);\n        }, OFFLINE_DELAY);\n\n        flow.set(\"offlineTimer\", offlineTimer);\n    }\n}\nelse if (payload === \"1\") {\n    // a camera came back online — check if ANY are still offline\n    const anyOffline = Object.values(statusMap).some(s => s.value === \"0\");\n    if (!anyOffline) {\n        // all back online → stop timers\n        if (offlineTimer) clearTimeout(offlineTimer);\n        if (remindTimer) clearInterval(remindTimer);\n        flow.set(\"offlineTimer\", null);\n        flow.set(\"remindTimer\", null);\n    }\n}\n\nreturn null;\n",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 590,
-        "y": 400,
-        "wires": [
-            [
-                "2d9d0e154d60f953"
-            ]
-        ]
-    },
-    {
-        "id": "2d9d0e154d60f953",
-        "type": "ui_chart",
-        "z": "d11a3bcc6c1d79cc",
-        "name": "Disk Space",
-        "group": "b90dd2b3db9b35f7",
-        "order": 2,
-        "width": 12,
-        "height": 5,
-        "label": "Disk Space",
-        "chartType": "line",
-        "legend": "true",
-        "xformat": "HH:mm",
-        "interpolate": "linear",
-        "nodata": "",
-        "dot": false,
-        "ymin": "",
-        "ymax": "",
-        "removeOlder": 1,
-        "removeOlderPoints": "",
-        "removeOlderUnit": "3600",
-        "cutout": 0,
-        "useOneColor": false,
-        "useUTC": true,
-        "colors": [
-            "#1f77b4",
-            "#aec7e8",
-            "#ff7f0e",
-            "#2ca02c",
-            "#98df8a",
-            "#d62728",
-            "#ff9896",
-            "#9467bd",
-            "#c5b0d5"
-        ],
-        "outputs": 1,
-        "useDifferentColor": false,
-        "className": "",
-        "x": 790,
-        "y": 400,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "4f460c1d2c638608",
-        "type": "influxdb in",
-        "z": "d11a3bcc6c1d79cc",
-        "influxdb": "1742aa216cfb6307",
-        "name": " Disk Space Querry",
-        "query": "SELECT \"value_num\",\"topic\"\nFROM \"messages\"\nWHERE \"topic\" =~ /meteorcams\\/nz[0-9A-Za-z]+\\/diskspace/\nORDER BY time ASC\nLIMIT 2000\n",
-        "rawOutput": false,
-        "precision": "",
-        "retentionPolicy": "",
-        "org": "organisation",
-        "x": 390,
-        "y": 400,
-        "wires": [
-            [
-                "53eb1428aa4eb850"
-            ]
-        ]
-    },
-    {
-        "id": "747116a54301b8d1",
-        "type": "function",
-        "z": "d11a3bcc6c1d79cc",
-        "name": "Format Data",
-        "func": "// Expecting msg.payload to be a single array containing ALL topics' data\nlet data = msg.payload;\n\n// Extract the camera ID — works for numbers and letters (e.g. NZ0014, NZ002K, NZ001P)\nfunction extractCameraID(topic) {\n    let match = topic.match(/nz[0-9a-z]+/i);\n    return match ? match[0].toUpperCase() : topic;\n}\n\n// Group by camera/topic\nlet seriesMap = {};\nfor (let entry of data) {\n    let label = extractCameraID(entry.topic);\n    if (!seriesMap[label]) seriesMap[label] = [];\n    seriesMap[label].push({\n        x: new Date(entry.time),\n        y: Number(entry.value_num)\n    });\n}\n\n// Sort each series by time\nfor (let label in seriesMap) {\n    seriesMap[label].sort((a, b) => a.x - b.x);\n}\n\n// Build combined chart payload\nmsg.payload = [{\n    series: Object.keys(seriesMap),\n    data: Object.values(seriesMap),\n    labels: []\n}];\n\nreturn msg;\n",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 590,
-        "y": 460,
-        "wires": [
-            [
-                "7d761dd0944946a3"
-            ]
-        ]
-    },
-    {
-        "id": "7d761dd0944946a3",
-        "type": "ui_chart",
-        "z": "d11a3bcc6c1d79cc",
-        "name": "Memory Used %",
-        "group": "b90dd2b3db9b35f7",
-        "order": 8,
-        "width": 12,
-        "height": 5,
-        "label": "Memory Used %",
-        "chartType": "line",
-        "legend": "true",
-        "xformat": "HH:mm",
-        "interpolate": "linear",
-        "nodata": "",
-        "dot": false,
-        "ymin": "1",
-        "ymax": "100",
-        "removeOlder": 1,
-        "removeOlderPoints": "",
-        "removeOlderUnit": "3600",
-        "cutout": 0,
-        "useOneColor": false,
-        "useUTC": true,
-        "colors": [
-            "#1f77b4",
-            "#aec7e8",
-            "#ff7f0e",
-            "#2ca02c",
-            "#98df8a",
-            "#d62728",
-            "#ff9896",
-            "#9467bd",
-            "#c5b0d5"
-        ],
-        "outputs": 1,
-        "useDifferentColor": false,
-        "className": "",
-        "x": 800,
-        "y": 460,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "38564dae9ff9fed8",
-        "type": "influxdb in",
-        "z": "d11a3bcc6c1d79cc",
-        "influxdb": "1742aa216cfb6307",
-        "name": " Memory Querry",
-        "query": "SELECT \"value_num\",\"topic\"\nFROM \"messages\"\nWHERE \"topic\" =~ /meteorcams\\/nz[0-9A-Za-z]+\\/memusedpct/\nORDER BY time ASC\nLIMIT 2000\n",
-        "rawOutput": false,
-        "precision": "",
-        "retentionPolicy": "",
-        "org": "organisation",
         "x": 380,
-        "y": 460,
+        "y": 1100,
         "wires": [
             [
-                "747116a54301b8d1"
+                "1bb94944c3976a7a"
             ]
         ]
     },
     {
-        "id": "f003449d36a189f4",
+        "id": "5a0d2cf59736dd08",
+        "type": "influxdb out",
+        "z": "d11a3bcc6c1d79cc",
+        "influxdb": "35d5b4ab694d1161",
+        "name": "Meteor Stats",
+        "measurement": "",
+        "precision": "",
+        "retentionPolicy": "",
+        "database": "database",
+        "precisionV18FluxV20": "ms",
+        "retentionPolicyV18Flux": "",
+        "org": "organisation",
+        "bucket": "bucket",
+        "x": 1290,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "1019b7b3c52755d0",
         "type": "function",
         "z": "d11a3bcc6c1d79cc",
-        "name": "Format Data",
-        "func": "// Expecting msg.payload to be a single array containing ALL topics' data\nlet data = msg.payload;\n\n// Extract the camera ID — works for numbers and letters (e.g. NZ0014, NZ002K, NZ001P)\nfunction extractCameraID(topic) {\n    let match = topic.match(/nz[0-9a-z]+/i);\n    return match ? match[0].toUpperCase() : topic;\n}\n\n// Group by camera/topic\nlet seriesMap = {};\nfor (let entry of data) {\n    let label = extractCameraID(entry.topic);\n    if (!seriesMap[label]) seriesMap[label] = [];\n    seriesMap[label].push({\n        x: new Date(entry.time),\n        y: Number(entry.value_num)\n    });\n}\n\n// Sort each series by time\nfor (let label in seriesMap) {\n    seriesMap[label].sort((a, b) => a.x - b.x);\n}\n\n// Build combined chart payload\nmsg.payload = [{\n    series: Object.keys(seriesMap),\n    data: Object.values(seriesMap),\n    labels: []\n}];\n\nreturn msg;\n",
+        "name": "Zeros starcount in daytime",
+        "func": "// ---------- Node-RED Function: Zero Starcount During Daylight ----------\n//\n// This node runs *after* the MQTT→Influx function.\n// If the topic ends in \"/starcount\" AND flow.get(\"daytime\") is true,\n// the numeric value is forced to 0 before writing to InfluxDB.\n//\n// Expects msg.payload = [fields, tags]\n// ------------------------------------------------------------\n\nconst isDaytime = flow.get(\"daytime\") === true;\n\nif (Array.isArray(msg.payload) && msg.payload.length >= 2) {\n    const fields = msg.payload[0];\n    const tags = msg.payload[1];\n    const topic = tags?.topic || \"\";\n\n    if (isDaytime && /\\/starcount$/i.test(topic)) {\n        // Only modify starcount values during daylight\n        if (\"value_num\" in fields) {\n            fields.value_num = 0;\n        }\n    }\n\n    msg.payload[0] = fields;\n}\n\nreturn msg;\n",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 590,
-        "y": 520,
+        "x": 1200,
+        "y": 60,
         "wires": [
             [
-                "a4e7bd2816cf9746"
+                "f7f08a7477dbfcf3"
             ]
         ]
     },
     {
-        "id": "a4e7bd2816cf9746",
-        "type": "ui_chart",
+        "id": "438f8fab9308904a",
+        "type": "function",
         "z": "d11a3bcc6c1d79cc",
-        "name": "Swap Used %",
-        "group": "b90dd2b3db9b35f7",
-        "order": 9,
-        "width": 12,
-        "height": 5,
-        "label": "Swap Used %",
-        "chartType": "line",
-        "legend": "true",
-        "xformat": "HH:mm",
-        "interpolate": "linear",
-        "nodata": "",
-        "dot": false,
-        "ymin": "0",
-        "ymax": "100",
-        "removeOlder": 1,
-        "removeOlderPoints": "",
-        "removeOlderUnit": "3600",
-        "cutout": 0,
-        "useOneColor": false,
-        "useUTC": true,
-        "colors": [
-            "#1f77b4",
-            "#aec7e8",
-            "#ff7f0e",
-            "#2ca02c",
-            "#98df8a",
-            "#d62728",
-            "#ff9896",
-            "#9467bd",
-            "#c5b0d5"
-        ],
-        "outputs": 1,
-        "useDifferentColor": false,
-        "className": "",
-        "x": 800,
-        "y": 520,
+        "name": "Separates out camerastatus messages",
+        "func": "// ---------- Node-RED Function: Split camerastatus topics to 2 outputs ----------\n//\n// Input: from MQTT → InfluxDB v1.x formatter\n//   msg.measurement = \"live_messages\"\n//   msg.payload = [\n//       { value_num: 1 },\n//       { topic: \"meteorcams/nz0014/camerastatus\" }\n//   ]\n//\n// Output 1 → all normal topics (non-camerastatus)\n// Output 2 → camerastatus topics only\n//\n// ------------------------------------------------------------------------------\n\nlet tags = msg.payload?.[1] || {};\nlet topic = tags.topic || \"\";\n\n// clone the message so both branches can reuse safely if needed\nlet normalMsg = RED.util.cloneMessage(msg);\nlet statusMsg = RED.util.cloneMessage(msg);\n\n// test for camerastatus suffix\nif (/\\/camerastatus$/i.test(topic)) {\n    // route to Output 2 only\n    statusMsg.measurement = \"camera_status_messages\";\n    return [null, statusMsg];\n} else {\n    // route to Output 1 only\n    normalMsg.measurement = \"live_messages\";\n    return [normalMsg, null];\n}\n",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 930,
+        "y": 220,
         "wires": [
-            []
+            [
+                "1019b7b3c52755d0"
+            ],
+            [
+                "a54bf467b12fcd4f"
+            ]
         ]
     },
     {
-        "id": "b582266d4bc2160b",
-        "type": "influxdb in",
+        "id": "a54bf467b12fcd4f",
+        "type": "influxdb out",
         "z": "d11a3bcc6c1d79cc",
-        "influxdb": "1742aa216cfb6307",
-        "name": " Swap Querry",
-        "query": "SELECT \"value_num\",\"topic\"\nFROM \"messages\"\nWHERE \"topic\" =~ /meteorcams\\/nz[0-9A-Za-z]+\\/swapusedpct/\nORDER BY time ASC\nLIMIT 2000\n",
-        "rawOutput": false,
+        "influxdb": "35d5b4ab694d1161",
+        "name": "Camera Status",
+        "measurement": "",
         "precision": "",
         "retentionPolicy": "",
+        "database": "database",
+        "precisionV18FluxV20": "ms",
+        "retentionPolicyV18Flux": "",
         "org": "organisation",
-        "x": 370,
-        "y": 520,
-        "wires": [
-            [
-                "f003449d36a189f4"
-            ]
-        ]
+        "bucket": "bucket",
+        "x": 1300,
+        "y": 280,
+        "wires": []
     },
     {
         "id": "80784f2ace529cb2",
@@ -793,7 +737,7 @@
                 "vt": "str"
             }
         ],
-        "repeat": "900",
+        "repeat": "300",
         "crontab": "",
         "once": true,
         "onceDelay": 0.1,
@@ -801,7 +745,7 @@
         "payload": "",
         "payloadType": "date",
         "x": 110,
-        "y": 280,
+        "y": 340,
         "wires": [
             [
                 "f1681a746afd97cb",
@@ -814,7 +758,7 @@
         "type": "function",
         "z": "793d83fb15a6a9ba",
         "name": "Format Data for bar graph",
-        "func": "// Expecting msg.payload as an array of { time, value, topic }\nlet data = msg.payload || [];\n\n// Read daytime flag (set by your time-range + Change nodes)\nconst isDaytime = flow.get(\"daytime\") === true;\n\n// Extract alphanumeric camera ID (e.g. NZ0014, NZ001P, NZ002K)\nfunction extractCameraID(topic) {\n    let match = topic?.match(/nz[0-9a-z]+/i);\n    return match ? match[0].toUpperCase() : (topic || \"UNKNOWN\");\n}\n\nlet grouped = {};\nlet latestGlobalTime = 0;\n\nfor (let entry of data) {\n    if (!entry) continue;\n\n    const id = extractCameraID(entry.topic);\n    const t  = new Date(entry.time).getTime();\n    let val  = Number(entry.value_num);\n\n    if (!Number.isFinite(val) || !Number.isFinite(t)) continue;\n\n    // 🔸 Force starcount to 0 during daytime\n    // (only when the metric is starcount; other metrics unaffected)\n    if (isDaytime && /\\/starcount$/i.test(entry.topic)) {\n        val = 0;\n    }\n\n    if (!grouped[id]) grouped[id] = { sum: 0, count: 0, latestVal: val, latestTime: t };\n\n    grouped[id].sum += val;\n    grouped[id].count += 1;\n\n    if (t > grouped[id].latestTime) {\n        grouped[id].latestVal = val;\n        grouped[id].latestTime = t;\n    }\n    if (t > latestGlobalTime) latestGlobalTime = t;\n}\n\n// Prepare chart data arrays\nconst labels   = Object.keys(grouped).sort();\nconst averages = labels.map(id => grouped[id].count ? grouped[id].sum / grouped[id].count : 0);\nlet latests    = labels.map(id => grouped[id].latestVal);\n\n// Format for Node-RED bar chart\nmsg.payload = [{\n    series: ['Average (1h)', 'Latest value'],\n    data: [averages, latests],\n    labels: labels\n}];\n\n// Extra info for debugging / dashboard text node\nmsg.lastUpdate = latestGlobalTime ? new Date(latestGlobalTime).toLocaleString() : '';\nmsg.daytime = isDaytime;\n\nreturn msg;\n",
+        "func": "// Expecting msg.payload as an array of { time, value, topic }\nlet data = msg.payload || [];\n\n// Read daytime flag (set by your time-range + Change nodes)\nconst isDaytime = flow.get(\"daytime\") === true;\n\n// Extract alphanumeric camera ID (e.g. NZ0014, NZ001P, NZ002K)\nfunction extractCameraID(topic) {\n    let match = topic?.match(/nz[0-9a-z]+/i);\n    return match ? match[0].toUpperCase() : (topic || \"UNKNOWN\");\n}\n\nlet grouped = {};\nlet latestGlobalTime = 0;\n\nfor (let entry of data) {\n    if (!entry) continue;\n\n    const id = extractCameraID(entry.topic);\n    const t  = new Date(entry.time).getTime();\n    let val  = Number(entry.value_num);\n\n    if (!Number.isFinite(val) || !Number.isFinite(t)) continue;\n\n    // 🔸 Force starcount to 0 during daytime\n    // (only when the metric is starcount; other metrics unaffected)\n    if (isDaytime && /\\/starcount$/i.test(entry.topic)) {\n       val = 0;\n    }\n\n    if (!grouped[id]) grouped[id] = { sum: 0, count: 0, latestVal: val, latestTime: t };\n\n    grouped[id].sum += val;\n    grouped[id].count += 1;\n\n    if (t > grouped[id].latestTime) {\n        grouped[id].latestVal = val;\n        grouped[id].latestTime = t;\n    }\n    if (t > latestGlobalTime) latestGlobalTime = t;\n}\n\n// Prepare chart data arrays\nconst labels   = Object.keys(grouped).sort();\nconst averages = labels.map(id => grouped[id].count ? grouped[id].sum / grouped[id].count : 0);\nlet latests    = labels.map(id => grouped[id].latestVal);\n\n// Format for Node-RED bar chart\nmsg.payload = [{\n    series: ['Average (1h)', 'Latest value'],\n    data: [averages, latests],\n    labels: labels\n}];\n\n// Extra info for debugging / dashboard text node\nmsg.lastUpdate = latestGlobalTime ? new Date(latestGlobalTime).toLocaleString() : '';\n// msg.daytime = isDaytime;\n\nreturn msg;\n",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -822,7 +766,7 @@
         "finalize": "",
         "libs": [],
         "x": 610,
-        "y": 120,
+        "y": 180,
         "wires": [
             [
                 "a881f5fc5b9df303",
@@ -869,7 +813,7 @@
         "useDifferentColor": false,
         "className": "",
         "x": 900,
-        "y": 120,
+        "y": 180,
         "wires": [
             []
         ]
@@ -880,13 +824,13 @@
         "z": "793d83fb15a6a9ba",
         "influxdb": "1742aa216cfb6307",
         "name": " Star Count Querry for bar chart",
-        "query": "SELECT \"value_num\",\"topic\"\nFROM \"messages\"\nWHERE \"topic\" =~ /meteorcams\\/nz[0-9A-Za-z]+\\/starcount/\n  AND time > now() - 1h\nORDER BY time ASC\n",
+        "query": "SELECT \"value_num\",\"topic\"\nFROM \"24hours\".\"live_messages\"\nWHERE \"topic\" =~ /meteorcams\\/nz[0-9A-Za-z]+\\/starcount/\n  AND time > now() - 1h\nORDER BY time ASC\n",
         "rawOutput": false,
         "precision": "",
         "retentionPolicy": "",
         "org": "organisation",
         "x": 350,
-        "y": 120,
+        "y": 180,
         "wires": [
             [
                 "1984fb125f0c1406"
@@ -911,142 +855,7 @@
         "fontSize": 16,
         "color": "#000000",
         "x": 910,
-        "y": 180,
-        "wires": []
-    },
-    {
-        "id": "bbdefc60cc6feca6",
-        "type": "time-range-switch",
-        "z": "793d83fb15a6a9ba",
-        "name": "Daytime calculator",
-        "lat": "-38.14822",
-        "lon": "176.21371",
-        "startTime": "sunrise",
-        "endTime": "sunset",
-        "startOffset": 0,
-        "endOffset": 0,
-        "x": 450,
-        "y": 360,
-        "wires": [
-            [
-                "7500bb965cc57c70"
-            ],
-            [
-                "f6dca9e9b60c0fd0"
-            ]
-        ]
-    },
-    {
-        "id": "7871fc97574a129d",
-        "type": "inject",
-        "z": "793d83fb15a6a9ba",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "600",
-        "crontab": "",
-        "once": true,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 150,
-        "y": 360,
-        "wires": [
-            [
-                "bbdefc60cc6feca6"
-            ]
-        ]
-    },
-    {
-        "id": "7500bb965cc57c70",
-        "type": "change",
-        "z": "793d83fb15a6a9ba",
-        "name": "Set Daytime to true",
-        "rules": [
-            {
-                "t": "set",
-                "p": "daytime",
-                "pt": "flow",
-                "to": "true",
-                "tot": "bool"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 730,
-        "y": 340,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "f6dca9e9b60c0fd0",
-        "type": "change",
-        "z": "793d83fb15a6a9ba",
-        "name": "set daytime to false",
-        "rules": [
-            {
-                "t": "set",
-                "p": "daytime",
-                "pt": "flow",
-                "to": "false",
-                "tot": "bool"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 730,
-        "y": 400,
-        "wires": [
-            [
-                "02d8397ed90f1550"
-            ]
-        ]
-    },
-    {
-        "id": "bdacdb43465b8c3b",
-        "type": "debug",
-        "z": "793d83fb15a6a9ba",
-        "name": "debug 1",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1160,
-        "y": 120,
-        "wires": []
-    },
-    {
-        "id": "02d8397ed90f1550",
-        "type": "debug",
-        "z": "793d83fb15a6a9ba",
-        "name": "debug 3",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 920,
-        "y": 340,
+        "y": 240,
         "wires": []
     },
     {
@@ -1055,13 +864,13 @@
         "z": "793d83fb15a6a9ba",
         "influxdb": "1742aa216cfb6307",
         "name": "Star Count Querry for Line Graph",
-        "query": "SELECT \"value_num\",\"topic\"\nFROM \"messages\"\nWHERE \"topic\" =~ /meteorcams\\/nz[0-9A-Za-z]+\\/starcount/\nORDER BY time ASC\nLIMIT 2000\n",
+        "query": "SELECT \"value_num\",\"topic\"\nFROM \"24hours\".\"live_messages\"\nWHERE \"topic\" =~ /meteorcams\\/nz[0-9A-Za-z]+\\/starcount/\nORDER BY time ASC\nLIMIT 2000\n",
         "rawOutput": false,
         "precision": "",
         "retentionPolicy": "",
         "org": "organisation",
         "x": 320,
-        "y": 60,
+        "y": 120,
         "wires": [
             [
                 "d953527e8adbef1d"
@@ -1073,7 +882,7 @@
         "type": "function",
         "z": "793d83fb15a6a9ba",
         "name": "Format Data for Line Chart",
-        "func": "// Expecting msg.payload to be a single array containing ALL topics' data\nlet data = msg.payload;\n\n// Extract the camera ID — works for numbers and letters (e.g. NZ0014, NZ002K, NZ001P)\nfunction extractCameraID(topic) {\n    let match = topic.match(/nz[0-9a-z]+/i);\n    return match ? match[0].toUpperCase() : topic;\n}\n\n// Group by camera/topic\nlet seriesMap = {};\nfor (let entry of data) {\n    let label = extractCameraID(entry.topic);\n    if (!seriesMap[label]) seriesMap[label] = [];\n    seriesMap[label].push({\n        x: new Date(entry.time),\n        y: Number(entry.value_num)\n    });\n}\n\n// Sort each series by time\nfor (let label in seriesMap) {\n    seriesMap[label].sort((a, b) => a.x - b.x);\n}\n\n// Build combined chart payload\nmsg.payload = [{\n    series: Object.keys(seriesMap),\n    data: Object.values(seriesMap),\n    labels: []\n}];\n\nreturn msg;\n",
+        "func": "// ---------- Node-RED Function: Starcount Line Chart (Zero During Daylight) ----------\n//\n// Expects msg.payload = array of { time, value_num, topic }\n// Example topic: meteorcams/nz0014/starcount\n//\n// Uses flow variable \"daytime\" (boolean) to force starcount = 0 during daytime.\n//\n// Output format (for line/scatter chart):\n//   msg.payload = [\n//       {\n//           series: [\"NZ0014\", \"NZ001P\", ...],\n//           data: [ [ {x:time,y:value}, ... ], [ ... ], ... ],\n//           labels: []\n//       }\n//   ]\n// ------------------------------------------------------------------------------\n\nlet data = msg.payload || [];\n\n// Read daytime flag (set elsewhere in the flow)\n// const isDaytime = flow.get(\"daytime\") === true;\n\n// Extract alphanumeric camera ID (e.g. NZ0014, NZ001P, NZ002K)\nfunction extractCameraID(topic) {\n    let match = topic?.match(/nz[0-9a-z]+/i);\n    return match ? match[0].toUpperCase() : (topic || \"UNKNOWN\");\n}\n\n// Group by camera/topic\nlet seriesMap = {};\n\nfor (let entry of data) {\n    if (!entry || !entry.topic) continue;\n\n    const label = extractCameraID(entry.topic);\n    let value = Number(entry.value_num);\n\n    // 🔸 Force starcount to 0 during daylight\n    //if (isDaytime && /\\/starcount$/i.test(entry.topic)) {\n    //    value = 0;\n    //}\n\n    if (!seriesMap[label]) seriesMap[label] = [];\n    seriesMap[label].push({\n        x: new Date(entry.time),\n        y: value\n    });\n}\n\n// Sort each series by time\nfor (let label in seriesMap) {\n    seriesMap[label].sort((a, b) => a.x - b.x);\n}\n\n// Build combined chart payload\nmsg.payload = [{\n    series: Object.keys(seriesMap),\n    data: Object.values(seriesMap),\n    labels: []\n}];\n\n// msg.daylight = isDaytime;  // optional for debug or dashboard text node\nreturn msg;\n",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -1081,7 +890,7 @@
         "finalize": "",
         "libs": [],
         "x": 620,
-        "y": 60,
+        "y": 120,
         "wires": [
             [
                 "eb6999d6270f080d"
@@ -1127,7 +936,108 @@
         "useDifferentColor": false,
         "className": "",
         "x": 900,
-        "y": 60,
+        "y": 120,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "bbdefc60cc6feca6",
+        "type": "time-range-switch",
+        "z": "793d83fb15a6a9ba",
+        "name": "Daytime calculator",
+        "lat": "-38.14822",
+        "lon": "176.21371",
+        "startTime": "sunrise",
+        "endTime": "sunset",
+        "startOffset": 0,
+        "endOffset": 0,
+        "x": 570,
+        "y": 460,
+        "wires": [
+            [
+                "7500bb965cc57c70"
+            ],
+            [
+                "f6dca9e9b60c0fd0"
+            ]
+        ]
+    },
+    {
+        "id": "7871fc97574a129d",
+        "type": "inject",
+        "z": "793d83fb15a6a9ba",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "180",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 270,
+        "y": 460,
+        "wires": [
+            [
+                "bbdefc60cc6feca6"
+            ]
+        ]
+    },
+    {
+        "id": "7500bb965cc57c70",
+        "type": "change",
+        "z": "793d83fb15a6a9ba",
+        "name": "Set Daytime to true",
+        "rules": [
+            {
+                "t": "set",
+                "p": "daytime",
+                "pt": "global",
+                "to": "true",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 850,
+        "y": 440,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "f6dca9e9b60c0fd0",
+        "type": "change",
+        "z": "793d83fb15a6a9ba",
+        "name": "set daytime to false",
+        "rules": [
+            {
+                "t": "set",
+                "p": "daytime",
+                "pt": "global",
+                "to": "false",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 850,
+        "y": 500,
         "wires": [
             []
         ]
@@ -1153,227 +1063,28 @@
         "topic": "",
         "payload": "iso",
         "payloadType": "date",
-        "x": 200,
+        "x": 140,
         "y": 100,
         "wires": [
             [
-                "1ef863210a284383",
-                "1274f98cfd0c2a0e",
-                "c7e0d87824779259",
                 "a45e9af1fc16c4b8"
             ]
         ]
-    },
-    {
-        "id": "1ef863210a284383",
-        "type": "influxdb in",
-        "z": "e881957e79a14179",
-        "influxdb": "1742aa216cfb6307",
-        "name": " Next Capture Start Querry",
-        "query": "SELECT LAST(\"value_str\") AS value\nFROM \"messages\"\nWHERE \"topic\" =~ /meteorcams\\/nz[0-9A-Za-z]+\\/nextcapstart/\nGROUP BY \"topic\" fill(none)\n",
-        "rawOutput": false,
-        "precision": "",
-        "retentionPolicy": "",
-        "org": "organisation",
-        "x": 470,
-        "y": 100,
-        "wires": [
-            [
-                "b4c65f3b2557030d"
-            ]
-        ]
-    },
-    {
-        "id": "b4c65f3b2557030d",
-        "type": "function",
-        "z": "e881957e79a14179",
-        "name": "Format Data",
-        "func": "// --- Node-RED Function: Format camera/time array for dashboard ---\n\nlet data = msg.payload;\nlet lines = [];\n\n// Case 1: payload is an array of objects\nif (Array.isArray(data)) {\n    for (let item of data) {\n        // Extract topic and value safely\n        let topic = \"\";\n        let value = \"\";\n\n        // Some nodes use \"topic\" + \"payload\", others \"topic\" + \"value\"\n        if (typeof item === \"object\") {\n            topic = item.topic || \"\";\n            value = item.value || item.payload || \"\";\n        } else {\n            // If it's not an object, just stringify it\n            lines.push(String(item));\n            continue;\n        }\n\n        // Extract NZ-code (e.g. meteorcams/nz0014/... → NZ0014)\n        let match = topic.match(/nz[0-9a-z]+/i);\n        let cam = match ? match[0].toUpperCase() : topic;\n\n        // Add formatted line\n        lines.push(`${cam} – ${value}`);\n    }\n}\n\n// Case 2: if payload is already a string (fallback)\nelse if (typeof data === \"string\") {\n    lines = data\n        .replace(/<br\\s*\\/?>/gi, \"\\n\")\n        .split(\"\\n\")\n        .filter(l => l.trim() !== \"\");\n}\n\n// Combine everything nicely\nmsg.payload = lines.join(\"\\n\");\n\nreturn msg;\n\n",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 710,
-        "y": 100,
-        "wires": [
-            [
-                "a15bacd683486b7c"
-            ]
-        ]
-    },
-    {
-        "id": "a15bacd683486b7c",
-        "type": "ui_text",
-        "z": "e881957e79a14179",
-        "group": "9aeeb46ed3a84dc4",
-        "order": 2,
-        "width": 6,
-        "height": 5,
-        "name": "Next Capture Start",
-        "label": "Next Capture Start",
-        "format": "<pre>{{msg.payload}}</pre>",
-        "layout": "col-center",
-        "className": "",
-        "style": false,
-        "font": "",
-        "fontSize": 16,
-        "color": "#000000",
-        "x": 950,
-        "y": 100,
-        "wires": []
-    },
-    {
-        "id": "1274f98cfd0c2a0e",
-        "type": "influxdb in",
-        "z": "e881957e79a14179",
-        "influxdb": "1742aa216cfb6307",
-        "name": "Detection Count Querry",
-        "query": "SELECT LAST(\"value_num\") AS value\nFROM \"messages\"\nWHERE \"topic\" =~ /meteorcams\\/nz[0-9A-Za-z]+\\/detectioncount/\nGROUP BY \"topic\" fill(none)\n",
-        "rawOutput": false,
-        "precision": "",
-        "retentionPolicy": "",
-        "org": "organisation",
-        "x": 470,
-        "y": 200,
-        "wires": [
-            [
-                "fc8701d26ea7d1fc"
-            ]
-        ]
-    },
-    {
-        "id": "fc8701d26ea7d1fc",
-        "type": "function",
-        "z": "e881957e79a14179",
-        "name": "Format Data",
-        "func": "// --- Node-RED Function: Format camera/time array for dashboard ---\n\nlet data = msg.payload;\nlet lines = [];\n\n// Case 1: payload is an array of objects\nif (Array.isArray(data)) {\n    for (let item of data) {\n        // Extract topic and value safely\n        let topic = \"\";\n        let value = \"\";\n\n        // Some nodes use \"topic\" + \"payload\", others \"topic\" + \"value\"\n        if (typeof item === \"object\") {\n            topic = item.topic || \"\";\n            value = item.value || item.payload || \"\";\n        } else {\n            // If it's not an object, just stringify it\n            lines.push(String(item));\n            continue;\n        }\n\n        // Extract NZ-code (e.g. meteorcams/nz0014/... → NZ0014)\n        let match = topic.match(/nz[0-9a-z]+/i);\n        let cam = match ? match[0].toUpperCase() : topic;\n\n        // Add formatted line\n        lines.push(`${cam} – ${value}`);\n    }\n}\n\n// Case 2: if payload is already a string (fallback)\nelse if (typeof data === \"string\") {\n    lines = data\n        .replace(/<br\\s*\\/?>/gi, \"\\n\")\n        .split(\"\\n\")\n        .filter(l => l.trim() !== \"\");\n}\n\n// Combine everything nicely\nmsg.payload = lines.join(\"\\n\");\n\nreturn msg;\n",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 710,
-        "y": 200,
-        "wires": [
-            [
-                "a1ed51eaccb8ac11"
-            ]
-        ]
-    },
-    {
-        "id": "a1ed51eaccb8ac11",
-        "type": "ui_text",
-        "z": "e881957e79a14179",
-        "group": "9aeeb46ed3a84dc4",
-        "order": 4,
-        "width": 6,
-        "height": 5,
-        "name": "Detection Count",
-        "label": "Detection Count",
-        "format": "<pre>{{msg.payload}}</pre>",
-        "layout": "col-center",
-        "className": "",
-        "style": false,
-        "font": "",
-        "fontSize": 16,
-        "color": "#000000",
-        "x": 940,
-        "y": 200,
-        "wires": []
-    },
-    {
-        "id": "c7e0d87824779259",
-        "type": "influxdb in",
-        "z": "e881957e79a14179",
-        "influxdb": "1742aa216cfb6307",
-        "name": "Meteor Count Querry",
-        "query": "SELECT LAST(\"value_num\") AS value\nFROM \"messages\"\nWHERE \"topic\" =~ /meteorcams\\/nz[0-9A-Za-z]+\\/meteorcount/\nGROUP BY \"topic\" fill(none)\n",
-        "rawOutput": false,
-        "precision": "",
-        "retentionPolicy": "",
-        "org": "organisation",
-        "x": 460,
-        "y": 320,
-        "wires": [
-            [
-                "40b40ae5218f8a62"
-            ]
-        ]
-    },
-    {
-        "id": "40b40ae5218f8a62",
-        "type": "function",
-        "z": "e881957e79a14179",
-        "name": "Format Data",
-        "func": "// --- Node-RED Function: Format camera/time array for dashboard ---\n\nlet data = msg.payload;\nlet lines = [];\n\n// Case 1: payload is an array of objects\nif (Array.isArray(data)) {\n    for (let item of data) {\n        // Extract topic and value safely\n        let topic = \"\";\n        let value = \"\";\n\n        // Some nodes use \"topic\" + \"payload\", others \"topic\" + \"value\"\n        if (typeof item === \"object\") {\n            topic = item.topic || \"\";\n            value = item.value || item.payload || \"\";\n        } else {\n            // If it's not an object, just stringify it\n            lines.push(String(item));\n            continue;\n        }\n\n        // Extract NZ-code (e.g. meteorcams/nz0014/... → NZ0014)\n        let match = topic.match(/nz[0-9a-z]+/i);\n        let cam = match ? match[0].toUpperCase() : topic;\n\n        // Add formatted line\n        lines.push(`${cam} – ${value}`);\n    }\n}\n\n// Case 2: if payload is already a string (fallback)\nelse if (typeof data === \"string\") {\n    lines = data\n        .replace(/<br\\s*\\/?>/gi, \"\\n\")\n        .split(\"\\n\")\n        .filter(l => l.trim() !== \"\");\n}\n\n// Combine everything nicely\nmsg.payload = lines.join(\"\\n\");\n\nreturn msg;\n",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 710,
-        "y": 320,
-        "wires": [
-            [
-                "fbe20c8c6d78df7c"
-            ]
-        ]
-    },
-    {
-        "id": "fbe20c8c6d78df7c",
-        "type": "ui_text",
-        "z": "e881957e79a14179",
-        "group": "9aeeb46ed3a84dc4",
-        "order": 3,
-        "width": 6,
-        "height": 5,
-        "name": "Meteor Count",
-        "label": "Meteor Count",
-        "format": "<pre>{{msg.payload}}</pre>",
-        "layout": "col-center",
-        "className": "",
-        "style": false,
-        "font": "",
-        "fontSize": 16,
-        "color": "#000000",
-        "x": 940,
-        "y": 320,
-        "wires": []
     },
     {
         "id": "fc25e372dcc4a394",
         "type": "ui_table",
         "z": "e881957e79a14179",
         "group": "9aeeb46ed3a84dc4",
-        "name": "Meteor Counts",
+        "name": "Meteor Counts Table",
         "order": 1,
         "width": 18,
         "height": 6,
         "columns": [],
         "outputs": 0,
         "cts": false,
-        "x": 1020,
-        "y": 400,
-        "wires": []
-    },
-    {
-        "id": "5a4cfb873622f4ce",
-        "type": "debug",
-        "z": "e881957e79a14179",
-        "name": "debug 2",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 940,
-        "y": 480,
+        "x": 860,
+        "y": 100,
         "wires": []
     },
     {
@@ -1382,13 +1093,13 @@
         "z": "e881957e79a14179",
         "influxdb": "35d5b4ab694d1161",
         "name": "Querry for Table",
-        "query": "SELECT \n  LAST(\"value_str\") AS value_str, \n  LAST(\"value_num\") AS value_num\nFROM \"messages\"\nWHERE \"topic\" =~ /meteorcams\\/[A-Za-z]{2}[0-9A-Za-z]{4}\\/(nextcapstart|meteorcount|detectioncount)/\nGROUP BY \"topic\" fill(none)\n",
+        "query": "SELECT \n  LAST(\"value_str\") AS value_str, \n  LAST(\"value_num\") AS value_num\nFROM \"meteor_messages\"\nWHERE \"topic\" =~ /meteorcams\\/[A-Za-z]{2}[0-9A-Za-z]{4}\\/(nextcapstart|meteorcount|detectioncount)/\nGROUP BY \"topic\" fill(none)\n",
         "rawOutput": false,
         "precision": "",
         "retentionPolicy": "",
         "org": "organisation",
-        "x": 460,
-        "y": 400,
+        "x": 360,
+        "y": 100,
         "wires": [
             [
                 "1c8d0fa30f457bab"
@@ -1407,22 +1118,470 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 740,
-        "y": 400,
+        "x": 600,
+        "y": 100,
         "wires": [
             [
-                "fc25e372dcc4a394",
-                "5a4cfb873622f4ce"
+                "fc25e372dcc4a394"
             ]
         ]
     },
     {
-        "id": "dfef7d118d423552",
+        "id": "1d0a6de9c6a3b2f4",
+        "type": "inject",
+        "z": "8600a2de96944330",
+        "name": "Auto Refresh",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "300",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "iso",
+        "payloadType": "date",
+        "x": 180,
+        "y": 260,
+        "wires": [
+            [
+                "bfaf27df6b9af85e",
+                "4f460c1d2c638608",
+                "38564dae9ff9fed8",
+                "b582266d4bc2160b",
+                "c3d65ae1a3ba3070"
+            ]
+        ]
+    },
+    {
+        "id": "0438fdd668f30db5",
+        "type": "function",
+        "z": "8600a2de96944330",
+        "name": "Format Data",
+        "func": "// Expecting msg.payload to be a single array containing ALL topics' data\nlet data = msg.payload;\n\n// Extract the camera ID — works for numbers and letters (e.g. NZ0014, NZ002K, NZ001P)\nfunction extractCameraID(topic) {\n    let match = topic.match(/nz[0-9a-z]+/i);\n    return match ? match[0].toUpperCase() : topic;\n}\n\n// Group by camera/topic\nlet seriesMap = {};\nfor (let entry of data) {\n    let label = extractCameraID(entry.topic);\n    if (!seriesMap[label]) seriesMap[label] = [];\n    seriesMap[label].push({\n        x: new Date(entry.time),\n        y: Number(entry.value_num)\n    });\n}\n\n// Sort each series by time\nfor (let label in seriesMap) {\n    seriesMap[label].sort((a, b) => a.x - b.x);\n}\n\n// Build combined chart payload\nmsg.payload = [{\n    series: Object.keys(seriesMap),\n    data: Object.values(seriesMap),\n    labels: []\n}];\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 610,
+        "y": 260,
+        "wires": [
+            [
+                "b6966d6af6ae7b5e"
+            ]
+        ]
+    },
+    {
+        "id": "b6966d6af6ae7b5e",
+        "type": "ui_chart",
+        "z": "8600a2de96944330",
+        "name": "CPU Temp Chart",
+        "group": "b90dd2b3db9b35f7",
+        "order": 1,
+        "width": 12,
+        "height": 5,
+        "label": "CPU Temp Chart",
+        "chartType": "line",
+        "legend": "true",
+        "xformat": "HH:mm",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": true,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 830,
+        "y": 260,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "bfaf27df6b9af85e",
+        "type": "influxdb in",
+        "z": "8600a2de96944330",
+        "influxdb": "1742aa216cfb6307",
+        "name": " Temp Querry",
+        "query": "SELECT \"value_num\",\"topic\"\nFROM \"24hours\".\"live_messages\"\nWHERE \"topic\" =~ /meteorcams\\/nz[0-9A-Za-z]+\\/cputemp/\nORDER BY time ASC\nLIMIT 2000\n",
+        "rawOutput": false,
+        "precision": "",
+        "retentionPolicy": "",
+        "org": "organisation",
+        "x": 390,
+        "y": 260,
+        "wires": [
+            [
+                "0438fdd668f30db5"
+            ]
+        ]
+    },
+    {
+        "id": "53eb1428aa4eb850",
+        "type": "function",
+        "z": "8600a2de96944330",
+        "name": "Format Data",
+        "func": "// Expecting msg.payload to be a single array containing ALL topics' data\nlet data = msg.payload;\n\n// Extract the camera ID — works for numbers and letters (e.g. NZ0014, NZ002K, NZ001P)\nfunction extractCameraID(topic) {\n    let match = topic.match(/nz[0-9a-z]+/i);\n    return match ? match[0].toUpperCase() : topic;\n}\n\n// Group by camera/topic\nlet seriesMap = {};\nfor (let entry of data) {\n    let label = extractCameraID(entry.topic);\n    if (!seriesMap[label]) seriesMap[label] = [];\n    seriesMap[label].push({\n        x: new Date(entry.time),\n        y: Number(entry.value_num)\n    });\n}\n\n// Sort each series by time\nfor (let label in seriesMap) {\n    seriesMap[label].sort((a, b) => a.x - b.x);\n}\n\n// Build combined chart payload\nmsg.payload = [{\n    series: Object.keys(seriesMap),\n    data: Object.values(seriesMap),\n    labels: []\n}];\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 610,
+        "y": 320,
+        "wires": [
+            [
+                "2d9d0e154d60f953"
+            ]
+        ]
+    },
+    {
+        "id": "2d9d0e154d60f953",
+        "type": "ui_chart",
+        "z": "8600a2de96944330",
+        "name": "Disk Space",
+        "group": "b90dd2b3db9b35f7",
+        "order": 2,
+        "width": 12,
+        "height": 5,
+        "label": "Disk Space",
+        "chartType": "line",
+        "legend": "true",
+        "xformat": "HH:mm",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "100",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": true,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 810,
+        "y": 320,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "4f460c1d2c638608",
+        "type": "influxdb in",
+        "z": "8600a2de96944330",
+        "influxdb": "1742aa216cfb6307",
+        "name": " Disk Space Querry",
+        "query": "SELECT \"value_num\",\"topic\"\nFROM \"24hours\".\"live_messages\"\nWHERE \"topic\" =~ /meteorcams\\/nz[0-9A-Za-z]+\\/diskspace/\nORDER BY time ASC\nLIMIT 2000\n",
+        "rawOutput": false,
+        "precision": "",
+        "retentionPolicy": "",
+        "org": "organisation",
+        "x": 410,
+        "y": 320,
+        "wires": [
+            [
+                "53eb1428aa4eb850"
+            ]
+        ]
+    },
+    {
+        "id": "747116a54301b8d1",
+        "type": "function",
+        "z": "8600a2de96944330",
+        "name": "Format Data",
+        "func": "// Expecting msg.payload to be a single array containing ALL topics' data\nlet data = msg.payload;\n\n// Extract the camera ID — works for numbers and letters (e.g. NZ0014, NZ002K, NZ001P)\nfunction extractCameraID(topic) {\n    let match = topic.match(/nz[0-9a-z]+/i);\n    return match ? match[0].toUpperCase() : topic;\n}\n\n// Group by camera/topic\nlet seriesMap = {};\nfor (let entry of data) {\n    let label = extractCameraID(entry.topic);\n    if (!seriesMap[label]) seriesMap[label] = [];\n    seriesMap[label].push({\n        x: new Date(entry.time),\n        y: Number(entry.value_num)\n    });\n}\n\n// Sort each series by time\nfor (let label in seriesMap) {\n    seriesMap[label].sort((a, b) => a.x - b.x);\n}\n\n// Build combined chart payload\nmsg.payload = [{\n    series: Object.keys(seriesMap),\n    data: Object.values(seriesMap),\n    labels: []\n}];\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 610,
+        "y": 380,
+        "wires": [
+            [
+                "7d761dd0944946a3"
+            ]
+        ]
+    },
+    {
+        "id": "7d761dd0944946a3",
+        "type": "ui_chart",
+        "z": "8600a2de96944330",
+        "name": "Memory Used %",
+        "group": "b90dd2b3db9b35f7",
+        "order": 8,
+        "width": 12,
+        "height": 5,
+        "label": "Memory Used %",
+        "chartType": "line",
+        "legend": "true",
+        "xformat": "HH:mm",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "1",
+        "ymax": "100",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": true,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 820,
+        "y": 380,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "38564dae9ff9fed8",
+        "type": "influxdb in",
+        "z": "8600a2de96944330",
+        "influxdb": "1742aa216cfb6307",
+        "name": " Memory Querry",
+        "query": "SELECT \"value_num\",\"topic\"\nFROM \"24hours\".\"live_messages\"\nWHERE \"topic\" =~ /meteorcams\\/nz[0-9A-Za-z]+\\/memusedpct/\nORDER BY time ASC\nLIMIT 2000\n",
+        "rawOutput": false,
+        "precision": "",
+        "retentionPolicy": "",
+        "org": "organisation",
+        "x": 400,
+        "y": 380,
+        "wires": [
+            [
+                "747116a54301b8d1"
+            ]
+        ]
+    },
+    {
+        "id": "f003449d36a189f4",
+        "type": "function",
+        "z": "8600a2de96944330",
+        "name": "Format Data",
+        "func": "// Expecting msg.payload to be a single array containing ALL topics' data\nlet data = msg.payload;\n\n// Extract the camera ID — works for numbers and letters (e.g. NZ0014, NZ002K, NZ001P)\nfunction extractCameraID(topic) {\n    let match = topic.match(/nz[0-9a-z]+/i);\n    return match ? match[0].toUpperCase() : topic;\n}\n\n// Group by camera/topic\nlet seriesMap = {};\nfor (let entry of data) {\n    let label = extractCameraID(entry.topic);\n    if (!seriesMap[label]) seriesMap[label] = [];\n    seriesMap[label].push({\n        x: new Date(entry.time),\n        y: Number(entry.value_num)\n    });\n}\n\n// Sort each series by time\nfor (let label in seriesMap) {\n    seriesMap[label].sort((a, b) => a.x - b.x);\n}\n\n// Build combined chart payload\nmsg.payload = [{\n    series: Object.keys(seriesMap),\n    data: Object.values(seriesMap),\n    labels: []\n}];\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 610,
+        "y": 440,
+        "wires": [
+            [
+                "a4e7bd2816cf9746"
+            ]
+        ]
+    },
+    {
+        "id": "a4e7bd2816cf9746",
+        "type": "ui_chart",
+        "z": "8600a2de96944330",
+        "name": "Swap Used %",
+        "group": "b90dd2b3db9b35f7",
+        "order": 9,
+        "width": 12,
+        "height": 5,
+        "label": "Swap Used %",
+        "chartType": "line",
+        "legend": "true",
+        "xformat": "HH:mm",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "100",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": true,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 820,
+        "y": 440,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b582266d4bc2160b",
+        "type": "influxdb in",
+        "z": "8600a2de96944330",
+        "influxdb": "1742aa216cfb6307",
+        "name": " Swap Querry",
+        "query": "SELECT \"value_num\",\"topic\"\nFROM \"24hours\".\"live_messages\"\nWHERE \"topic\" =~ /meteorcams\\/nz[0-9A-Za-z]+\\/swapusedpct/\nORDER BY time ASC\nLIMIT 2000\n",
+        "rawOutput": false,
+        "precision": "",
+        "retentionPolicy": "",
+        "org": "organisation",
+        "x": 390,
+        "y": 440,
+        "wires": [
+            [
+                "f003449d36a189f4"
+            ]
+        ]
+    },
+    {
+        "id": "1b5c0479eb7a5d86",
+        "type": "function",
+        "z": "8600a2de96944330",
+        "name": "Format Data",
+        "func": "// Expecting msg.payload to be a single array containing ALL topics' data\nlet data = msg.payload;\n\n// Extract the camera ID — works for numbers and letters (e.g. NZ0014, NZ002K, NZ001P)\nfunction extractCameraID(topic) {\n    let match = topic.match(/nz[0-9a-z]+/i);\n    return match ? match[0].toUpperCase() : topic;\n}\n\n// Group by camera/topic\nlet seriesMap = {};\nfor (let entry of data) {\n    let label = extractCameraID(entry.topic);\n    if (!seriesMap[label]) seriesMap[label] = [];\n    seriesMap[label].push({\n        x: new Date(entry.time),\n        y: Number(entry.value_num)\n    });\n}\n\n// Sort each series by time\nfor (let label in seriesMap) {\n    seriesMap[label].sort((a, b) => a.x - b.x);\n}\n\n// Build combined chart payload\nmsg.payload = [{\n    series: Object.keys(seriesMap),\n    data: Object.values(seriesMap),\n    labels: []\n}];\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 590,
+        "y": 520,
+        "wires": [
+            [
+                "7cf4000a7df9b9d9"
+            ]
+        ]
+    },
+    {
+        "id": "7cf4000a7df9b9d9",
+        "type": "ui_chart",
+        "z": "8600a2de96944330",
+        "name": "Camera Status ",
+        "group": "b90dd2b3db9b35f7",
+        "order": 9,
+        "width": 12,
+        "height": 5,
+        "label": "Camera Status",
+        "chartType": "line",
+        "legend": "true",
+        "xformat": "HH:mm",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "-1",
+        "ymax": "2",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": true,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 800,
+        "y": 520,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c3d65ae1a3ba3070",
+        "type": "influxdb in",
+        "z": "8600a2de96944330",
+        "influxdb": "1742aa216cfb6307",
+        "name": " Camera Status Querry",
+        "query": "SELECT \"value_num\",\"topic\"\nFROM \"camera_status_messages\"\nWHERE \"topic\" =~ /meteorcams\\/nz[0-9A-Za-z]+\\/camerastatus/\n-- WHERE \"topic\" =~ /meteorcams\\/(nz0014|nz002k|nz0017|nz005a)\\/camerastatus/\nORDER BY time ASC\nLIMIT 2000\n",
+        "rawOutput": false,
+        "precision": "",
+        "retentionPolicy": "",
+        "org": "organisation",
+        "x": 400,
+        "y": 520,
+        "wires": [
+            [
+                "1b5c0479eb7a5d86"
+            ]
+        ]
+    },
+    {
+        "id": "5f0b23896d034f67",
         "type": "global-config",
         "env": [],
         "modules": {
             "node-red-contrib-influxdb": "0.7.0",
             "node-red-dashboard": "3.6.6",
+            "node-red-node-email": "5.0.0",
             "node-red-contrib-time-range-switch": "1.2.0",
             "node-red-node-ui-table": "0.4.5"
         }
