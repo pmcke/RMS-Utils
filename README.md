@@ -40,3 +40,11 @@
 
 - Adds text to a png or jpg file. This is useful to add your station number to the image you use for wallpaper
   Usage: python add_text.py <image_path> "Your Text Here" y_fraction (Default is 0.1 which is 10% of the way down the image)
+
+# SetiUploaderWrapper.py
+
+- This replaces SetiUploader.py as the External Script for RMS. It runs logMeteorStats.sh and then runs SetiUploader. If SetiUploader.py isn't present it just runs logMeteorStats.sh
+
+# NodeRedApp.json
+
+- My Node Red App for monitoring multiple RMS cameras. Used in conjunction with https://github.com/markmac99/rms_mqtt

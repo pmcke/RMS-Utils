@@ -47,9 +47,9 @@
     },
     {
         "id": "748b21d7228449f3",
-        "type": "mqtt-broker",
+        "type": "mqtt-broker",s
         "name": "HiveMQ",
-        "broker": "ea1572d1f877465886bdfaebfb377ba0.s1.eu.hivemq.cloud",
+        "broker": "",
         "port": "8883",
         "tls": "a9722a2199202b7a",
         "clientid": "",
