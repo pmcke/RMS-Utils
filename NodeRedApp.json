@@ -220,7 +220,7 @@
         "tab": "2bcb6f6193086e44",
         "order": 1,
         "disp": true,
-        "width": 26,
+        "width": 18,
         "collapse": false,
         "className": ""
     },
@@ -229,7 +229,7 @@
         "type": "ui_tab",
         "name": "Star Count",
         "icon": "dashboard",
-        "order": 3,
+        "order": 1,
         "disabled": false,
         "hidden": false
     },
@@ -240,116 +240,16 @@
         "tab": "97f96d314c1c3f3f",
         "order": 2,
         "disp": true,
-        "width": 23,
+        "width": 22,
         "collapse": false,
         "className": ""
-    },
-    {
-        "id": "29ce719d435d98c0",
-        "type": "ui_spacer",
-        "z": "793d83fb15a6a9ba",
-        "name": "spacer",
-        "group": "b90dd2b3db9b35f7",
-        "order": 3,
-        "width": 2,
-        "height": 1
-    },
-    {
-        "id": "05a631dfedcc597d",
-        "type": "ui_spacer",
-        "z": "793d83fb15a6a9ba",
-        "name": "spacer",
-        "group": "b90dd2b3db9b35f7",
-        "order": 4,
-        "width": 2,
-        "height": 1
-    },
-    {
-        "id": "7f1a2398c791881e",
-        "type": "ui_spacer",
-        "z": "793d83fb15a6a9ba",
-        "name": "spacer",
-        "group": "b90dd2b3db9b35f7",
-        "order": 5,
-        "width": 2,
-        "height": 1
-    },
-    {
-        "id": "296b13cc95730fa7",
-        "type": "ui_spacer",
-        "z": "793d83fb15a6a9ba",
-        "name": "spacer",
-        "group": "b90dd2b3db9b35f7",
-        "order": 6,
-        "width": 2,
-        "height": 1
-    },
-    {
-        "id": "86bf376320b9252b",
-        "type": "ui_spacer",
-        "z": "793d83fb15a6a9ba",
-        "name": "spacer",
-        "group": "b90dd2b3db9b35f7",
-        "order": 7,
-        "width": 2,
-        "height": 1
-    },
-    {
-        "id": "2e6b661a5f70f02e",
-        "type": "ui_spacer",
-        "z": "793d83fb15a6a9ba",
-        "name": "spacer",
-        "group": "b90dd2b3db9b35f7",
-        "order": 10,
-        "width": 2,
-        "height": 1
-    },
-    {
-        "id": "c87931be883e9588",
-        "type": "ui_spacer",
-        "z": "793d83fb15a6a9ba",
-        "name": "spacer",
-        "group": "b90dd2b3db9b35f7",
-        "order": 11,
-        "width": 2,
-        "height": 1
-    },
-    {
-        "id": "c6e77c170cb4a0b7",
-        "type": "ui_spacer",
-        "z": "793d83fb15a6a9ba",
-        "name": "spacer",
-        "group": "b90dd2b3db9b35f7",
-        "order": 12,
-        "width": 2,
-        "height": 1
-    },
-    {
-        "id": "96fab97262a10bc6",
-        "type": "ui_spacer",
-        "z": "793d83fb15a6a9ba",
-        "name": "spacer",
-        "group": "b90dd2b3db9b35f7",
-        "order": 13,
-        "width": 2,
-        "height": 1
-    },
-    {
-        "id": "ddbc73443f19e4e2",
-        "type": "ui_spacer",
-        "z": "793d83fb15a6a9ba",
-        "name": "spacer",
-        "group": "b90dd2b3db9b35f7",
-        "order": 14,
-        "width": 2,
-        "height": 1
     },
     {
         "id": "c0aa544ce73090f0",
         "type": "ui_tab",
         "name": "Meteor Count",
         "icon": "dashboard",
-        "order": 1,
+        "order": 3,
         "disabled": false,
         "hidden": false
     },
@@ -360,68 +260,310 @@
         "tab": "c0aa544ce73090f0",
         "order": 1,
         "disp": true,
-        "width": 25,
+        "width": 7,
         "collapse": false,
         "className": ""
     },
     {
-        "id": "936ac1d07cbb8f13",
+        "id": "693a52b8328cddc0",
+        "type": "remote-config",
+        "name": "Node-RED UI",
+        "host": "localhost",
+        "protocol": "http",
+        "port": "1880",
+        "baseurl": "/ui",
+        "instancehash": "zltmk011zikxg9dt373s75u9pg7c1ran39pasmiqjrnq8dkx6rz6qbrl2pqwy7lp",
+        "server": "nodered05.remote-red.com",
+        "region": "sg"
+    },
+    {
+        "id": "361036c62dc6a763",
         "type": "ui_spacer",
-        "z": "e881957e79a14179",
+        "z": "d11a3bcc6c1d79cc",
         "name": "spacer",
-        "group": "9aeeb46ed3a84dc4",
+        "group": "90a11db5be370378",
         "order": 2,
-        "width": 7,
+        "width": 10,
         "height": 1
     },
     {
-        "id": "9d0a930576799dff",
+        "id": "73fe3d78c5f3ec40",
         "type": "ui_spacer",
-        "z": "e881957e79a14179",
+        "z": "d11a3bcc6c1d79cc",
         "name": "spacer",
-        "group": "9aeeb46ed3a84dc4",
+        "group": "90a11db5be370378",
         "order": 3,
-        "width": 7,
+        "width": 10,
         "height": 1
     },
     {
-        "id": "1930aeb00d8df4e2",
+        "id": "71ee19b45e9db20a",
         "type": "ui_spacer",
-        "z": "e881957e79a14179",
+        "z": "d11a3bcc6c1d79cc",
         "name": "spacer",
-        "group": "9aeeb46ed3a84dc4",
+        "group": "90a11db5be370378",
         "order": 4,
-        "width": 7,
+        "width": 10,
         "height": 1
     },
     {
-        "id": "68745d310de14c7f",
+        "id": "e96e044b49045079",
         "type": "ui_spacer",
-        "z": "e881957e79a14179",
+        "z": "d11a3bcc6c1d79cc",
         "name": "spacer",
-        "group": "9aeeb46ed3a84dc4",
+        "group": "90a11db5be370378",
         "order": 5,
-        "width": 7,
+        "width": 10,
         "height": 1
     },
     {
-        "id": "121ec3a6a435409a",
+        "id": "0123eb8138ac196f",
         "type": "ui_spacer",
-        "z": "e881957e79a14179",
+        "z": "d11a3bcc6c1d79cc",
         "name": "spacer",
-        "group": "9aeeb46ed3a84dc4",
+        "group": "90a11db5be370378",
         "order": 6,
-        "width": 7,
+        "width": 10,
         "height": 1
     },
     {
-        "id": "5a10f73229e999e2",
+        "id": "3996ecefa39dd238",
         "type": "ui_spacer",
-        "z": "e881957e79a14179",
+        "z": "d11a3bcc6c1d79cc",
         "name": "spacer",
-        "group": "9aeeb46ed3a84dc4",
-        "order": 7,
-        "width": 7,
+        "group": "90a11db5be370378",
+        "order": 8,
+        "width": 10,
+        "height": 1
+    },
+    {
+        "id": "eba1a7211580e647",
+        "type": "ui_spacer",
+        "z": "d11a3bcc6c1d79cc",
+        "name": "spacer",
+        "group": "b90dd2b3db9b35f7",
+        "order": 2,
+        "width": 11,
+        "height": 1
+    },
+    {
+        "id": "d6f70a72a05bbd18",
+        "type": "ui_spacer",
+        "z": "d11a3bcc6c1d79cc",
+        "name": "spacer",
+        "group": "b90dd2b3db9b35f7",
+        "order": 3,
+        "width": 11,
+        "height": 1
+    },
+    {
+        "id": "2c35c71e04931e01",
+        "type": "ui_spacer",
+        "z": "d11a3bcc6c1d79cc",
+        "name": "spacer",
+        "group": "b90dd2b3db9b35f7",
+        "order": 4,
+        "width": 11,
+        "height": 1
+    },
+    {
+        "id": "d7265c785b94bb8e",
+        "type": "ui_spacer",
+        "z": "d11a3bcc6c1d79cc",
+        "name": "spacer",
+        "group": "b90dd2b3db9b35f7",
+        "order": 5,
+        "width": 11,
+        "height": 1
+    },
+    {
+        "id": "7eebfaeeceea8e1c",
+        "type": "ui_spacer",
+        "z": "d11a3bcc6c1d79cc",
+        "name": "spacer",
+        "group": "b90dd2b3db9b35f7",
+        "order": 6,
+        "width": 11,
+        "height": 1
+    },
+    {
+        "id": "34a4cdb960f53aa3",
+        "type": "ui_spacer",
+        "z": "d11a3bcc6c1d79cc",
+        "name": "spacer",
+        "group": "b90dd2b3db9b35f7",
+        "order": 8,
+        "width": 11,
+        "height": 1
+    },
+    {
+        "id": "278cc70bb309d010",
+        "type": "ui_spacer",
+        "z": "d11a3bcc6c1d79cc",
+        "name": "spacer",
+        "group": "b90dd2b3db9b35f7",
+        "order": 9,
+        "width": 11,
+        "height": 1
+    },
+    {
+        "id": "99e2dc92dabedada",
+        "type": "ui_spacer",
+        "z": "d11a3bcc6c1d79cc",
+        "name": "spacer",
+        "group": "b90dd2b3db9b35f7",
+        "order": 10,
+        "width": 11,
+        "height": 1
+    },
+    {
+        "id": "db3a050c16d5d747",
+        "type": "ui_spacer",
+        "z": "d11a3bcc6c1d79cc",
+        "name": "spacer",
+        "group": "b90dd2b3db9b35f7",
+        "order": 11,
+        "width": 11,
+        "height": 1
+    },
+    {
+        "id": "7c6d8f50fbf1fb14",
+        "type": "ui_spacer",
+        "z": "d11a3bcc6c1d79cc",
+        "name": "spacer",
+        "group": "b90dd2b3db9b35f7",
+        "order": 12,
+        "width": 11,
+        "height": 1
+    },
+    {
+        "id": "925043d85a7362fa",
+        "type": "ui_spacer",
+        "z": "d11a3bcc6c1d79cc",
+        "name": "spacer",
+        "group": "b90dd2b3db9b35f7",
+        "order": 13,
+        "width": 11,
+        "height": 1
+    },
+    {
+        "id": "3bd64a6545106b34",
+        "type": "ui_spacer",
+        "z": "d11a3bcc6c1d79cc",
+        "name": "spacer",
+        "group": "b90dd2b3db9b35f7",
+        "order": 15,
+        "width": 11,
+        "height": 1
+    },
+    {
+        "id": "34e6d46575d99544",
+        "type": "ui_spacer",
+        "z": "d11a3bcc6c1d79cc",
+        "name": "spacer",
+        "group": "b90dd2b3db9b35f7",
+        "order": 16,
+        "width": 11,
+        "height": 1
+    },
+    {
+        "id": "0086542e92b44054",
+        "type": "ui_spacer",
+        "z": "d11a3bcc6c1d79cc",
+        "name": "spacer",
+        "group": "b90dd2b3db9b35f7",
+        "order": 17,
+        "width": 11,
+        "height": 1
+    },
+    {
+        "id": "ba22dc04e2a27548",
+        "type": "ui_spacer",
+        "z": "d11a3bcc6c1d79cc",
+        "name": "spacer",
+        "group": "b90dd2b3db9b35f7",
+        "order": 18,
+        "width": 11,
+        "height": 1
+    },
+    {
+        "id": "8fcf67a660b1a187",
+        "type": "ui_spacer",
+        "z": "d11a3bcc6c1d79cc",
+        "name": "spacer",
+        "group": "b90dd2b3db9b35f7",
+        "order": 19,
+        "width": 11,
+        "height": 1
+    },
+    {
+        "id": "a0795d0c2254f1fd",
+        "type": "ui_spacer",
+        "z": "d11a3bcc6c1d79cc",
+        "name": "spacer",
+        "group": "b90dd2b3db9b35f7",
+        "order": 20,
+        "width": 11,
+        "height": 1
+    },
+    {
+        "id": "fb599abe6fb357a5",
+        "type": "ui_spacer",
+        "z": "d11a3bcc6c1d79cc",
+        "name": "spacer",
+        "group": "b90dd2b3db9b35f7",
+        "order": 22,
+        "width": 11,
+        "height": 1
+    },
+    {
+        "id": "e14f5160b39e5e82",
+        "type": "ui_spacer",
+        "z": "d11a3bcc6c1d79cc",
+        "name": "spacer",
+        "group": "b90dd2b3db9b35f7",
+        "order": 23,
+        "width": 11,
+        "height": 1
+    },
+    {
+        "id": "9fd598432cd7e22b",
+        "type": "ui_spacer",
+        "z": "d11a3bcc6c1d79cc",
+        "name": "spacer",
+        "group": "b90dd2b3db9b35f7",
+        "order": 24,
+        "width": 11,
+        "height": 1
+    },
+    {
+        "id": "991c693a0632b164",
+        "type": "ui_spacer",
+        "z": "d11a3bcc6c1d79cc",
+        "name": "spacer",
+        "group": "b90dd2b3db9b35f7",
+        "order": 25,
+        "width": 11,
+        "height": 1
+    },
+    {
+        "id": "9019221846dc5623",
+        "type": "ui_spacer",
+        "z": "d11a3bcc6c1d79cc",
+        "name": "spacer",
+        "group": "b90dd2b3db9b35f7",
+        "order": 26,
+        "width": 11,
+        "height": 1
+    },
+    {
+        "id": "4d1a8929951e4f1e",
+        "type": "ui_spacer",
+        "z": "d11a3bcc6c1d79cc",
+        "name": "spacer",
+        "group": "b90dd2b3db9b35f7",
+        "order": 27,
+        "width": 11,
         "height": 1
     },
     {
@@ -437,13 +579,13 @@
         "rap": true,
         "rh": 0,
         "inputs": 0,
-        "x": 140,
-        "y": 280,
+        "x": 120,
+        "y": 340,
         "wires": [
             [
                 "de0a77bdf223ac6d",
                 "c89a0b84d701a049",
-                "0b6987b41968c9e3"
+                "fa770f10dcb789da"
             ]
         ]
     },
@@ -461,8 +603,8 @@
         "retentionPolicyV18Flux": "",
         "org": "organisation",
         "bucket": "bucket",
-        "x": 1300,
-        "y": 200,
+        "x": 920,
+        "y": 140,
         "wires": []
     },
     {
@@ -477,8 +619,8 @@
         "initialize": "// Code added here will be run once\n// whenever the node is started.\n// Force numeric conversion\n\n",
         "finalize": "",
         "libs": [],
-        "x": 820,
-        "y": 60,
+        "x": 420,
+        "y": 40,
         "wires": [
             [
                 "438f8fab9308904a"
@@ -509,8 +651,8 @@
         "checkall": "true",
         "repair": false,
         "outputs": 2,
-        "x": 520,
-        "y": 220,
+        "x": 240,
+        "y": 160,
         "wires": [
             [
                 "b9781be18a189f6c"
@@ -532,8 +674,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 960,
-        "y": 420,
+        "x": 500,
+        "y": 340,
         "wires": [
             [
                 "5a0d2cf59736dd08"
@@ -552,8 +694,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 360,
-        "y": 920,
+        "x": 380,
+        "y": 420,
         "wires": [
             []
         ]
@@ -579,31 +721,11 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 420,
-        "y": 1000,
+        "x": 340,
+        "y": 500,
         "wires": [
             [
-                "94b8acdb42f02dfd"
-            ]
-        ]
-    },
-    {
-        "id": "94b8acdb42f02dfd",
-        "type": "function",
-        "z": "d11a3bcc6c1d79cc",
-        "name": "Check for Missing Devices",
-        "func": "const now = Date.now();\nconst THRESHOLD = 30 * 60 * 1000;   // 30 minutes of silence\nconst REMIND_INTERVAL = 60 * 60 * 1000; // 1 hour repeat\n\nconst lastSeen = flow.get(\"lastSeen\") || {};\nlet lastAlert = flow.get(\"lastAlert\") || {};\n\nlet missing = [];\nfor (let [id, t] of Object.entries(lastSeen)) {\n    let minsAgo = ((now - t) / 60000).toFixed(1);\n\n    // device is late\n    if (now - t > THRESHOLD) {\n        let lastAlertTime = lastAlert[id] || 0;\n\n        // only alert if never alerted before or an hour has passed\n        if (now - lastAlertTime > REMIND_INTERVAL) {\n            missing.push(`${id} (last seen ${minsAgo} min ago)`);\n            lastAlert[id] = now;  // record alert time\n        }\n    } else {\n        // device is reporting again → clear its alert record\n        delete lastAlert[id];\n    }\n}\n\n// store updated alert state\nflow.set(\"lastAlert\", lastAlert);\n\nif (missing.length > 0) {\n    msg.topic = \"MeteorCam Offline Alert. Full power outage\";\n    msg.payload = `Devices offline >30 min:\\n${missing.join(\"\\n\")}`;\n    return msg; // send one email\n}\nreturn null;\n",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 740,
-        "y": 1000,
-        "wires": [
-            [
-                "1bb94944c3976a7a"
+                "dbdafda51ab52ca4"
             ]
         ]
     },
@@ -620,29 +742,9 @@
         "tls": true,
         "name": "gmn@mckellar.net.nz",
         "dname": "Email Out",
-        "x": 980,
-        "y": 1100,
+        "x": 900,
+        "y": 640,
         "wires": []
-    },
-    {
-        "id": "0b6987b41968c9e3",
-        "type": "function",
-        "z": "d11a3bcc6c1d79cc",
-        "name": "Alerts when a camera only goes off line",
-        "func": "// ---------- Node-RED Function: Grouped Camera Offline Email Alert ----------\n// Expects topics like: meteorcams/nz0014/camerastatus with payload \"1\" or \"0\"\n// First alert after 10 min offline, then every 60 min while still offline\n// --------------------------------------------------------------------------\n\nconst OFFLINE_DELAY = 10 * 60 * 1000;   // ✅ 10 minutes\nconst REMIND_INTERVAL = 60 * 60 * 1000; // 60 minutes\n\nconst topic = msg.topic || \"\";\nconst payload = String(msg.payload).trim();\nconst match = topic.match(/^meteorcams\\/([0-9a-z]+)\\/camerastatus$/i);\nif (!match) return null; // ignore unrelated topics\n\nconst id = match[1].toUpperCase();\nconst now = Date.now();\n\n// --- store latest status ---\nlet statusMap = flow.get(\"cameraStatus\") || {};\nstatusMap[id] = { value: payload, lastUpdate: now };\nflow.set(\"cameraStatus\", statusMap);\n\n// timers are global for the flow (we alert on *any* offline camera)\nlet offlineTimer = flow.get(\"offlineTimer\");\nlet remindTimer  = flow.get(\"remindTimer\");\n\n// Helper: build & send ONE email listing all offline cams\nfunction sendGroupedEmail(label) {\n    const sMap = flow.get(\"cameraStatus\") || {};\n    const now = Date.now();\n    let offline = [];\n\n    for (const [cam, info] of Object.entries(sMap)) {\n        if (info.value === \"0\") {\n            const minsAgo = ((now - info.lastUpdate) / 60000).toFixed(1);\n            offline.push(`${cam} (last seen ${minsAgo} min ago)`);\n        }\n    }\n\n    if (offline.length > 0) {\n        node.send({\n            topic: `Cameras offline >${label}`,\n            payload: offline.join(\"\\n\")\n        });\n    }\n}\n\n// ---------- Handle incoming status ----------\nif (payload === \"0\") {\n    // if this is the first offline camera, start the 10-min timer\n    if (!offlineTimer && !remindTimer) {\n        offlineTimer = setTimeout(() => {\n            // after 10 mins, check again which are offline and send ONE email\n            sendGroupedEmail(\"10 min\");\n\n            // then repeat every 60 mins\n            remindTimer = setInterval(() => {\n                sendGroupedEmail(\"60 min\");\n            }, REMIND_INTERVAL);\n\n            flow.set(\"remindTimer\", remindTimer);\n        }, OFFLINE_DELAY);\n\n        flow.set(\"offlineTimer\", offlineTimer);\n    }\n}\nelse if (payload === \"1\") {\n    // a camera came back online — check if ANY are still offline\n    const anyOffline = Object.values(statusMap).some(s => s.value === \"0\");\n    if (!anyOffline) {\n        // all back online → stop timers\n        if (offlineTimer) clearTimeout(offlineTimer);\n        if (remindTimer) clearInterval(remindTimer);\n        flow.set(\"offlineTimer\", null);\n        flow.set(\"remindTimer\", null);\n    }\n}\n\nreturn null;\n",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 380,
-        "y": 1100,
-        "wires": [
-            [
-                "1bb94944c3976a7a"
-            ]
-        ]
     },
     {
         "id": "5a0d2cf59736dd08",
@@ -658,8 +760,8 @@
         "retentionPolicyV18Flux": "",
         "org": "organisation",
         "bucket": "bucket",
-        "x": 1290,
-        "y": 420,
+        "x": 930,
+        "y": 340,
         "wires": []
     },
     {
@@ -667,15 +769,15 @@
         "type": "function",
         "z": "d11a3bcc6c1d79cc",
         "name": "Zeros starcount in daytime",
-        "func": "// ---------- Node-RED Function: Zero Starcount During Daylight ----------\n//\n// This node runs *after* the MQTT→Influx function.\n// If the topic ends in \"/starcount\" AND flow.get(\"daytime\") is true,\n// the numeric value is forced to 0 before writing to InfluxDB.\n//\n// Expects msg.payload = [fields, tags]\n// ------------------------------------------------------------\n\nconst isDaytime = flow.get(\"daytime\") === true;\n\nif (Array.isArray(msg.payload) && msg.payload.length >= 2) {\n    const fields = msg.payload[0];\n    const tags = msg.payload[1];\n    const topic = tags?.topic || \"\";\n\n    if (isDaytime && /\\/starcount$/i.test(topic)) {\n        // Only modify starcount values during daylight\n        if (\"value_num\" in fields) {\n            fields.value_num = 0;\n        }\n    }\n\n    msg.payload[0] = fields;\n}\n\nreturn msg;\n",
+        "func": "// ---------- Node-RED Function: Zero Starcount During Daylight ----------\n//\n// This node runs *after* the MQTT→Influx function.\n// If the topic ends in \"/starcount\" AND flow.get(\"daytime\") is true,\n// the numeric value is forced to 0 before writing to InfluxDB.\n//\n// Expects msg.payload = [fields, tags]\n// ------------------------------------------------------------\n\n\nconst isDaytime = global.get(\"daytime\") === true;\n\nif (Array.isArray(msg.payload) && msg.payload.length >= 2) {\n    const fields = msg.payload[0];\n    const tags = msg.payload[1];\n    const topic = tags?.topic || \"\";\n\n    if (isDaytime && /\\/starcount$/i.test(topic)) {\n        // Only modify starcount values during daylight\n        if (\"value_num\" in fields) {\n            fields.value_num = 0;\n        }\n    }\n\n    msg.payload[0] = fields;\n}\n\nreturn msg;\n",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1200,
-        "y": 60,
+        "x": 800,
+        "y": 40,
         "wires": [
             [
                 "f7f08a7477dbfcf3"
@@ -694,8 +796,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 930,
-        "y": 220,
+        "x": 610,
+        "y": 260,
         "wires": [
             [
                 "1019b7b3c52755d0"
@@ -719,9 +821,266 @@
         "retentionPolicyV18Flux": "",
         "org": "organisation",
         "bucket": "bucket",
-        "x": 1300,
-        "y": 280,
+        "x": 920,
+        "y": 260,
         "wires": []
+    },
+    {
+        "id": "7caaa4f3a7b74722",
+        "type": "remote-notification",
+        "z": "d11a3bcc6c1d79cc",
+        "confignode": "693a52b8328cddc0",
+        "name": "Remote Red Push",
+        "notificationTitle": "payload.title",
+        "notificationTitleType": "msg",
+        "notificationBody": "payload.body",
+        "notificationBodyType": "msg",
+        "notificationSound": "peterundderwolf",
+        "notificationSoundComputed": "payload.sound",
+        "notificationSoundComputedType": "msg",
+        "output": 1,
+        "x": 950,
+        "y": 900,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "fa770f10dcb789da",
+        "type": "function",
+        "z": "d11a3bcc6c1d79cc",
+        "name": "Checks if camerastatus is 0 then sends alert after 10 mins",
+        "func": "// ---------- Node-RED Function: Grouped Camera Offline Alert ----------\n// Handles multiple cameras going offline close together\n// Sends a grouped alert after OFFLINE_DELAY, then reminders every REMIND_INTERVAL\n// ---------------------------------------------------------------------\n\nconst OFFLINE_DELAY = 10 * 60 * 1000;   // 10 minutes \nconst REMIND_INTERVAL = 60 * 60 * 1000; // 60 minutes\n\nconst topic = msg.topic || \"\";\nconst payload = String(msg.payload).trim();\nconst match = topic.match(/^meteorcams\\/([0-9a-z]+)\\/camerastatus$/i);\nif (!match) return null;\n\nconst id = match[1].toUpperCase();\nconst now = Date.now();\n\n// node.warn(`Status update for ${id} = ${payload}`);\n\nlet statusMap = flow.get(\"cameraStatus\") || {};\nstatusMap[id] = { value: payload, lastUpdate: now };\nflow.set(\"cameraStatus\", statusMap);\n\n// Store timers\nlet offlineTimer = flow.get(\"offlineTimer\") || null;   // single group timer\nlet remindTimer  = flow.get(\"remindTimer\")  || null;\n\n// Helper: return all cameras offline > OFFLINE_DELAY\nfunction getOfflineList() {\n    const sMap = flow.get(\"cameraStatus\") || {};\n    const now = Date.now();\n    let offline = [];\n\n    for (const [cam, info] of Object.entries(sMap)) {\n        if (info.value === \"0\" && now - info.lastUpdate > OFFLINE_DELAY) {\n            const minsAgo = ((now - info.lastUpdate) / 60000).toFixed(1);\n            offline.push({ id: cam, lastSeenMins: parseFloat(minsAgo) });\n        }\n    }\n    return offline;\n}\n\n// --- When a camera goes offline ---\nif (payload === \"0\") {\n    // start a group alert timer if not already running\n    if (!offlineTimer) {\n        // node.warn(\"Starting offline group timer\");\n        offlineTimer = setTimeout(() => {\n            const offline = getOfflineList();\n            if (offline.length > 0) {\n                // node.warn(`Sending offline alert for ${offline.length} cameras`);\n                node.send([\n                    { topic: \"camera_offline_email\",  payload: { label: \"10 min\", offline } },\n                    { topic: \"camera_offline_remote\", payload: { label: \"10 min\", offline } }\n                ]);\n            }\n\n            // Start reminders\n            remindTimer = setInterval(() => {\n                const offline = getOfflineList();\n                if (offline.length > 0) {\n                    //node.warn(`Reminder: ${offline.length} cameras still offline`);\n                    node.send([\n                        { topic: \"camera_offline_email\",  payload: { label: \"60 min\", offline } },\n                        { topic: \"camera_offline_remote\", payload: { label: \"60 min\", offline } }\n                    ]);\n                }\n            }, REMIND_INTERVAL);\n\n            flow.set(\"remindTimer\", remindTimer);\n            flow.set(\"offlineTimer\", null);  // reset for next batch\n        }, OFFLINE_DELAY);\n\n        flow.set(\"offlineTimer\", offlineTimer);\n    }\n}\n\n// --- When a camera comes back online ---\nelse if (payload === \"1\") {\n    // update immediately\n    statusMap[id] = { value: \"1\", lastUpdate: now };\n    flow.set(\"cameraStatus\", statusMap);\n\n    // if no more offline cameras, stop timers\n    const stillOffline = Object.values(statusMap).some(s => s.value === \"0\");\n    if (!stillOffline) {\n        // node.warn(\"All cameras back online – clearing timers\");\n        if (offlineTimer) clearTimeout(offlineTimer);\n        if (remindTimer) clearInterval(remindTimer);\n        flow.set(\"offlineTimer\", null);\n        flow.set(\"remindTimer\", null);\n    }\n}\n\nreturn null;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 290,
+        "y": 800,
+        "wires": [
+            [
+                "248259e399a530f7",
+                "57250cfcd689c8d1"
+            ]
+        ]
+    },
+    {
+        "id": "715c6858a0953bd7",
+        "type": "function",
+        "z": "d11a3bcc6c1d79cc",
+        "name": "Formats for remote red push",
+        "func": "// ---------- Node-RED Function C: Remote RED Push Formatter ----------\n// Formats individual camera offline alerts for Remote RED push\n// --------------------------------------------------------------------\n\nif (!msg.payload || !msg.payload.offline) return null;\n\nconst { label, offline } = msg.payload;\nif (offline.length === 0) return null;\n\n// Create a readable camera list\nconst camList = offline.map(o => `${o.id} (${o.lastSeenMins} min ago)`).join(\", \");\n\nmsg.topic = \"Remote Alert: Cameras Offline\";\n\n// ✅ Remote RED Push expects msg.payload.title and msg.payload.body\nmsg.payload = {\n    title: `Cameras Offline > ${label}`,\n    body: `${camList} offline (${offline.length} total)`,\n    timestamp: new Date().toISOString()\n};\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 640,
+        "y": 740,
+        "wires": [
+            [
+                "7caaa4f3a7b74722"
+            ]
+        ]
+    },
+    {
+        "id": "dbdafda51ab52ca4",
+        "type": "function",
+        "z": "d11a3bcc6c1d79cc",
+        "name": "Checks if device down and notifies after 10 mins",
+        "func": "// ---------- Node-RED Function A2: MeteorCam Missing / Offline Logic ----------\n// Checks if any camera has been silent for >10 minutes\n// Sends results to Function B (email) and Function C (remote alert)\n// ------------------------------------------------------------------------------\n\nconst now = Date.now();\nconst THRESHOLD = 10 * 60 * 1000;   // ✅ 10 minutes\nconst REMIND_INTERVAL = 60 * 60 * 1000; // 60 minutes\n\n// stored state\nconst lastSeen = flow.get(\"lastSeen\") || {};  // last time each camera reported\nlet lastAlert = flow.get(\"lastAlert\") || {};  // last alert timestamp per camera\n\nlet missing = [];  // list of offline devices\n\nfor (const [id, t] of Object.entries(lastSeen)) {\n    const minsAgo = ((now - t) / 60000).toFixed(1);\n\n    // device has been silent too long\n    if (now - t > THRESHOLD) {\n        const lastAlertTime = lastAlert[id] || 0;\n\n        // only alert if never alerted or >1hr since last alert\n        if (now - lastAlertTime > REMIND_INTERVAL) {\n            missing.push({\n                id,\n                lastSeenMins: parseFloat(minsAgo)\n            });\n            lastAlert[id] = now;  // record alert time\n        }\n    } else {\n        // device reporting again → clear its alert record\n        delete lastAlert[id];\n    }\n}\n\n// update stored state\nflow.set(\"lastAlert\", lastAlert);\n\n// if nothing missing, stop here\nif (missing.length === 0) return [null, null];\n\n// structured payload for downstream formatters\nconst payloadData = {\n    label: \"Full System off line for + 10mins\",\n    offline: missing\n};\n\n// --- Output 1: for email formatter ---\n// --- Output 2: for remote notification formatter ---\nconst emailMsg = {\n    topic: \"camera_offline_email\",\n    payload: payloadData\n};\n\nconst remoteMsg = {\n    topic: \"camera_offline_remote\",\n    payload: payloadData\n};\n\nreturn [emailMsg, remoteMsg];\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 640,
+        "wires": [
+            [
+                "715c6858a0953bd7",
+                "cf482cd6171a4e0d"
+            ]
+        ]
+    },
+    {
+        "id": "248259e399a530f7",
+        "type": "function",
+        "z": "d11a3bcc6c1d79cc",
+        "name": "Formats for remote red push",
+        "func": "// ---------- Node-RED Function C: Remote RED Push Formatter ----------\n// Formats grouped camera offline alerts for Remote RED push\n// --------------------------------------------------------------------\n\nif (!msg.payload || !msg.payload.offline) return null;\n\nconst { label, offline } = msg.payload;\nif (!offline.length) return null;\n\n// Build a readable camera list\nconst camList = offline.map(o => `${o.id} (${o.lastSeenMins} min ago)`).join(\", \");\n\nmsg.topic = \"Remote Alert: Cameras Offline\";\n\n// ✅ The Remote Notification node expects payload.title and payload.body\nmsg.payload = {\n    title: `Cameras Offline > ${label}`,\n    body: `${camList} offline (${offline.length} total)`\n};\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 640,
+        "y": 980,
+        "wires": [
+            [
+                "7caaa4f3a7b74722"
+            ]
+        ]
+    },
+    {
+        "id": "57250cfcd689c8d1",
+        "type": "function",
+        "z": "d11a3bcc6c1d79cc",
+        "name": "Formats for email",
+        "func": "// ---------- Node-RED Function B: Email Formatter ----------\nif (!msg.payload || !msg.payload.offline) return null;\n\nconst { label, offline } = msg.payload;\n\nif (offline.length === 0) return null;\n\nconst lines = offline.map(o => `${o.id} (last seen ${o.lastSeenMins} min ago)`);\nmsg.topic = `Cameras offline > ${label}`;\nmsg.payload = lines.join(\"\\n\");\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 690,
+        "y": 840,
+        "wires": [
+            [
+                "1bb94944c3976a7a"
+            ]
+        ]
+    },
+    {
+        "id": "cf482cd6171a4e0d",
+        "type": "function",
+        "z": "d11a3bcc6c1d79cc",
+        "name": "Formats for email",
+        "func": "// ---------- Node-RED Function B: Email Formatter ----------\nif (!msg.payload || !msg.payload.offline) return null;\n\nconst { label, offline } = msg.payload;\n\nif (offline.length === 0) return null;\n\nconst lines = offline.map(o => `${o.id} (last seen ${o.lastSeenMins} min ago)`);\nmsg.topic = `Cameras offline > ${label}`;\nmsg.payload = lines.join(\"\\n\");\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 610,
+        "y": 500,
+        "wires": [
+            [
+                "1bb94944c3976a7a"
+            ]
+        ]
+    },
+    {
+        "id": "bbdefc60cc6feca6",
+        "type": "time-range-switch",
+        "z": "d11a3bcc6c1d79cc",
+        "name": "Daytime calculator",
+        "lat": "-38.14822",
+        "lon": "176.21371",
+        "startTime": "sunrise",
+        "endTime": "sunset",
+        "startOffset": 0,
+        "endOffset": 0,
+        "x": 470,
+        "y": 1100,
+        "wires": [
+            [
+                "7500bb965cc57c70"
+            ],
+            [
+                "f6dca9e9b60c0fd0"
+            ]
+        ]
+    },
+    {
+        "id": "7871fc97574a129d",
+        "type": "inject",
+        "z": "d11a3bcc6c1d79cc",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "180",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 170,
+        "y": 1100,
+        "wires": [
+            [
+                "bbdefc60cc6feca6"
+            ]
+        ]
+    },
+    {
+        "id": "7500bb965cc57c70",
+        "type": "change",
+        "z": "d11a3bcc6c1d79cc",
+        "name": "Set Daytime to true",
+        "rules": [
+            {
+                "t": "set",
+                "p": "daytime",
+                "pt": "global",
+                "to": "true",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 750,
+        "y": 1080,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "f6dca9e9b60c0fd0",
+        "type": "change",
+        "z": "d11a3bcc6c1d79cc",
+        "name": "set daytime to false",
+        "rules": [
+            {
+                "t": "set",
+                "p": "daytime",
+                "pt": "global",
+                "to": "false",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 750,
+        "y": 1140,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "7a1a4b25c50d9e97",
+        "type": "remote-access",
+        "z": "d11a3bcc6c1d79cc",
+        "confignode": "693a52b8328cddc0",
+        "name": "",
+        "verbose": 0,
+        "x": 160,
+        "y": 1260,
+        "wires": [
+            [],
+            []
+        ]
     },
     {
         "id": "80784f2ace529cb2",
@@ -758,7 +1117,7 @@
         "type": "function",
         "z": "793d83fb15a6a9ba",
         "name": "Format Data for bar graph",
-        "func": "// Expecting msg.payload as an array of { time, value, topic }\nlet data = msg.payload || [];\n\n// Read daytime flag (set by your time-range + Change nodes)\nconst isDaytime = flow.get(\"daytime\") === true;\n\n// Extract alphanumeric camera ID (e.g. NZ0014, NZ001P, NZ002K)\nfunction extractCameraID(topic) {\n    let match = topic?.match(/nz[0-9a-z]+/i);\n    return match ? match[0].toUpperCase() : (topic || \"UNKNOWN\");\n}\n\nlet grouped = {};\nlet latestGlobalTime = 0;\n\nfor (let entry of data) {\n    if (!entry) continue;\n\n    const id = extractCameraID(entry.topic);\n    const t  = new Date(entry.time).getTime();\n    let val  = Number(entry.value_num);\n\n    if (!Number.isFinite(val) || !Number.isFinite(t)) continue;\n\n    // 🔸 Force starcount to 0 during daytime\n    // (only when the metric is starcount; other metrics unaffected)\n    if (isDaytime && /\\/starcount$/i.test(entry.topic)) {\n       val = 0;\n    }\n\n    if (!grouped[id]) grouped[id] = { sum: 0, count: 0, latestVal: val, latestTime: t };\n\n    grouped[id].sum += val;\n    grouped[id].count += 1;\n\n    if (t > grouped[id].latestTime) {\n        grouped[id].latestVal = val;\n        grouped[id].latestTime = t;\n    }\n    if (t > latestGlobalTime) latestGlobalTime = t;\n}\n\n// Prepare chart data arrays\nconst labels   = Object.keys(grouped).sort();\nconst averages = labels.map(id => grouped[id].count ? grouped[id].sum / grouped[id].count : 0);\nlet latests    = labels.map(id => grouped[id].latestVal);\n\n// Format for Node-RED bar chart\nmsg.payload = [{\n    series: ['Average (1h)', 'Latest value'],\n    data: [averages, latests],\n    labels: labels\n}];\n\n// Extra info for debugging / dashboard text node\nmsg.lastUpdate = latestGlobalTime ? new Date(latestGlobalTime).toLocaleString() : '';\n// msg.daytime = isDaytime;\n\nreturn msg;\n",
+        "func": "// Expecting msg.payload as an array of { time, value, topic }\nlet data = msg.payload || [];\n\n// Read daytime flag (set by your time-range + Change nodes)\nconst isDaytime = global.get(\"daytime\") === true;\n\n// Extract alphanumeric camera ID (e.g. NZ0014, NZ001P, NZ002K)\nfunction extractCameraID(topic) {\n    let match = topic?.match(/nz[0-9a-z]+/i);\n    return match ? match[0].toUpperCase() : (topic || \"UNKNOWN\");\n}\n\nlet grouped = {};\nlet latestGlobalTime = 0;\n\nfor (let entry of data) {\n    if (!entry) continue;\n\n    const id = extractCameraID(entry.topic);\n    const t  = new Date(entry.time).getTime();\n    let val  = Number(entry.value_num);\n\n    if (!Number.isFinite(val) || !Number.isFinite(t)) continue;\n\n    // 🔸 Force starcount to 0 during daytime\n    // (only when the metric is starcount; other metrics unaffected)\n    if (isDaytime && /\\/starcount$/i.test(entry.topic)) {\n       val = 0;\n    }\n\n    if (!grouped[id]) grouped[id] = { sum: 0, count: 0, latestVal: val, latestTime: t };\n\n    grouped[id].sum += val;\n    grouped[id].count += 1;\n\n    if (t > grouped[id].latestTime) {\n        grouped[id].latestVal = val;\n        grouped[id].latestTime = t;\n    }\n    if (t > latestGlobalTime) latestGlobalTime = t;\n}\n\n// Prepare chart data arrays\nconst labels   = Object.keys(grouped).sort();\nconst averages = labels.map(id => grouped[id].count ? grouped[id].sum / grouped[id].count : 0);\nlet latests    = labels.map(id => grouped[id].latestVal);\n\n// Format for Node-RED bar chart\nmsg.payload = [{\n    series: ['Average (1h)', 'Latest value'],\n    data: [averages, latests],\n    labels: labels\n}];\n\n// Extra info for debugging / dashboard text node\nmsg.lastUpdate = latestGlobalTime ? new Date(latestGlobalTime).toLocaleString() : '';\n// msg.daytime = isDaytime;\n\nreturn msg;\n",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -781,7 +1140,7 @@
         "name": "Star Count Bar Chart",
         "group": "90a11db5be370378",
         "order": 1,
-        "width": 23,
+        "width": 12,
         "height": 5,
         "label": "Star Count Now",
         "chartType": "bar",
@@ -842,9 +1201,9 @@
         "type": "ui_text",
         "z": "793d83fb15a6a9ba",
         "group": "90a11db5be370378",
-        "order": 2,
-        "width": 0,
-        "height": 0,
+        "order": 7,
+        "width": 12,
+        "height": 1,
         "name": "Last Updated",
         "label": "Last Update",
         "format": "{{msg.lastUpdate}}.",
@@ -903,9 +1262,9 @@
         "z": "793d83fb15a6a9ba",
         "name": "Star Count Line Chart",
         "group": "90a11db5be370378",
-        "order": 3,
-        "width": 23,
-        "height": 5,
+        "order": 9,
+        "width": 22,
+        "height": 6,
         "label": "Star Count Over Time",
         "chartType": "line",
         "legend": "true",
@@ -942,107 +1301,6 @@
         ]
     },
     {
-        "id": "bbdefc60cc6feca6",
-        "type": "time-range-switch",
-        "z": "793d83fb15a6a9ba",
-        "name": "Daytime calculator",
-        "lat": "-38.14822",
-        "lon": "176.21371",
-        "startTime": "sunrise",
-        "endTime": "sunset",
-        "startOffset": 0,
-        "endOffset": 0,
-        "x": 570,
-        "y": 460,
-        "wires": [
-            [
-                "7500bb965cc57c70"
-            ],
-            [
-                "f6dca9e9b60c0fd0"
-            ]
-        ]
-    },
-    {
-        "id": "7871fc97574a129d",
-        "type": "inject",
-        "z": "793d83fb15a6a9ba",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "180",
-        "crontab": "",
-        "once": true,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 270,
-        "y": 460,
-        "wires": [
-            [
-                "bbdefc60cc6feca6"
-            ]
-        ]
-    },
-    {
-        "id": "7500bb965cc57c70",
-        "type": "change",
-        "z": "793d83fb15a6a9ba",
-        "name": "Set Daytime to true",
-        "rules": [
-            {
-                "t": "set",
-                "p": "daytime",
-                "pt": "global",
-                "to": "true",
-                "tot": "bool"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 850,
-        "y": 440,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "f6dca9e9b60c0fd0",
-        "type": "change",
-        "z": "793d83fb15a6a9ba",
-        "name": "set daytime to false",
-        "rules": [
-            {
-                "t": "set",
-                "p": "daytime",
-                "pt": "global",
-                "to": "false",
-                "tot": "bool"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 850,
-        "y": 500,
-        "wires": [
-            []
-        ]
-    },
-    {
         "id": "17d0e2e1dd75a69b",
         "type": "inject",
         "z": "e881957e79a14179",
@@ -1067,7 +1325,9 @@
         "y": 100,
         "wires": [
             [
-                "a45e9af1fc16c4b8"
+                "a45e9af1fc16c4b8",
+                "5be504bc3b36c000",
+                "90cd8c5ca6d02104"
             ]
         ]
     },
@@ -1078,8 +1338,8 @@
         "group": "9aeeb46ed3a84dc4",
         "name": "Meteor Counts Table",
         "order": 1,
-        "width": 18,
-        "height": 6,
+        "width": 7,
+        "height": 7,
         "columns": [],
         "outputs": 0,
         "cts": false,
@@ -1123,6 +1383,172 @@
         "wires": [
             [
                 "fc25e372dcc4a394"
+            ]
+        ]
+    },
+    {
+        "id": "5be504bc3b36c000",
+        "type": "influxdb in",
+        "z": "e881957e79a14179",
+        "influxdb": "35d5b4ab694d1161",
+        "name": "Querry for graph",
+        "query": "SELECT SUM(\"value_num\") AS meteorcount\nFROM \"meteor_messages\"\nWHERE \"topic\" =~ /meteorcams\\/[a-z0-9]+\\/meteorcount/\nGROUP BY time(1d), \"topic\" fill(0)\nORDER BY time ASC\n",
+        "rawOutput": false,
+        "precision": "",
+        "retentionPolicy": "",
+        "org": "organisation",
+        "x": 360,
+        "y": 220,
+        "wires": [
+            [
+                "ad8cc157412a583b"
+            ]
+        ]
+    },
+    {
+        "id": "ad8cc157412a583b",
+        "type": "function",
+        "z": "e881957e79a14179",
+        "name": "Format data for graph",
+        "func": "// ---------- Format Influx meteorcount data for bar chart ----------\n// Groups by camera ID, one bar per day\n// ------------------------------------------------------------------\n\nlet data = msg.payload || [];\n\n// Extract camera ID (middle segment like \"NZ0014\")\nfunction extractCameraID(topic) {\n    let match = topic?.match(/\\/([a-z]{2}[0-9a-z]+)\\//i);\n    return match ? match[1].toUpperCase() : \"UNKNOWN\";\n}\n\n// --- Build nested structure: { dateKey: { cameraID: value } } ---\nlet dailyMap = {};\nfor (let row of data) {\n    const id = extractCameraID(row.topic);\n    const dateKey = new Date(row.time).toISOString().slice(0, 10); // YYYY-MM-DD\n    if (!dailyMap[dateKey]) dailyMap[dateKey] = {};\n    dailyMap[dateKey][id] = Number(row.meteorcount);\n}\n\n// --- Get unique camera IDs & dates ---\nlet cameras = Array.from(\n    new Set(Object.values(dailyMap).flatMap(obj => Object.keys(obj)))\n).sort();\nlet dates = Object.keys(dailyMap).sort();\n\n// --- Build bar chart structure ---\nlet chartData = cameras.map(id =>\n    dates.map(date => dailyMap[date][id] || 0)\n);\n\n// --- Output payload for Node-RED Dashboard bar chart ---\nmsg.payload = [{\n    series: cameras,   // one series per camera\n    data: chartData,   // counts per day\n    labels: dates      // X-axis labels (dates)\n}];\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 640,
+        "y": 220,
+        "wires": [
+            [
+                "286841f66aac2114"
+            ]
+        ]
+    },
+    {
+        "id": "286841f66aac2114",
+        "type": "ui_chart",
+        "z": "e881957e79a14179",
+        "name": "Meteor Count",
+        "group": "9aeeb46ed3a84dc4",
+        "order": 2,
+        "width": 7,
+        "height": 5,
+        "label": "Meteor Count",
+        "chartType": "bar",
+        "legend": "true",
+        "xformat": "D/M",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "200",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": true,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 920,
+        "y": 220,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "90cd8c5ca6d02104",
+        "type": "influxdb in",
+        "z": "e881957e79a14179",
+        "influxdb": "35d5b4ab694d1161",
+        "name": "Querry for graph",
+        "query": "SELECT SUM(\"value_num\") AS detectioncount\nFROM \"meteor_messages\"\nWHERE \"topic\" =~ /meteorcams\\/[a-z0-9]+\\/detectioncount/\nGROUP BY time(1d), \"topic\" fill(0)\nORDER BY time ASC\n",
+        "rawOutput": false,
+        "precision": "",
+        "retentionPolicy": "",
+        "org": "organisation",
+        "x": 360,
+        "y": 320,
+        "wires": [
+            [
+                "271c6aa0a5d52246"
+            ]
+        ]
+    },
+    {
+        "id": "74fa663af72f0dba",
+        "type": "ui_chart",
+        "z": "e881957e79a14179",
+        "name": "Detection Count",
+        "group": "9aeeb46ed3a84dc4",
+        "order": 3,
+        "width": 7,
+        "height": 4,
+        "label": "Detection Count",
+        "chartType": "bar",
+        "legend": "true",
+        "xformat": "D/M",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "200",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": true,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 920,
+        "y": 320,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "271c6aa0a5d52246",
+        "type": "function",
+        "z": "e881957e79a14179",
+        "name": "Format data for graph",
+        "func": "// ---------- Format Influx detectioncount data for bar chart ----------\n// Groups by camera ID, one bar per day\n// ------------------------------------------------------------------\n\nlet data = msg.payload || [];\n\n// Extract camera ID (middle segment like \"NZ0014\")\nfunction extractCameraID(topic) {\n    let match = topic?.match(/\\/([a-z]{2}[0-9a-z]+)\\//i);\n    return match ? match[1].toUpperCase() : \"UNKNOWN\";\n}\n\n// --- Build nested structure: { dateKey: { cameraID: value } } ---\nlet dailyMap = {};\nfor (let row of data) {\n    const id = extractCameraID(row.topic);\n    const dateKey = new Date(row.time).toISOString().slice(0, 10); // YYYY-MM-DD\n    if (!dailyMap[dateKey]) dailyMap[dateKey] = {};\n    dailyMap[dateKey][id] = Number(row.detectioncount);\n}\n\n// --- Get unique camera IDs & dates ---\nlet cameras = Array.from(\n    new Set(Object.values(dailyMap).flatMap(obj => Object.keys(obj)))\n).sort();\nlet dates = Object.keys(dailyMap).sort();\n\n// --- Build bar chart structure ---\nlet chartData = cameras.map(id =>\n    dates.map(date => dailyMap[date][id] || 0)\n);\n\n// --- Output payload for Node-RED Dashboard bar chart ---\nmsg.payload = [{\n    series: cameras,   // one series per camera\n    data: chartData,   // counts per day\n    labels: dates      // X-axis labels (dates)\n}];\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 620,
+        "y": 320,
+        "wires": [
+            [
+                "74fa663af72f0dba"
             ]
         ]
     },
@@ -1186,7 +1612,7 @@
         "name": "CPU Temp Chart",
         "group": "b90dd2b3db9b35f7",
         "order": 1,
-        "width": 12,
+        "width": 7,
         "height": 5,
         "label": "CPU Temp Chart",
         "chartType": "line",
@@ -1268,9 +1694,9 @@
         "z": "8600a2de96944330",
         "name": "Disk Space",
         "group": "b90dd2b3db9b35f7",
-        "order": 2,
-        "width": 12,
-        "height": 5,
+        "order": 7,
+        "width": 7,
+        "height": 6,
         "label": "Disk Space",
         "chartType": "line",
         "legend": "true",
@@ -1351,9 +1777,9 @@
         "z": "8600a2de96944330",
         "name": "Memory Used %",
         "group": "b90dd2b3db9b35f7",
-        "order": 8,
-        "width": 12,
-        "height": 5,
+        "order": 14,
+        "width": 7,
+        "height": 6,
         "label": "Memory Used %",
         "chartType": "line",
         "legend": "true",
@@ -1434,9 +1860,9 @@
         "z": "8600a2de96944330",
         "name": "Swap Used %",
         "group": "b90dd2b3db9b35f7",
-        "order": 9,
-        "width": 12,
-        "height": 5,
+        "order": 21,
+        "width": 7,
+        "height": 6,
         "label": "Swap Used %",
         "chartType": "line",
         "legend": "true",
@@ -1517,21 +1943,21 @@
         "z": "8600a2de96944330",
         "name": "Camera Status ",
         "group": "b90dd2b3db9b35f7",
-        "order": 9,
-        "width": 12,
-        "height": 5,
+        "order": 28,
+        "width": 18,
+        "height": 6,
         "label": "Camera Status",
         "chartType": "line",
         "legend": "true",
-        "xformat": "HH:mm",
+        "xformat": "dd HH:mm",
         "interpolate": "linear",
         "nodata": "",
         "dot": false,
         "ymin": "-1",
         "ymax": "2",
         "removeOlder": 1,
-        "removeOlderPoints": "",
-        "removeOlderUnit": "3600",
+        "removeOlderPoints": "9999",
+        "removeOlderUnit": "604800",
         "cutout": 0,
         "useOneColor": false,
         "useUTC": true,
@@ -1561,7 +1987,7 @@
         "z": "8600a2de96944330",
         "influxdb": "1742aa216cfb6307",
         "name": " Camera Status Querry",
-        "query": "SELECT \"value_num\",\"topic\"\nFROM \"camera_status_messages\"\nWHERE \"topic\" =~ /meteorcams\\/nz[0-9A-Za-z]+\\/camerastatus/\n-- WHERE \"topic\" =~ /meteorcams\\/(nz0014|nz002k|nz0017|nz005a)\\/camerastatus/\nORDER BY time ASC\nLIMIT 2000\n",
+        "query": "SELECT \"value_num\",\"topic\"\nFROM \"camera_status_messages\"\nWHERE \"topic\" =~ /meteorcams\\/nz[0-9A-Za-z]+\\/camerastatus/\n--WHERE \"topic\" =~ /meteorcams\\/(nz0014|nz002k|nz0017|nz005a)\\/camerastatus/\n--WHERE \"topic\" =~ /^meteorcams\\/nz[0-9A-Za-z]+\\/camerastatus$/\nORDER BY time ASC\n",
         "rawOutput": false,
         "precision": "",
         "retentionPolicy": "",
@@ -1575,12 +2001,13 @@
         ]
     },
     {
-        "id": "5f0b23896d034f67",
+        "id": "d7663453f4222d24",
         "type": "global-config",
         "env": [],
         "modules": {
             "node-red-contrib-influxdb": "0.7.0",
             "node-red-dashboard": "3.6.6",
+            "node-red-contrib-remote": "2.0.3",
             "node-red-node-email": "5.0.0",
             "node-red-contrib-time-range-switch": "1.2.0",
             "node-red-node-ui-table": "0.4.5"
