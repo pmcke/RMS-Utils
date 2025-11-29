@@ -47,9 +47,9 @@
     },
     {
         "id": "748b21d7228449f3",
-        "type": "mqtt-broker",s
+        "type": "mqtt-broker",
         "name": "HiveMQ",
-        "broker": "",
+        "broker": "ea1572d1f877465886bdfaebfb377ba0.s1.eu.hivemq.cloud",
         "port": "8883",
         "tls": "a9722a2199202b7a",
         "clientid": "",
@@ -260,7 +260,7 @@
         "tab": "c0aa544ce73090f0",
         "order": 1,
         "disp": true,
-        "width": 7,
+        "width": 15,
         "collapse": false,
         "className": ""
     },
@@ -277,67 +277,7 @@
         "region": "sg"
     },
     {
-        "id": "361036c62dc6a763",
-        "type": "ui_spacer",
-        "z": "d11a3bcc6c1d79cc",
-        "name": "spacer",
-        "group": "90a11db5be370378",
-        "order": 2,
-        "width": 10,
-        "height": 1
-    },
-    {
-        "id": "73fe3d78c5f3ec40",
-        "type": "ui_spacer",
-        "z": "d11a3bcc6c1d79cc",
-        "name": "spacer",
-        "group": "90a11db5be370378",
-        "order": 3,
-        "width": 10,
-        "height": 1
-    },
-    {
-        "id": "71ee19b45e9db20a",
-        "type": "ui_spacer",
-        "z": "d11a3bcc6c1d79cc",
-        "name": "spacer",
-        "group": "90a11db5be370378",
-        "order": 4,
-        "width": 10,
-        "height": 1
-    },
-    {
-        "id": "e96e044b49045079",
-        "type": "ui_spacer",
-        "z": "d11a3bcc6c1d79cc",
-        "name": "spacer",
-        "group": "90a11db5be370378",
-        "order": 5,
-        "width": 10,
-        "height": 1
-    },
-    {
-        "id": "0123eb8138ac196f",
-        "type": "ui_spacer",
-        "z": "d11a3bcc6c1d79cc",
-        "name": "spacer",
-        "group": "90a11db5be370378",
-        "order": 6,
-        "width": 10,
-        "height": 1
-    },
-    {
-        "id": "3996ecefa39dd238",
-        "type": "ui_spacer",
-        "z": "d11a3bcc6c1d79cc",
-        "name": "spacer",
-        "group": "90a11db5be370378",
-        "order": 8,
-        "width": 10,
-        "height": 1
-    },
-    {
-        "id": "eba1a7211580e647",
+        "id": "ba1ebcb6f27d9e42",
         "type": "ui_spacer",
         "z": "d11a3bcc6c1d79cc",
         "name": "spacer",
@@ -347,37 +287,27 @@
         "height": 1
     },
     {
-        "id": "d6f70a72a05bbd18",
+        "id": "f29ae9c5e5cc683b",
         "type": "ui_spacer",
         "z": "d11a3bcc6c1d79cc",
         "name": "spacer",
         "group": "b90dd2b3db9b35f7",
         "order": 3,
-        "width": 11,
+        "width": 3,
         "height": 1
     },
     {
-        "id": "2c35c71e04931e01",
-        "type": "ui_spacer",
-        "z": "d11a3bcc6c1d79cc",
-        "name": "spacer",
-        "group": "b90dd2b3db9b35f7",
-        "order": 4,
-        "width": 11,
-        "height": 1
-    },
-    {
-        "id": "d7265c785b94bb8e",
+        "id": "3aa51306e09f086d",
         "type": "ui_spacer",
         "z": "d11a3bcc6c1d79cc",
         "name": "spacer",
         "group": "b90dd2b3db9b35f7",
         "order": 5,
-        "width": 11,
+        "width": 2,
         "height": 1
     },
     {
-        "id": "7eebfaeeceea8e1c",
+        "id": "7f5831abc2f05faf",
         "type": "ui_spacer",
         "z": "d11a3bcc6c1d79cc",
         "name": "spacer",
@@ -387,7 +317,17 @@
         "height": 1
     },
     {
-        "id": "34a4cdb960f53aa3",
+        "id": "2d033dddab426f62",
+        "type": "ui_spacer",
+        "z": "d11a3bcc6c1d79cc",
+        "name": "spacer",
+        "group": "b90dd2b3db9b35f7",
+        "order": 7,
+        "width": 11,
+        "height": 1
+    },
+    {
+        "id": "c581ec472c13f863",
         "type": "ui_spacer",
         "z": "d11a3bcc6c1d79cc",
         "name": "spacer",
@@ -397,17 +337,7 @@
         "height": 1
     },
     {
-        "id": "278cc70bb309d010",
-        "type": "ui_spacer",
-        "z": "d11a3bcc6c1d79cc",
-        "name": "spacer",
-        "group": "b90dd2b3db9b35f7",
-        "order": 9,
-        "width": 11,
-        "height": 1
-    },
-    {
-        "id": "99e2dc92dabedada",
+        "id": "d32e1fcc92251ece",
         "type": "ui_spacer",
         "z": "d11a3bcc6c1d79cc",
         "name": "spacer",
@@ -417,7 +347,7 @@
         "height": 1
     },
     {
-        "id": "db3a050c16d5d747",
+        "id": "59cf4fe416d9177b",
         "type": "ui_spacer",
         "z": "d11a3bcc6c1d79cc",
         "name": "spacer",
@@ -427,7 +357,7 @@
         "height": 1
     },
     {
-        "id": "7c6d8f50fbf1fb14",
+        "id": "2f0638a7957a2f10",
         "type": "ui_spacer",
         "z": "d11a3bcc6c1d79cc",
         "name": "spacer",
@@ -437,7 +367,7 @@
         "height": 1
     },
     {
-        "id": "925043d85a7362fa",
+        "id": "cf1dce407843cfa4",
         "type": "ui_spacer",
         "z": "d11a3bcc6c1d79cc",
         "name": "spacer",
@@ -447,7 +377,17 @@
         "height": 1
     },
     {
-        "id": "3bd64a6545106b34",
+        "id": "a271daf1bd08f8d5",
+        "type": "ui_spacer",
+        "z": "d11a3bcc6c1d79cc",
+        "name": "spacer",
+        "group": "b90dd2b3db9b35f7",
+        "order": 14,
+        "width": 11,
+        "height": 1
+    },
+    {
+        "id": "17403a1e44f78a68",
         "type": "ui_spacer",
         "z": "d11a3bcc6c1d79cc",
         "name": "spacer",
@@ -457,17 +397,7 @@
         "height": 1
     },
     {
-        "id": "34e6d46575d99544",
-        "type": "ui_spacer",
-        "z": "d11a3bcc6c1d79cc",
-        "name": "spacer",
-        "group": "b90dd2b3db9b35f7",
-        "order": 16,
-        "width": 11,
-        "height": 1
-    },
-    {
-        "id": "0086542e92b44054",
+        "id": "a2a214b6308b9cad",
         "type": "ui_spacer",
         "z": "d11a3bcc6c1d79cc",
         "name": "spacer",
@@ -477,7 +407,7 @@
         "height": 1
     },
     {
-        "id": "ba22dc04e2a27548",
+        "id": "5d1f6816beebb1fa",
         "type": "ui_spacer",
         "z": "d11a3bcc6c1d79cc",
         "name": "spacer",
@@ -487,7 +417,7 @@
         "height": 1
     },
     {
-        "id": "8fcf67a660b1a187",
+        "id": "c85c0b54bdaed038",
         "type": "ui_spacer",
         "z": "d11a3bcc6c1d79cc",
         "name": "spacer",
@@ -497,7 +427,7 @@
         "height": 1
     },
     {
-        "id": "a0795d0c2254f1fd",
+        "id": "25980d301e2d9827",
         "type": "ui_spacer",
         "z": "d11a3bcc6c1d79cc",
         "name": "spacer",
@@ -507,7 +437,17 @@
         "height": 1
     },
     {
-        "id": "fb599abe6fb357a5",
+        "id": "e97e78e32a3b203b",
+        "type": "ui_spacer",
+        "z": "d11a3bcc6c1d79cc",
+        "name": "spacer",
+        "group": "b90dd2b3db9b35f7",
+        "order": 21,
+        "width": 11,
+        "height": 1
+    },
+    {
+        "id": "093c402e259e5dc0",
         "type": "ui_spacer",
         "z": "d11a3bcc6c1d79cc",
         "name": "spacer",
@@ -517,17 +457,7 @@
         "height": 1
     },
     {
-        "id": "e14f5160b39e5e82",
-        "type": "ui_spacer",
-        "z": "d11a3bcc6c1d79cc",
-        "name": "spacer",
-        "group": "b90dd2b3db9b35f7",
-        "order": 23,
-        "width": 11,
-        "height": 1
-    },
-    {
-        "id": "9fd598432cd7e22b",
+        "id": "89d50d79e810e198",
         "type": "ui_spacer",
         "z": "d11a3bcc6c1d79cc",
         "name": "spacer",
@@ -537,7 +467,7 @@
         "height": 1
     },
     {
-        "id": "991c693a0632b164",
+        "id": "6e71c32e1e9ca496",
         "type": "ui_spacer",
         "z": "d11a3bcc6c1d79cc",
         "name": "spacer",
@@ -547,7 +477,7 @@
         "height": 1
     },
     {
-        "id": "9019221846dc5623",
+        "id": "61cef547d0cb5e1b",
         "type": "ui_spacer",
         "z": "d11a3bcc6c1d79cc",
         "name": "spacer",
@@ -557,7 +487,7 @@
         "height": 1
     },
     {
-        "id": "4d1a8929951e4f1e",
+        "id": "c4c9540c2e88a5c9",
         "type": "ui_spacer",
         "z": "d11a3bcc6c1d79cc",
         "name": "spacer",
@@ -565,6 +495,126 @@
         "order": 27,
         "width": 11,
         "height": 1
+    },
+    {
+        "id": "397b6bf7ad08d2f1",
+        "type": "ui_spacer",
+        "z": "d11a3bcc6c1d79cc",
+        "name": "spacer",
+        "group": "b90dd2b3db9b35f7",
+        "order": 28,
+        "width": 11,
+        "height": 1
+    },
+    {
+        "id": "bd86fed3ce6443d2",
+        "type": "ui_spacer",
+        "z": "d11a3bcc6c1d79cc",
+        "name": "spacer",
+        "group": "b90dd2b3db9b35f7",
+        "order": 29,
+        "width": 11,
+        "height": 1
+    },
+    {
+        "id": "42784eb13cb2382f",
+        "type": "ui_spacer",
+        "z": "d11a3bcc6c1d79cc",
+        "name": "spacer",
+        "group": "90a11db5be370378",
+        "order": 2,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "b3410274db2cc785",
+        "type": "ui_spacer",
+        "z": "d11a3bcc6c1d79cc",
+        "name": "spacer",
+        "group": "90a11db5be370378",
+        "order": 4,
+        "width": 3,
+        "height": 1
+    },
+    {
+        "id": "f195ae87d283d728",
+        "type": "ui_spacer",
+        "z": "d11a3bcc6c1d79cc",
+        "name": "spacer",
+        "group": "90a11db5be370378",
+        "order": 5,
+        "width": 10,
+        "height": 1
+    },
+    {
+        "id": "33559e2dc22ce840",
+        "type": "ui_spacer",
+        "z": "d11a3bcc6c1d79cc",
+        "name": "spacer",
+        "group": "90a11db5be370378",
+        "order": 6,
+        "width": 10,
+        "height": 1
+    },
+    {
+        "id": "9dc0b36b89d5f05a",
+        "type": "ui_spacer",
+        "z": "d11a3bcc6c1d79cc",
+        "name": "spacer",
+        "group": "90a11db5be370378",
+        "order": 7,
+        "width": 10,
+        "height": 1
+    },
+    {
+        "id": "9eea834afe48ef11",
+        "type": "ui_spacer",
+        "z": "d11a3bcc6c1d79cc",
+        "name": "spacer",
+        "group": "90a11db5be370378",
+        "order": 8,
+        "width": 10,
+        "height": 1
+    },
+    {
+        "id": "208b682fe5fbe535",
+        "type": "ui_spacer",
+        "z": "d11a3bcc6c1d79cc",
+        "name": "spacer",
+        "group": "90a11db5be370378",
+        "order": 10,
+        "width": 10,
+        "height": 1
+    },
+    {
+        "id": "24f1b3e3342e81ce",
+        "type": "ui_spacer",
+        "z": "d11a3bcc6c1d79cc",
+        "name": "spacer",
+        "group": "90a11db5be370378",
+        "order": 11,
+        "width": 22,
+        "height": 1
+    },
+    {
+        "id": "c7221d617813efef",
+        "type": "ui_tab",
+        "name": "Management",
+        "icon": "dashboard",
+        "order": 4,
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "4f9b949b3d54d9b6",
+        "type": "ui_group",
+        "name": "Management",
+        "tab": "c7221d617813efef",
+        "order": 1,
+        "disp": true,
+        "width": 6,
+        "collapse": false,
+        "className": ""
     },
     {
         "id": "e855c146d762af4d",
@@ -579,12 +629,13 @@
         "rap": true,
         "rh": 0,
         "inputs": 0,
-        "x": 120,
-        "y": 340,
+        "x": 80,
+        "y": 80,
         "wires": [
             [
                 "de0a77bdf223ac6d",
                 "c89a0b84d701a049",
+                "9f91a5376081b4e4",
                 "fa770f10dcb789da"
             ]
         ]
@@ -597,14 +648,14 @@
         "name": "Live Stats",
         "measurement": "live_messages",
         "precision": "",
-        "retentionPolicy": "24hours",
+        "retentionPolicy": "2days",
         "database": "database",
         "precisionV18FluxV20": "ms",
         "retentionPolicyV18Flux": "",
         "org": "organisation",
         "bucket": "bucket",
-        "x": 920,
-        "y": 140,
+        "x": 2260,
+        "y": 80,
         "wires": []
     },
     {
@@ -619,8 +670,8 @@
         "initialize": "// Code added here will be run once\n// whenever the node is started.\n// Force numeric conversion\n\n",
         "finalize": "",
         "libs": [],
-        "x": 420,
-        "y": 40,
+        "x": 780,
+        "y": 80,
         "wires": [
             [
                 "438f8fab9308904a"
@@ -643,7 +694,7 @@
             },
             {
                 "t": "regex",
-                "v": "^meteorcams\\/[^/]+\\/(detectioncount|meteorcount|nextcapstart)$",
+                "v": "^meteorcams\\/[^/]+\\/(detectioncount|meteorcount|nextcapstart|lastboot)$",
                 "vt": "str",
                 "case": false
             }
@@ -651,14 +702,14 @@
         "checkall": "true",
         "repair": false,
         "outputs": 2,
-        "x": 240,
-        "y": 160,
+        "x": 360,
+        "y": 80,
         "wires": [
             [
                 "b9781be18a189f6c"
             ],
             [
-                "9b786a2d84183bf9"
+                "e7701ed9ad1d35b9"
             ]
         ]
     },
@@ -674,8 +725,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 500,
-        "y": 340,
+        "x": 1200,
+        "y": 140,
         "wires": [
             [
                 "5a0d2cf59736dd08"
@@ -694,7 +745,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 380,
+        "x": 220,
         "y": 420,
         "wires": [
             []
@@ -721,7 +772,7 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 340,
+        "x": 180,
         "y": 500,
         "wires": [
             [
@@ -742,8 +793,8 @@
         "tls": true,
         "name": "gmn@mckellar.net.nz",
         "dname": "Email Out",
-        "x": 900,
-        "y": 640,
+        "x": 2260,
+        "y": 380,
         "wires": []
     },
     {
@@ -752,16 +803,16 @@
         "z": "d11a3bcc6c1d79cc",
         "influxdb": "35d5b4ab694d1161",
         "name": "Meteor Stats",
-        "measurement": "",
+        "measurement": "meteor_messages",
         "precision": "",
-        "retentionPolicy": "",
+        "retentionPolicy": "1week",
         "database": "database",
         "precisionV18FluxV20": "ms",
         "retentionPolicyV18Flux": "",
         "org": "organisation",
         "bucket": "bucket",
-        "x": 930,
-        "y": 340,
+        "x": 2250,
+        "y": 240,
         "wires": []
     },
     {
@@ -776,8 +827,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 800,
-        "y": 40,
+        "x": 1620,
+        "y": 60,
         "wires": [
             [
                 "f7f08a7477dbfcf3"
@@ -796,8 +847,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 610,
-        "y": 260,
+        "x": 1210,
+        "y": 80,
         "wires": [
             [
                 "1019b7b3c52755d0"
@@ -813,16 +864,16 @@
         "z": "d11a3bcc6c1d79cc",
         "influxdb": "35d5b4ab694d1161",
         "name": "Camera Status",
-        "measurement": "",
+        "measurement": "camera_status_messages",
         "precision": "",
-        "retentionPolicy": "",
+        "retentionPolicy": "1week",
         "database": "database",
         "precisionV18FluxV20": "ms",
         "retentionPolicyV18Flux": "",
         "org": "organisation",
         "bucket": "bucket",
-        "x": 920,
-        "y": 260,
+        "x": 2240,
+        "y": 160,
         "wires": []
     },
     {
@@ -839,8 +890,8 @@
         "notificationSoundComputed": "payload.sound",
         "notificationSoundComputedType": "msg",
         "output": 1,
-        "x": 950,
-        "y": 900,
+        "x": 2230,
+        "y": 500,
         "wires": [
             []
         ]
@@ -849,16 +900,16 @@
         "id": "fa770f10dcb789da",
         "type": "function",
         "z": "d11a3bcc6c1d79cc",
-        "name": "Checks if camerastatus is 0 then sends alert after 10 mins",
-        "func": "// ---------- Node-RED Function: Grouped Camera Offline Alert ----------\n// Handles multiple cameras going offline close together\n// Sends a grouped alert after OFFLINE_DELAY, then reminders every REMIND_INTERVAL\n// ---------------------------------------------------------------------\n\nconst OFFLINE_DELAY = 10 * 60 * 1000;   // 10 minutes \nconst REMIND_INTERVAL = 60 * 60 * 1000; // 60 minutes\n\nconst topic = msg.topic || \"\";\nconst payload = String(msg.payload).trim();\nconst match = topic.match(/^meteorcams\\/([0-9a-z]+)\\/camerastatus$/i);\nif (!match) return null;\n\nconst id = match[1].toUpperCase();\nconst now = Date.now();\n\n// node.warn(`Status update for ${id} = ${payload}`);\n\nlet statusMap = flow.get(\"cameraStatus\") || {};\nstatusMap[id] = { value: payload, lastUpdate: now };\nflow.set(\"cameraStatus\", statusMap);\n\n// Store timers\nlet offlineTimer = flow.get(\"offlineTimer\") || null;   // single group timer\nlet remindTimer  = flow.get(\"remindTimer\")  || null;\n\n// Helper: return all cameras offline > OFFLINE_DELAY\nfunction getOfflineList() {\n    const sMap = flow.get(\"cameraStatus\") || {};\n    const now = Date.now();\n    let offline = [];\n\n    for (const [cam, info] of Object.entries(sMap)) {\n        if (info.value === \"0\" && now - info.lastUpdate > OFFLINE_DELAY) {\n            const minsAgo = ((now - info.lastUpdate) / 60000).toFixed(1);\n            offline.push({ id: cam, lastSeenMins: parseFloat(minsAgo) });\n        }\n    }\n    return offline;\n}\n\n// --- When a camera goes offline ---\nif (payload === \"0\") {\n    // start a group alert timer if not already running\n    if (!offlineTimer) {\n        // node.warn(\"Starting offline group timer\");\n        offlineTimer = setTimeout(() => {\n            const offline = getOfflineList();\n            if (offline.length > 0) {\n                // node.warn(`Sending offline alert for ${offline.length} cameras`);\n                node.send([\n                    { topic: \"camera_offline_email\",  payload: { label: \"10 min\", offline } },\n                    { topic: \"camera_offline_remote\", payload: { label: \"10 min\", offline } }\n                ]);\n            }\n\n            // Start reminders\n            remindTimer = setInterval(() => {\n                const offline = getOfflineList();\n                if (offline.length > 0) {\n                    //node.warn(`Reminder: ${offline.length} cameras still offline`);\n                    node.send([\n                        { topic: \"camera_offline_email\",  payload: { label: \"60 min\", offline } },\n                        { topic: \"camera_offline_remote\", payload: { label: \"60 min\", offline } }\n                    ]);\n                }\n            }, REMIND_INTERVAL);\n\n            flow.set(\"remindTimer\", remindTimer);\n            flow.set(\"offlineTimer\", null);  // reset for next batch\n        }, OFFLINE_DELAY);\n\n        flow.set(\"offlineTimer\", offlineTimer);\n    }\n}\n\n// --- When a camera comes back online ---\nelse if (payload === \"1\") {\n    // update immediately\n    statusMap[id] = { value: \"1\", lastUpdate: now };\n    flow.set(\"cameraStatus\", statusMap);\n\n    // if no more offline cameras, stop timers\n    const stillOffline = Object.values(statusMap).some(s => s.value === \"0\");\n    if (!stillOffline) {\n        // node.warn(\"All cameras back online – clearing timers\");\n        if (offlineTimer) clearTimeout(offlineTimer);\n        if (remindTimer) clearInterval(remindTimer);\n        flow.set(\"offlineTimer\", null);\n        flow.set(\"remindTimer\", null);\n    }\n}\n\nreturn null;\n",
+        "name": "Checks if camerastatus is 0 then sends alert after 11 mins",
+        "func": "// ---------- Node-RED Function: Grouped Camera Offline Alert (Fixed) ----------\n// Uses FIRST offline time, not lastUpdate, so heartbeat \"0\" messages do NOT\n// reset the offline timer.\n// ---------------------------------------------------------------------------\n\nconst OFFLINE_DELAY = 11 * 60 * 1000;   // 11 minutes\nconst REMIND_INTERVAL = 60 * 60 * 1000; // 60 minutes\n\nconst topic = msg.topic || \"\";\nconst payload = String(msg.payload).trim();\nconst match = topic.match(/^meteorcams\\/([0-9a-z]+)\\/camerastatus$/i);\nif (!match) return null;\n\nconst id = match[1].toUpperCase();\nconst now = Date.now();\n\n// Load status map and timers\nlet statusMap   = flow.get(\"cameraStatus\") || {};\nlet offlineTimer = flow.get(\"offlineTimer\") || null;\nlet remindTimer  = flow.get(\"remindTimer\")  || null;\n\n// Ensure entry exists\nif (!statusMap[id]) {\n    statusMap[id] = { value: \"1\", firstOffline: null };\n}\n\n// --------------------\n// UPDATE STATUS\n// --------------------\nif (payload === \"0\") {\n\n    // Mark first time offline\n    if (!statusMap[id].firstOffline) {\n        statusMap[id].firstOffline = now;\n        // node.warn(`${id} FIRST offline at ${new Date(now).toISOString()}`);\n    }\n\n    statusMap[id].value = \"0\";\n    flow.set(\"cameraStatus\", statusMap);\n\n    // Start group offline timer (only once)\n    if (!offlineTimer) {\n        // node.warn(\"Starting offline group timer\");\n        offlineTimer = setTimeout(() => {\n\n            const offline = getOfflineList();\n            if (offline.length > 0) {\n                // node.warn(`Sending offline alert for ${offline.length} cameras`);\n                node.send([\n                    { topic: \"camera_offline_email\",  payload: { label: \"11 min\", offline } },\n                    { topic: \"camera_offline_remote\", payload: { label: \"11 min\", offline } }\n                ]);\n            }\n\n            // Start reminders\n            remindTimer = setInterval(() => {\n                const offline = getOfflineList();\n                if (offline.length > 0) {\n                    // node.warn(`Reminder: ${offline.length} cameras still offline`);\n                    node.send([\n                        { topic: \"camera_offline_email\",  payload: { label: \"60 min\", offline } },\n                        { topic: \"camera_offline_remote\", payload: { label: \"60 min\", offline } }\n                    ]);\n                }\n            }, REMIND_INTERVAL);\n\n            flow.set(\"remindTimer\", remindTimer);\n            flow.set(\"offlineTimer\", null);\n\n        }, OFFLINE_DELAY);\n\n        flow.set(\"offlineTimer\", offlineTimer);\n    }\n\n} else if (payload === \"1\") {\n    // Camera is online again\n    statusMap[id].value = \"1\";\n    statusMap[id].firstOffline = null;\n    flow.set(\"cameraStatus\", statusMap);\n\n    // If all cameras online, clear timers\n    const anyOffline = Object.values(statusMap).some(s => s.value === \"0\");\n    if (!anyOffline) {\n        // node.warn(\"All cameras back online – clearing timers\");\n        if (offlineTimer) clearTimeout(offlineTimer);\n        if (remindTimer) clearInterval(remindTimer);\n        flow.set(\"offlineTimer\", null);\n        flow.set(\"remindTimer\", null);\n    }\n}\n\nreturn null;\n\n\n// --------------------\n// HELPER: get offline list\n// --------------------\nfunction getOfflineList() {\n    const sMap = flow.get(\"cameraStatus\") || {};\n    const now = Date.now();\n    let offline = [];\n\n    for (const [cam, info] of Object.entries(sMap)) {\n        if (info.value === \"0\" && info.firstOffline) {\n            const minutes = (now - info.firstOffline) / 60000;\n            if ((now - info.firstOffline) >= OFFLINE_DELAY) {\n                offline.push({\n                    id: cam,\n                    lastSeenMins: parseFloat(minutes.toFixed(1))\n                });\n            }\n        }\n    }\n\n    return offline;\n}\n\n",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 290,
-        "y": 800,
+        "x": 830,
+        "y": 200,
         "wires": [
             [
                 "248259e399a530f7",
@@ -871,15 +922,15 @@
         "type": "function",
         "z": "d11a3bcc6c1d79cc",
         "name": "Formats for remote red push",
-        "func": "// ---------- Node-RED Function C: Remote RED Push Formatter ----------\n// Formats individual camera offline alerts for Remote RED push\n// --------------------------------------------------------------------\n\nif (!msg.payload || !msg.payload.offline) return null;\n\nconst { label, offline } = msg.payload;\nif (offline.length === 0) return null;\n\n// Create a readable camera list\nconst camList = offline.map(o => `${o.id} (${o.lastSeenMins} min ago)`).join(\", \");\n\nmsg.topic = \"Remote Alert: Cameras Offline\";\n\n// ✅ Remote RED Push expects msg.payload.title and msg.payload.body\nmsg.payload = {\n    title: `Cameras Offline > ${label}`,\n    body: `${camList} offline (${offline.length} total)`,\n    timestamp: new Date().toISOString()\n};\n\nreturn msg;\n",
+        "func": "// ---------- Node-RED Function C: Remote RED Push Formatter ----------\n// Formats individual camera offline alerts for Remote RED push\n// --------------------------------------------------------------------\n\nif (!msg.payload || !msg.payload.offline) return null;\n\nconst { label, offline } = msg.payload;\nif (offline.length === 0) return null;\n\n// Create a readable camera list\nconst camList = offline.map(o => `${o.id} (${o.lastSeenMins} min ago)`).join(\", \");\n\nmsg.topic = \"Remote Alert: Full System Offline\";\n\n// ✅ Remote RED Push expects msg.payload.title and msg.payload.body\nmsg.payload = {\n    title: `Full System Offline > ${label}`,\n    body: `${camList} offline (${offline.length} total)`,\n    timestamp: new Date().toISOString()\n};\n\nreturn msg;\n",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 640,
-        "y": 740,
+        "x": 1700,
+        "y": 620,
         "wires": [
             [
                 "7caaa4f3a7b74722"
@@ -890,16 +941,16 @@
         "id": "dbdafda51ab52ca4",
         "type": "function",
         "z": "d11a3bcc6c1d79cc",
-        "name": "Checks if device down and notifies after 10 mins",
-        "func": "// ---------- Node-RED Function A2: MeteorCam Missing / Offline Logic ----------\n// Checks if any camera has been silent for >10 minutes\n// Sends results to Function B (email) and Function C (remote alert)\n// ------------------------------------------------------------------------------\n\nconst now = Date.now();\nconst THRESHOLD = 10 * 60 * 1000;   // ✅ 10 minutes\nconst REMIND_INTERVAL = 60 * 60 * 1000; // 60 minutes\n\n// stored state\nconst lastSeen = flow.get(\"lastSeen\") || {};  // last time each camera reported\nlet lastAlert = flow.get(\"lastAlert\") || {};  // last alert timestamp per camera\n\nlet missing = [];  // list of offline devices\n\nfor (const [id, t] of Object.entries(lastSeen)) {\n    const minsAgo = ((now - t) / 60000).toFixed(1);\n\n    // device has been silent too long\n    if (now - t > THRESHOLD) {\n        const lastAlertTime = lastAlert[id] || 0;\n\n        // only alert if never alerted or >1hr since last alert\n        if (now - lastAlertTime > REMIND_INTERVAL) {\n            missing.push({\n                id,\n                lastSeenMins: parseFloat(minsAgo)\n            });\n            lastAlert[id] = now;  // record alert time\n        }\n    } else {\n        // device reporting again → clear its alert record\n        delete lastAlert[id];\n    }\n}\n\n// update stored state\nflow.set(\"lastAlert\", lastAlert);\n\n// if nothing missing, stop here\nif (missing.length === 0) return [null, null];\n\n// structured payload for downstream formatters\nconst payloadData = {\n    label: \"Full System off line for + 10mins\",\n    offline: missing\n};\n\n// --- Output 1: for email formatter ---\n// --- Output 2: for remote notification formatter ---\nconst emailMsg = {\n    topic: \"camera_offline_email\",\n    payload: payloadData\n};\n\nconst remoteMsg = {\n    topic: \"camera_offline_remote\",\n    payload: payloadData\n};\n\nreturn [emailMsg, remoteMsg];\n",
+        "name": "Checks if device down and notifies after 11 mins",
+        "func": "// ---------- Node-RED Function A2: MeteorCam Missing / Offline Logic ----------\n// Checks if any camera has been silent for >10 minutes\n// Sends results to Function B (email) and Function C (remote alert)\n// ------------------------------------------------------------------------------\n\nconst now = Date.now();\nconst THRESHOLD = 11 * 60 * 1000;   // ✅ 10 minutes\nconst REMIND_INTERVAL = 60 * 60 * 1000; // 60 minutes\n\n// stored state\nconst lastSeen = flow.get(\"lastSeen\") || {};  // last time each camera reported\nlet lastAlert = flow.get(\"lastAlert\") || {};  // last alert timestamp per camera\n\nlet missing = [];  // list of offline devices\n\nfor (const [id, t] of Object.entries(lastSeen)) {\n    const minsAgo = ((now - t) / 60000).toFixed(1);\n\n    // device has been silent too long\n    if (now - t > THRESHOLD) {\n        const lastAlertTime = lastAlert[id] || 0;\n\n        // only alert if never alerted or >1hr since last alert\n        if (now - lastAlertTime > REMIND_INTERVAL) {\n            missing.push({\n                id,\n                lastSeenMins: parseFloat(minsAgo)\n            });\n            lastAlert[id] = now;  // record alert time\n        }\n    } else {\n        // device reporting again → clear its alert record\n        delete lastAlert[id];\n    }\n}\n\n// update stored state\nflow.set(\"lastAlert\", lastAlert);\n\n// if nothing missing, stop here\nif (missing.length === 0) return [null, null];\n\n// structured payload for downstream formatters\nconst payloadData = {\n    label: \"Full System off line for + 11mins\",\n    offline: missing\n};\n\n// --- Output 1: for email formatter ---\n// --- Output 2: for remote notification formatter ---\nconst emailMsg = {\n    topic: \"camera_offline_email\",\n    payload: payloadData\n};\n\nconst remoteMsg = {\n    topic: \"camera_offline_remote\",\n    payload: payloadData\n};\n\nreturn [emailMsg, remoteMsg];\n",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 380,
-        "y": 640,
+        "x": 800,
+        "y": 500,
         "wires": [
             [
                 "715c6858a0953bd7",
@@ -919,8 +970,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 640,
-        "y": 980,
+        "x": 1700,
+        "y": 380,
         "wires": [
             [
                 "7caaa4f3a7b74722"
@@ -932,15 +983,15 @@
         "type": "function",
         "z": "d11a3bcc6c1d79cc",
         "name": "Formats for email",
-        "func": "// ---------- Node-RED Function B: Email Formatter ----------\nif (!msg.payload || !msg.payload.offline) return null;\n\nconst { label, offline } = msg.payload;\n\nif (offline.length === 0) return null;\n\nconst lines = offline.map(o => `${o.id} (last seen ${o.lastSeenMins} min ago)`);\nmsg.topic = `Cameras offline > ${label}`;\nmsg.payload = lines.join(\"\\n\");\n\nreturn msg;\n",
+        "func": "// ---------- Node-RED Function B: Email Formatter ----------\nif (!msg.payload || !msg.payload.offline) return null;\n\nconst { label, offline } = msg.payload;\n\nif (offline.length === 0) return null;\n\n// const lines = offline.map(o => `${o.id} (last seen ${o.lastSeenMins} min ago)`);\nconst lines = offline.map(o => `${o.id} (last seen ${o.humantime} min ago)`);\nmsg.topic = `Cameras offline > ${label}`;\nmsg.payload = lines.join(\"\\n\");\n\nreturn msg;\n",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 690,
-        "y": 840,
+        "x": 1670,
+        "y": 320,
         "wires": [
             [
                 "1bb94944c3976a7a"
@@ -952,15 +1003,15 @@
         "type": "function",
         "z": "d11a3bcc6c1d79cc",
         "name": "Formats for email",
-        "func": "// ---------- Node-RED Function B: Email Formatter ----------\nif (!msg.payload || !msg.payload.offline) return null;\n\nconst { label, offline } = msg.payload;\n\nif (offline.length === 0) return null;\n\nconst lines = offline.map(o => `${o.id} (last seen ${o.lastSeenMins} min ago)`);\nmsg.topic = `Cameras offline > ${label}`;\nmsg.payload = lines.join(\"\\n\");\n\nreturn msg;\n",
+        "func": "// ---------- Node-RED Function B: Email Formatter ----------\nif (!msg.payload || !msg.payload.offline) return null;\n\nconst { label, offline } = msg.payload;\n\nif (offline.length === 0) return null;\n\nconst lines = offline.map(o => `${o.id} (last seen ${o.lastSeenMins} min ago)`);\nmsg.topic = `Full System offline > ${label}`;\nmsg.payload = lines.join(\"\\n\");\n\nreturn msg;\n",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 610,
-        "y": 500,
+        "x": 1670,
+        "y": 560,
         "wires": [
             [
                 "1bb94944c3976a7a"
@@ -978,8 +1029,8 @@
         "endTime": "sunset",
         "startOffset": 0,
         "endOffset": 0,
-        "x": 470,
-        "y": 1100,
+        "x": 450,
+        "y": 740,
         "wires": [
             [
                 "7500bb965cc57c70"
@@ -1010,8 +1061,8 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 170,
-        "y": 1100,
+        "x": 150,
+        "y": 740,
         "wires": [
             [
                 "bbdefc60cc6feca6"
@@ -1037,8 +1088,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 750,
-        "y": 1080,
+        "x": 730,
+        "y": 720,
         "wires": [
             []
         ]
@@ -1062,8 +1113,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 750,
-        "y": 1140,
+        "x": 730,
+        "y": 780,
         "wires": [
             []
         ]
@@ -1075,11 +1126,280 @@
         "confignode": "693a52b8328cddc0",
         "name": "",
         "verbose": 0,
-        "x": 160,
-        "y": 1260,
+        "x": 2240,
+        "y": 620,
         "wires": [
             [],
             []
+        ]
+    },
+    {
+        "id": "9f91a5376081b4e4",
+        "type": "function",
+        "z": "d11a3bcc6c1d79cc",
+        "name": "Checks if certain stations have not rebooted for 30 hours",
+        "func": "// ---------- Integrated Lastboot Age Monitor (UTC-only, 1-hour throttle) ----------\n// Incoming timestamps are ALWAYS UTC (with or without trailing \"Z\").\n// If no timezone is present, \"Z\" is appended and parsed as UTC.\n// ---------------------------------------------------------------------------\n\n// ----- Config -----\nconst WATCH_TOPICS = [\n    \"meteorcams/nz0017/lastboot\",\n    \"meteorcams/nz002k/lastboot\",\n    \"meteorcams/nz0014/lastboot\"\n];\n\nconst THRESHOLD_HOURS = 30;\nconst THROTTLE_MS = 60 * 60 * 1000;   // 1 hour repeat-limit\n\n// ----- Check topic -----\nif (!WATCH_TOPICS.includes(msg.topic)) return null;\nif (typeof msg.payload !== \"string\") return null;\n\n// Extract camera ID\nconst match = msg.topic.match(/^meteorcams\\/([0-9a-z]+)\\/lastboot$/i);\nif (!match) return null;\nconst id = match[1].toUpperCase();\n\n// ----- Parse incoming lastboot timestamp (ASSUMED UTC ALWAYS) -----\nconst lastBootStr = msg.payload.trim();\n\n// Normalize common formats\nlet normalized = lastBootStr.replace(\" \", \"T\");\n\n// Detect if string already has timezone (Z or ±HH:mm or ±HHmm)\nconst hasTZ = /(Z|[+\\-]\\d{2}:?\\d{2})$/.test(normalized);\n\n// If missing TZ → force UTC \"Z\"\nif (!hasTZ) {\n    normalized += \"Z\";\n}\n\n// Convert \"+1300\" → \"+13:00\"\nnormalized = normalized.replace(/([+\\-]\\d{2})(\\d{2})$/, \"$1:$2\");\n\n// Parse as real UTC\nconst lastBootMS = Date.parse(normalized);\n\nif (isNaN(lastBootMS)) {\n    node.warn(\"Invalid/unparsed UTC date: \" + msg.payload);\n    return null;\n}\n\n// ----- Compare with now (UTC) -----\nconst now = Date.now();\nconst diffMS = now - lastBootMS;\nconst diffHours = diffMS / (1000 * 60 * 60);\n\nif (diffHours <= THRESHOLD_HOURS) {\n    return null;  // within allowed age\n}\n\n// ----- Throttle: 1 per hour per camera -----\nlet warnTimes = flow.get(\"lastbootWarnTimes\") || {};\n\nif (warnTimes[id] && (now - warnTimes[id] < THROTTLE_MS)) {\n    return null;  // too soon to repeat\n}\n\n// Store the timestamp of the warning\nwarnTimes[id] = now;\nflow.set(\"lastbootWarnTimes\", warnTimes);\n\n// ----- Build warning object -----\nconst minutes = diffHours * 60;\n\nconst warning = {\n    id,\n    hoursSinceBoot: diffHours.toFixed(2),\n    lastBoot: lastBootStr,\n    lastBootUTC: new Date(lastBootMS).toISOString(),\n    lastSeenMins: parseFloat(minutes.toFixed(1))\n};\n\n// ----- Build outgoing messages -----\nconst label = `Lastboot age warning (${diffHours.toFixed(1)} hrs, UTC)`;\n\nconst emailMsg = {\n    topic: \"camera_offline_email\",\n    payload: {\n        label,\n        offline: [warning]\n    }\n};\n\nconst remoteMsg = {\n    topic: \"camera_offline_remote\",\n    payload: {\n        label,\n        offline: [warning]\n    }\n};\n\n// Output 1 = email, Output 2 = remote\nreturn [emailMsg, remoteMsg];\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 830,
+        "y": 420,
+        "wires": [
+            [
+                "bf1bfeee3aa0a90a",
+                "55741845d986e26c"
+            ]
+        ]
+    },
+    {
+        "id": "f35e26031a67451c",
+        "type": "function",
+        "z": "d11a3bcc6c1d79cc",
+        "name": "Test input",
+        "func": "// This function outputs several fake test messages\n// Use it with a Split node (optional) or manually send each one with node.send()\n\nfunction send(topic, lastboot) {\n    node.send({\n        topic,\n        payload: lastboot\n    });\n}\n\n// ---- Fake data ----\n\n// Less than 30 hours ago\nsend(\"meteorcams/nz0017/lastboot\", \"2025-11-24 10:00:00\");\n\n// More than 30 hours ago\nsend(\"meteorcams/nz0017/lastboot\", \"2025-11-24 00:00:00\");\n\n// Wrong topic (should be ignored)\nsend(\"meteorcams/nz0099/lastboot\", \"2025-11-24 00:00:00\");\n\n// Other valid topic, >30 hours\nsend(\"meteorcams/nz002k/lastboot\", \"2025-11-23 05:00:00\");\n\n// Other valid topic, <30 hours\nsend(\"meteorcams/nz002k/lastboot\", \"2025-11-24 01:00:00\");\n\nreturn null;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 780,
+        "y": 260,
+        "wires": [
+            [
+                "5c05919805a76a5e",
+                "9f91a5376081b4e4"
+            ]
+        ]
+    },
+    {
+        "id": "5c05919805a76a5e",
+        "type": "debug",
+        "z": "d11a3bcc6c1d79cc",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 980,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "55741845d986e26c",
+        "type": "function",
+        "z": "d11a3bcc6c1d79cc",
+        "name": "Formats for remote red push",
+        "func": "// ---------- Node-RED Function C: Remote RED Push Formatter ----------\n// Formats grouped camera offline alerts for Remote RED push\n// --------------------------------------------------------------------\n\nif (!msg.payload || !msg.payload.offline) return null;\n\nconst { label, offline } = msg.payload;\nif (!offline.length) return null;\n\n// Convert lastSeenMins → minutes/hours/days friendly text\nfunction formatTime(mins) {\n    if (mins < 120) {\n        return `${mins.toFixed(0)} min`;\n    }\n\n    const hours = mins / 60;\n    if (hours < 48) {\n        return `${hours.toFixed(1)} hours`;\n    }\n\n    const days = hours / 24;\n    return `${days.toFixed(1)} days`;\n}\n\n// Build readable list for small notification body\nconst camList = offline\n    .map(o => `${o.id} (${formatTime(o.lastSeenMins)} ago)`)\n    .join(\", \");\n\nmsg.topic = \"Remote Alert: Reboot Failure\";\n\n// Remote notification payload\nmsg.payload = {\n    title: `Reboot Failure > ${label}`,\n    body: `${camList} offline (${offline.length} total)`\n};\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1700,
+        "y": 500,
+        "wires": [
+            [
+                "7caaa4f3a7b74722"
+            ]
+        ]
+    },
+    {
+        "id": "bf1bfeee3aa0a90a",
+        "type": "function",
+        "z": "d11a3bcc6c1d79cc",
+        "name": "Formats for email",
+        "func": "// ---------- Node-RED Function B: Email Formatter ----------\nif (!msg.payload || !msg.payload.offline) return null;\n\nconst { label, offline } = msg.payload;\nif (offline.length === 0) return null;\n\n// Convert lastSeenMins → minutes/hours/days friendly text\nfunction formatTime(mins) {\n    if (mins < 120) {\n        return `${mins.toFixed(0)} min`;\n    }\n\n    const hours = mins / 60;\n    if (hours < 48) {\n        return `${hours.toFixed(1)} hours`;\n    }\n\n    const days = hours / 24;\n    return `${days.toFixed(1)} days`;\n}\n\n// Build the output lines\nconst lines = offline.map(o => {\n    const human = formatTime(o.lastSeenMins);\n    return `${o.id} (last seen ${human} ago)`;\n});\n\n// Build email\nmsg.topic = `Reboot Failure > ${label}`;\nmsg.payload = lines.join(\"\\n\");\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1670,
+        "y": 440,
+        "wires": [
+            [
+                "1bb94944c3976a7a"
+            ]
+        ]
+    },
+    {
+        "id": "2d88ba2583720fc7",
+        "type": "function",
+        "z": "d11a3bcc6c1d79cc",
+        "name": "Clear all flow variables",
+        "func": "for (let key of flow.keys()) {\n    flow.set(key, undefined);\n}\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 580,
+        "y": 960,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "4c5f1b267650a8ac",
+        "type": "inject",
+        "z": "d11a3bcc6c1d79cc",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 360,
+        "y": 960,
+        "wires": [
+            [
+                "2d88ba2583720fc7"
+            ]
+        ]
+    },
+    {
+        "id": "04c96e0f324e3666",
+        "type": "function",
+        "z": "d11a3bcc6c1d79cc",
+        "name": "List all variables",
+        "func": "// -------- List all flow and global variables with their values --------\n\n// Container for output\nlet result = {\n    flow: {},\n    global: {}\n};\n\n// FLOW VARIABLES\nflow.keys().forEach(key => {\n    try {\n        result.flow[key] = flow.get(key);\n    } catch (e) {\n        result.flow[key] = \"[Error reading value]\";\n    }\n});\n\n// GLOBAL VARIABLES\nglobal.keys().forEach(key => {\n    try {\n        result.global[key] = global.get(key);\n    } catch (e) {\n        result.global[key] = \"[Error reading value]\";\n    }\n});\n\n// Output to Debug\nnode.warn(\"Flow & Global Variables:\");\nnode.warn(result);\n\n// Optional: also pass it out via msg.payload\nmsg.payload = result;\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 600,
+        "y": 900,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "9107cca60d6ec517",
+        "type": "inject",
+        "z": "d11a3bcc6c1d79cc",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 360,
+        "y": 900,
+        "wires": [
+            [
+                "04c96e0f324e3666"
+            ]
+        ]
+    },
+    {
+        "id": "dc790a54d1d6bcda",
+        "type": "ui_button",
+        "z": "d11a3bcc6c1d79cc",
+        "name": "",
+        "group": "4f9b949b3d54d9b6",
+        "order": 3,
+        "width": 6,
+        "height": 1,
+        "passthru": false,
+        "label": "Clear all variables",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "date",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 370,
+        "y": 1020,
+        "wires": [
+            [
+                "2d88ba2583720fc7"
+            ]
+        ]
+    },
+    {
+        "id": "40145fe5a5944aeb",
+        "type": "inject",
+        "z": "d11a3bcc6c1d79cc",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 620,
+        "y": 260,
+        "wires": [
+            [
+                "f35e26031a67451c"
+            ]
+        ]
+    },
+    {
+        "id": "e7701ed9ad1d35b9",
+        "type": "function",
+        "z": "d11a3bcc6c1d79cc",
+        "name": "Suppress unchanged lastboot values",
+        "func": "// ---------- Node-RED Function: Suppress unchanged lastboot values ----------\n\n// Extract camera ID\nfunction extractCameraID(topic) {\n    let match = topic?.match(/nz[0-9a-z]+/i);\n    return match ? match[0].toUpperCase() : null;\n}\n\nlet topic = msg.topic || \"\";\nlet cam = extractCameraID(topic);\n\n// If we can't detect a camera ID, just pass it\nif (!cam) return msg;\n\n// Only dedupe LASTBOOT\nif (/lastboot$/i.test(topic)) {\n\n    let newValue = msg.payload;    // <-- plain string\n    \n    // If payload is not usable, just let it pass\n    if (typeof newValue !== \"string\" || newValue.trim() === \"\") {\n        return msg;\n    }\n\n    let key = \"lastboot_\" + cam;\n    let prevValue = flow.get(key);\n\n    // If unchanged → drop the message\n    if (prevValue === newValue) {\n        return null;\n    }\n\n    // Otherwise store new value and allow through\n    flow.set(key, newValue);\n    return msg;\n}\n\n// Other topics always pass through\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 790,
+        "y": 140,
+        "wires": [
+            [
+                "9b786a2d84183bf9"
+            ]
         ]
     },
     {
@@ -1183,7 +1503,7 @@
         "z": "793d83fb15a6a9ba",
         "influxdb": "1742aa216cfb6307",
         "name": " Star Count Querry for bar chart",
-        "query": "SELECT \"value_num\",\"topic\"\nFROM \"24hours\".\"live_messages\"\nWHERE \"topic\" =~ /meteorcams\\/nz[0-9A-Za-z]+\\/starcount/\n  AND time > now() - 1h\nORDER BY time ASC\n",
+        "query": "SELECT \"value_num\",\"topic\"\nFROM \"2days\".\"live_messages\"\nWHERE \"topic\" =~ /meteorcams\\/nz[0-9A-Za-z]+\\/starcount/\n  AND time > now() - 1h\nORDER BY time ASC\n",
         "rawOutput": false,
         "precision": "",
         "retentionPolicy": "",
@@ -1201,7 +1521,7 @@
         "type": "ui_text",
         "z": "793d83fb15a6a9ba",
         "group": "90a11db5be370378",
-        "order": 7,
+        "order": 9,
         "width": 12,
         "height": 1,
         "name": "Last Updated",
@@ -1223,7 +1543,7 @@
         "z": "793d83fb15a6a9ba",
         "influxdb": "1742aa216cfb6307",
         "name": "Star Count Querry for Line Graph",
-        "query": "SELECT \"value_num\",\"topic\"\nFROM \"24hours\".\"live_messages\"\nWHERE \"topic\" =~ /meteorcams\\/nz[0-9A-Za-z]+\\/starcount/\nORDER BY time ASC\nLIMIT 2000\n",
+        "query": "SELECT \"value_num\",\"topic\"\nFROM \"2days\".\"live_messages\"\nWHERE \"topic\" =~ /meteorcams\\/nz[0-9A-Za-z]+\\/starcount/\nORDER BY time ASC\n",
         "rawOutput": false,
         "precision": "",
         "retentionPolicy": "",
@@ -1262,13 +1582,13 @@
         "z": "793d83fb15a6a9ba",
         "name": "Star Count Line Chart",
         "group": "90a11db5be370378",
-        "order": 9,
+        "order": 12,
         "width": 22,
         "height": 6,
         "label": "Star Count Over Time",
         "chartType": "line",
         "legend": "true",
-        "xformat": "HH:mm",
+        "xformat": "dd HH:mm",
         "interpolate": "linear",
         "nodata": "",
         "dot": false,
@@ -1338,7 +1658,7 @@
         "group": "9aeeb46ed3a84dc4",
         "name": "Meteor Counts Table",
         "order": 1,
-        "width": 7,
+        "width": 15,
         "height": 7,
         "columns": [],
         "outputs": 0,
@@ -1353,7 +1673,7 @@
         "z": "e881957e79a14179",
         "influxdb": "35d5b4ab694d1161",
         "name": "Querry for Table",
-        "query": "SELECT \n  LAST(\"value_str\") AS value_str, \n  LAST(\"value_num\") AS value_num\nFROM \"meteor_messages\"\nWHERE \"topic\" =~ /meteorcams\\/[A-Za-z]{2}[0-9A-Za-z]{4}\\/(nextcapstart|meteorcount|detectioncount)/\nGROUP BY \"topic\" fill(none)\n",
+        "query": "SELECT \n  LAST(\"value_str\") AS value_str, \n  LAST(\"value_num\") AS value_num\nFROM \"1week\".\"meteor_messages\"\nWHERE \"topic\" =~ /meteorcams\\/[A-Za-z]{2}[0-9A-Za-z]{4}\\/(nextcapstart|meteorcount|detectioncount|lastboot)/\nGROUP BY \"topic\" fill(none)\n",
         "rawOutput": false,
         "precision": "",
         "retentionPolicy": "",
@@ -1371,7 +1691,7 @@
         "type": "function",
         "z": "e881957e79a14179",
         "name": "Process Data",
-        "func": "// ---------- Node-RED Function: Influx result → ui-table (show 0s) ----------\n//\n// Input: msg.payload = [\n//   { topic: \"meteorcams/nz0014/nextcapstart\", value_str: \"2025-10-30 07:12:10 UTC\" },\n//   { topic: \"meteorcams/nz0014/meteorcount\",  value_num: 3 },\n//   { topic: \"meteorcams/nz0014/detectioncount\", value_num: 0 },\n//   ...\n// ]\n//\n// Output: msg.payload = [\n//   { Camera: \"NZ0014\", \"Next Capture\": \"...\", \"Meteor Count\": 3, \"Detection Count\": 0 },\n//   { Camera: \"NZ001P\", \"Next Capture\": \"\", \"Meteor Count\": 0, \"Detection Count\": 0 },\n//   ...\n// ]\n// ---------------------------------------------------------------------------\n\nlet data = msg.payload || [];\n\n// Helper — extract the NZ camera ID\nfunction extractCameraID(topic) {\n    let match = topic?.match(/nz[0-9a-z]+/i);\n    return match ? match[0].toUpperCase() : \"UNKNOWN\";\n}\n\nlet grouped = {};\n\n// Pass 1 — create entries for every camera we see\nfor (let row of data) {\n    if (!row || !row.topic) continue;\n    const cam = extractCameraID(row.topic);\n    if (!grouped[cam]) {\n        grouped[cam] = {\n            Camera: cam,\n            \"Next Capture\": \"\",\n            \"Meteor Count\": 0,\n            \"Detection Count\": 0\n        };\n    }\n}\n\n// Pass 2 — populate values\nfor (let row of data) {\n    const cam = extractCameraID(row.topic);\n    if (!grouped[cam]) continue;\n\n    if (/nextcapstart$/i.test(row.topic)) {\n        grouped[cam][\"Next Capture\"] = row.value_str || \"\";\n    } \n    else if (/meteorcount$/i.test(row.topic)) {\n        grouped[cam][\"Meteor Count\"] = Number(row.value_num) || 0;\n    } \n    else if (/detectioncount$/i.test(row.topic)) {\n        grouped[cam][\"Detection Count\"] = Number(row.value_num) || 0;\n    }\n}\n\n// Convert to array and sort\nmsg.payload = Object.values(grouped).sort((a, b) => a.Camera.localeCompare(b.Camera));\n\nreturn msg;\n",
+        "func": "// ---------- Node-RED Function: Influx result → ui-table (show 0s + Last Boot) ----------\n\nlet data = msg.payload || [];\n\n// Helper — extract the NZ camera ID\nfunction extractCameraID(topic) {\n    let match = topic?.match(/nz[0-9a-z]+/i);\n    return match ? match[0].toUpperCase() : \"UNKNOWN\";\n}\n\nlet grouped = {};\n\n// Pass 1 — create entries for every camera we see\nfor (let row of data) {\n    if (!row || !row.topic) continue;\n    const cam = extractCameraID(row.topic);\n    if (!grouped[cam]) {\n        grouped[cam] = {\n            Camera: cam,\n            \"Last Boot\": \"\",         // <-- NEW COLUMN (string)\n            \"Next Capture\": \"\",\n            \"Meteor Count\": 0,\n            \"Detection Count\": 0\n        };\n    }\n}\n\n// Pass 2 — populate values\nfor (let row of data) {\n    const cam = extractCameraID(row.topic);\n    if (!grouped[cam]) continue;\n\n    if (/lastboot$/i.test(row.topic)) {\n        grouped[cam][\"Last Boot\"] = row.value_str || \"\";\n    }\n    else if (/nextcapstart$/i.test(row.topic)) {\n        grouped[cam][\"Next Capture\"] = row.value_str || \"\";\n    }\n    else if (/meteorcount$/i.test(row.topic)) {\n        grouped[cam][\"Meteor Count\"] = Number(row.value_num) || 0;\n    }\n    else if (/detectioncount$/i.test(row.topic)) {\n        grouped[cam][\"Detection Count\"] = Number(row.value_num) || 0;\n    }\n}\n\n// Convert to array and sort\nmsg.payload = Object.values(grouped).sort((a, b) => a.Camera.localeCompare(b.Camera));\n\nreturn msg;\n",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -1392,7 +1712,7 @@
         "z": "e881957e79a14179",
         "influxdb": "35d5b4ab694d1161",
         "name": "Querry for graph",
-        "query": "SELECT SUM(\"value_num\") AS meteorcount\nFROM \"meteor_messages\"\nWHERE \"topic\" =~ /meteorcams\\/[a-z0-9]+\\/meteorcount/\nGROUP BY time(1d), \"topic\" fill(0)\nORDER BY time ASC\n",
+        "query": "SELECT SUM(\"value_num\") AS meteorcount\nFROM \"1week\".\"meteor_messages\"\nWHERE \"topic\" =~ /meteorcams\\/[a-z0-9]+\\/meteorcount/\nGROUP BY time(1d), \"topic\" fill(0)\nORDER BY time ASC\n",
         "rawOutput": false,
         "precision": "",
         "retentionPolicy": "",
@@ -1432,7 +1752,7 @@
         "name": "Meteor Count",
         "group": "9aeeb46ed3a84dc4",
         "order": 2,
-        "width": 7,
+        "width": 15,
         "height": 5,
         "label": "Meteor Count",
         "chartType": "bar",
@@ -1475,7 +1795,7 @@
         "z": "e881957e79a14179",
         "influxdb": "35d5b4ab694d1161",
         "name": "Querry for graph",
-        "query": "SELECT SUM(\"value_num\") AS detectioncount\nFROM \"meteor_messages\"\nWHERE \"topic\" =~ /meteorcams\\/[a-z0-9]+\\/detectioncount/\nGROUP BY time(1d), \"topic\" fill(0)\nORDER BY time ASC\n",
+        "query": "SELECT SUM(\"value_num\") AS detectioncount\nFROM \"1week\".\"meteor_messages\"\nWHERE \"topic\" =~ /meteorcams\\/[a-z0-9]+\\/detectioncount/\nGROUP BY time(1d), \"topic\" fill(0)\nORDER BY time ASC\n",
         "rawOutput": false,
         "precision": "",
         "retentionPolicy": "",
@@ -1495,7 +1815,7 @@
         "name": "Detection Count",
         "group": "9aeeb46ed3a84dc4",
         "order": 3,
-        "width": 7,
+        "width": 15,
         "height": 4,
         "label": "Detection Count",
         "chartType": "bar",
@@ -1617,7 +1937,7 @@
         "label": "CPU Temp Chart",
         "chartType": "line",
         "legend": "true",
-        "xformat": "HH:mm",
+        "xformat": "dd HH:mm",
         "interpolate": "linear",
         "nodata": "",
         "dot": false,
@@ -1655,7 +1975,7 @@
         "z": "8600a2de96944330",
         "influxdb": "1742aa216cfb6307",
         "name": " Temp Querry",
-        "query": "SELECT \"value_num\",\"topic\"\nFROM \"24hours\".\"live_messages\"\nWHERE \"topic\" =~ /meteorcams\\/nz[0-9A-Za-z]+\\/cputemp/\nORDER BY time ASC\nLIMIT 2000\n",
+        "query": "SELECT \"value_num\",\"topic\"\nFROM \"2days\".\"live_messages\"\nWHERE \"topic\" =~ /meteorcams\\/nz[0-9A-Za-z]+\\/cputemp/\nORDER BY time ASC\nLIMIT 2000\n",
         "rawOutput": false,
         "precision": "",
         "retentionPolicy": "",
@@ -1694,13 +2014,13 @@
         "z": "8600a2de96944330",
         "name": "Disk Space",
         "group": "b90dd2b3db9b35f7",
-        "order": 7,
+        "order": 9,
         "width": 7,
         "height": 6,
         "label": "Disk Space",
         "chartType": "line",
         "legend": "true",
-        "xformat": "HH:mm",
+        "xformat": "dd HH:mm",
         "interpolate": "linear",
         "nodata": "",
         "dot": false,
@@ -1738,7 +2058,7 @@
         "z": "8600a2de96944330",
         "influxdb": "1742aa216cfb6307",
         "name": " Disk Space Querry",
-        "query": "SELECT \"value_num\",\"topic\"\nFROM \"24hours\".\"live_messages\"\nWHERE \"topic\" =~ /meteorcams\\/nz[0-9A-Za-z]+\\/diskspace/\nORDER BY time ASC\nLIMIT 2000\n",
+        "query": "SELECT \"value_num\",\"topic\"\nFROM \"2days\".\"live_messages\"\nWHERE \"topic\" =~ /meteorcams\\/nz[0-9A-Za-z]+\\/diskspace/\nORDER BY time ASC\nLIMIT 2000\n",
         "rawOutput": false,
         "precision": "",
         "retentionPolicy": "",
@@ -1777,13 +2097,13 @@
         "z": "8600a2de96944330",
         "name": "Memory Used %",
         "group": "b90dd2b3db9b35f7",
-        "order": 14,
+        "order": 16,
         "width": 7,
         "height": 6,
         "label": "Memory Used %",
         "chartType": "line",
         "legend": "true",
-        "xformat": "HH:mm",
+        "xformat": "dd HH:mm",
         "interpolate": "linear",
         "nodata": "",
         "dot": false,
@@ -1821,7 +2141,7 @@
         "z": "8600a2de96944330",
         "influxdb": "1742aa216cfb6307",
         "name": " Memory Querry",
-        "query": "SELECT \"value_num\",\"topic\"\nFROM \"24hours\".\"live_messages\"\nWHERE \"topic\" =~ /meteorcams\\/nz[0-9A-Za-z]+\\/memusedpct/\nORDER BY time ASC\nLIMIT 2000\n",
+        "query": "SELECT \"value_num\",\"topic\"\nFROM \"2days\".\"live_messages\"\nWHERE \"topic\" =~ /meteorcams\\/nz[0-9A-Za-z]+\\/memusedpct/\nORDER BY time ASC\nLIMIT 2000\n",
         "rawOutput": false,
         "precision": "",
         "retentionPolicy": "",
@@ -1860,13 +2180,13 @@
         "z": "8600a2de96944330",
         "name": "Swap Used %",
         "group": "b90dd2b3db9b35f7",
-        "order": 21,
+        "order": 23,
         "width": 7,
         "height": 6,
         "label": "Swap Used %",
         "chartType": "line",
         "legend": "true",
-        "xformat": "HH:mm",
+        "xformat": "dd HH:mm",
         "interpolate": "linear",
         "nodata": "",
         "dot": false,
@@ -1904,7 +2224,7 @@
         "z": "8600a2de96944330",
         "influxdb": "1742aa216cfb6307",
         "name": " Swap Querry",
-        "query": "SELECT \"value_num\",\"topic\"\nFROM \"24hours\".\"live_messages\"\nWHERE \"topic\" =~ /meteorcams\\/nz[0-9A-Za-z]+\\/swapusedpct/\nORDER BY time ASC\nLIMIT 2000\n",
+        "query": "SELECT \"value_num\",\"topic\"\nFROM \"2days\".\"live_messages\"\nWHERE \"topic\" =~ /meteorcams\\/nz[0-9A-Za-z]+\\/swapusedpct/\nORDER BY time ASC\nLIMIT 2000\n",
         "rawOutput": false,
         "precision": "",
         "retentionPolicy": "",
@@ -1943,7 +2263,7 @@
         "z": "8600a2de96944330",
         "name": "Camera Status ",
         "group": "b90dd2b3db9b35f7",
-        "order": 28,
+        "order": 30,
         "width": 18,
         "height": 6,
         "label": "Camera Status",
@@ -1987,7 +2307,7 @@
         "z": "8600a2de96944330",
         "influxdb": "1742aa216cfb6307",
         "name": " Camera Status Querry",
-        "query": "SELECT \"value_num\",\"topic\"\nFROM \"camera_status_messages\"\nWHERE \"topic\" =~ /meteorcams\\/nz[0-9A-Za-z]+\\/camerastatus/\n--WHERE \"topic\" =~ /meteorcams\\/(nz0014|nz002k|nz0017|nz005a)\\/camerastatus/\n--WHERE \"topic\" =~ /^meteorcams\\/nz[0-9A-Za-z]+\\/camerastatus$/\nORDER BY time ASC\n",
+        "query": "SELECT \"value_num\",\"topic\"\nFROM \"1week\".\"camera_status_messages\"\nWHERE \"topic\" =~ /meteorcams\\/nz[0-9A-Za-z]+\\/camerastatus/\n--WHERE \"topic\" =~ /meteorcams\\/(nz0014|nz002k|nz0017|nz005a)\\/camerastatus/\n--WHERE \"topic\" =~ /^meteorcams\\/nz[0-9A-Za-z]+\\/camerastatus$/\nORDER BY time ASC\n",
         "rawOutput": false,
         "precision": "",
         "retentionPolicy": "",
@@ -2001,7 +2321,7 @@
         ]
     },
     {
-        "id": "d7663453f4222d24",
+        "id": "d1aa8540c5d153ff",
         "type": "global-config",
         "env": [],
         "modules": {
