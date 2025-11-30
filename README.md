@@ -23,7 +23,6 @@
 
 - Extracts files with the pattern _FTPdetectinfo_.* and *platepars_all*.* from bz2 files in the path
 - Places the resulting files in a folder named after the first 6 characters of the archive name.
-- 99% of this is written by ChatGPT
 
 # plot_r_gain_data.py
 
