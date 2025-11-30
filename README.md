@@ -48,3 +48,7 @@
 # NodeRedApp.json
 
 - My Node Red App for monitoring multiple RMS cameras. Used in conjunction with https://github.com/markmac99/rms_mqtt
+
+# label_images.py
+
+- Takes 1 arguement which is a path and will recursively find all picture files in that path and will add the filename to the bottom LH corner of the picture. The new picture is save in the default directory.
