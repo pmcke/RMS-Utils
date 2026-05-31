@@ -42,6 +42,18 @@ case "$ANSWER" in
     *) echo "Installation cancelled."; exit 0 ;;
 esac
 
+if [ "$CODENAME" = "buster" ]; then
+    if grep -q "raspbian.raspberrypi.org" /etc/apt/sources.list; then
+        echo
+        echo "WARNING: Buster may require legacy repository URLs."
+        echo "If installation fails with 404 errors, change:"
+        echo "  raspbian.raspberrypi.org"
+        echo "to:"
+        echo "  legacy.raspbian.org"
+        echo
+    fi
+fi
+
 if [ -f "$INI_FILE" ]; then
     echo "Reading settings from $INI_FILE..."
 
@@ -170,7 +182,7 @@ sudo cp "$USER_CONFIG_DIR/RustDesk2.toml" "$ROOT_CONFIG_DIR/RustDesk2.toml"
 
 echo "Starting RustDesk service so it creates RustDesk.toml..."
 sudo systemctl enable --now rustdesk
-sleep 10
+sleep 20
 
 echo "Stopping RustDesk service while applying station ID..."
 sudo systemctl stop rustdesk 2>/dev/null || true
@@ -211,10 +223,27 @@ echo "Starting RustDesk service..."
 sudo systemctl start rustdesk
 
 echo "Waiting for RustDesk service..."
-sleep 10
+sleep 20
 
 echo "Setting RustDesk permanent password..."
-sudo rustdesk --password "$RD_PASSWORD"
+sudo rustdesk --password "$RD_PASSWORD"echo "Setting RustDesk permanent password..."
+
+PASSWORD_SET=0
+for attempt in 1 2 3 4 5; do
+    if sudo rustdesk --password "$RD_PASSWORD"; then
+        PASSWORD_SET=1
+        break
+    fi
+
+    echo "Password set failed; retrying in 5 seconds..."
+    sleep 5
+done
+
+if [ "$PASSWORD_SET" -ne 1 ]; then
+    echo "WARNING: Unable to set RustDesk password automatically."
+    echo "You can set it manually with:"
+    echo "sudo rustdesk --password '<password>'"
+fi
 
 echo "RustDesk install/config complete."
 echo "Station: $STATION"
