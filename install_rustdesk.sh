@@ -42,6 +42,8 @@ case "$ANSWER" in
     *) echo "Installation cancelled."; exit 0 ;;
 esac
 
+CODENAME="$(. /etc/os-release && echo "${VERSION_CODENAME:-unknown}")"
+
 if [ "$CODENAME" = "buster" ]; then
     if grep -q "raspbian.raspberrypi.org" /etc/apt/sources.list; then
         echo
