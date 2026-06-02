@@ -51,3 +51,29 @@
 # label_images.py
 
 - Takes 1 arguement which is a path and will recursively find all picture files in that path and will add the filename to the bottom LH corner of the picture. The new picture is save in the default directory.
+
+# install_rustdesk.sh
+
+- Installs Rustdesk. Uses two arguements, Station ID and Rustdesk Password. If install_rustdesk.ini is in the same folder, it will include Rustdesk ID server details in the installation. Tested on Buster, Bookworm and Trixie. Should also work on x86 machines.
+
+# remove_rustdesk.sh
+
+- Removes an installation of Rustdesk
+
+# concat_mkv
+
+- Concatenates a list of mkv movies. One arguement a folder containing the mkv files
+
+# concat_mp4
+
+- Concatenates a list of mp4 movies. One arguement a folder containing the mp4 files
+
+# win_to_wsl.py
+
+- Converts a Windows path to a Linux style path. Returns the path to screen and loads it into the copy buffer.
+
+# merge_logs_to_excel.py
+
+# GRMSShutdown.sh
+
+- A graceful shutdown for a multi camera RMS system
