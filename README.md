@@ -72,8 +72,12 @@
 
 - Converts a Windows path to a Linux style path. Returns the path to screen and loads it into the copy buffer.
 
-# merge_logs_to_excel.py
-
 # GRMSShutdown.sh
 
 - A graceful shutdown for a multi camera RMS system
+
+# GRMSShutdown.wrapper.sh
+
+- Runs GRMSShutdown.sh and then powers off the machine. For use with a UPS when battery low.
+
+# merge_logs_to_excel.py
