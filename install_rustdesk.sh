@@ -43,6 +43,7 @@ case "$ANSWER" in
 esac
 
 CODENAME="$(. /etc/os-release && echo "${VERSION_CODENAME:-unknown}")"
+OS_ID="$(. /etc/os-release && echo "${ID:-unknown}")"
 
 if [ "$CODENAME" = "buster" ]; then
     if grep -q "raspbian.raspberrypi.org" /etc/apt/sources.list; then
@@ -84,6 +85,23 @@ case "${ENABLE_REMOTE_CONFIGURATION_MODIFICATION,,}" in
         ALLOW_REMOTE_CONFIG_MODIFICATION="N"
         ;;
 esac
+
+# RustDesk's command-line option setter is needed on some Ubuntu builds
+# because the service rewrites RustDesk2.toml at startup.  Keep the
+# original TOML method for Raspberry Pi / Raspberry Pi OS, where it is
+# already proven to work.
+add_default_port_if_missing() {
+    local value="$1"
+    local port="$2"
+
+    if [ -z "$value" ]; then
+        echo ""
+    elif [[ "$value" == *:* ]]; then
+        echo "$value"
+    else
+        echo "${value}:${port}"
+    fi
+}
 
 if ! command -v curl >/dev/null 2>&1; then
     sudo apt-get update
@@ -182,12 +200,54 @@ EOF
 
 sudo cp "$USER_CONFIG_DIR/RustDesk2.toml" "$ROOT_CONFIG_DIR/RustDesk2.toml"
 
+if [ "$OS_ID" = "ubuntu" ]; then
+    echo "Applying RustDesk server settings using rustdesk --option for Ubuntu..."
+
+    UBUNTU_ID_SERVER="$(add_default_port_if_missing "$ID_SERVER" "21116")"
+    UBUNTU_RELAY_SERVER="$(add_default_port_if_missing "$RELAY_SERVER" "21117")"
+
+    if [ -n "$UBUNTU_ID_SERVER" ]; then
+        sudo rustdesk --option custom-rendezvous-server "$UBUNTU_ID_SERVER" || true
+    fi
+
+    if [ -n "$UBUNTU_RELAY_SERVER" ]; then
+        sudo rustdesk --option relay-server "$UBUNTU_RELAY_SERVER" || true
+    fi
+
+    if [ -n "$KEY" ]; then
+        sudo rustdesk --option key "$KEY" || true
+    fi
+
+    sudo rustdesk --option allow-remote-config-modification "$ALLOW_REMOTE_CONFIG_MODIFICATION" || true
+fi
+
 echo "Starting RustDesk service so it creates RustDesk.toml..."
 sudo systemctl enable --now rustdesk
 sleep 20
 
 echo "Stopping RustDesk service while applying station ID..."
 sudo systemctl stop rustdesk 2>/dev/null || true
+
+if [ "$OS_ID" = "ubuntu" ]; then
+    echo "Re-applying RustDesk server settings using rustdesk --option for Ubuntu..."
+
+    UBUNTU_ID_SERVER="$(add_default_port_if_missing "$ID_SERVER" "21116")"
+    UBUNTU_RELAY_SERVER="$(add_default_port_if_missing "$RELAY_SERVER" "21117")"
+
+    if [ -n "$UBUNTU_ID_SERVER" ]; then
+        sudo rustdesk --option custom-rendezvous-server "$UBUNTU_ID_SERVER" || true
+    fi
+
+    if [ -n "$UBUNTU_RELAY_SERVER" ]; then
+        sudo rustdesk --option relay-server "$UBUNTU_RELAY_SERVER" || true
+    fi
+
+    if [ -n "$KEY" ]; then
+        sudo rustdesk --option key "$KEY" || true
+    fi
+
+    sudo rustdesk --option allow-remote-config-modification "$ALLOW_REMOTE_CONFIG_MODIFICATION" || true
+fi
 
 ROOT_TOML="$ROOT_CONFIG_DIR/RustDesk.toml"
 sudo touch "$ROOT_TOML"
@@ -228,7 +288,6 @@ echo "Waiting for RustDesk service..."
 sleep 20
 
 echo "Setting RustDesk permanent password..."
-sudo rustdesk --password "$RD_PASSWORD"echo "Setting RustDesk permanent password..."
 
 PASSWORD_SET=0
 for attempt in 1 2 3 4 5; do
@@ -252,6 +311,10 @@ echo "Station: $STATION"
 echo "ID server: $ID_SERVER"
 echo "Relay server: $RELAY_SERVER"
 echo "Remote configuration modification: $ENABLE_REMOTE_CONFIGURATION_MODIFICATION"
+if [ "$OS_ID" = "ubuntu" ]; then
+    echo "Ubuntu option ID server: ${UBUNTU_ID_SERVER:-}"
+    echo "Ubuntu option relay server: ${UBUNTU_RELAY_SERVER:-}"
+fi
 echo "RustDesk ID:"
 sudo rustdesk --get-id || true
 
