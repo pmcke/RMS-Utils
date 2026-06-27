@@ -1,7 +1,7 @@
 
 # Before using the user needs to run the following:
 
-#  sed -i 's/\r$//' install_rustdesk.sh
+#  sed -i 's/\r$//' install_rustdesk.*
 #  chmod +x install_rustdesk.sh
 #  ./install_rustdesk.sh <ID> <password>
 
@@ -50,9 +50,14 @@ if [ "$CODENAME" = "buster" ]; then
         echo
         echo "WARNING: Buster may require legacy repository URLs."
         echo "If installation fails with 404 errors, change:"
-        echo "  raspbian.raspberrypi.org"
-        echo "to:"
-        echo "  legacy.raspbian.org"
+        echo
+        echo "/etc/apt/sources.list"
+        echo 
+        echo "to:
+        echo "deb http://legacy.raspbian.org/raspbian/ buster main contrib non-free rpi"
+        echo "#deb-src http://legacy.raspbian.org/raspbian/ buster main contrib non-free rpi"
+        echo 
+        echo 
         echo
     fi
 fi
