@@ -53,7 +53,7 @@ if [ "$CODENAME" = "buster" ]; then
         echo
         echo "/etc/apt/sources.list"
         echo 
-        echo "to:
+        echo "to:"
         echo "deb http://legacy.raspbian.org/raspbian/ buster main contrib non-free rpi"
         echo "#deb-src http://legacy.raspbian.org/raspbian/ buster main contrib non-free rpi"
         echo 
