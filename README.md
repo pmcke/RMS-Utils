@@ -33,7 +33,7 @@
 
 # new_extractBz2.py
 
-- A re-work of extractBz2 which allows for a second arguement being a different folder to write the files to. Plus it reduces the path down to only the folder that the files are actually in.
+- A re-work of extractBz2 which allows for a second arguement being a different folder to write the files to. Plus it reduces the path down to only the folder that the files are actually in. Will skip an existing extraction, unless the --overwrite switch is used.
 
 # add_txt.py
 
