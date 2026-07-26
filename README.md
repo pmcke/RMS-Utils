@@ -80,4 +80,6 @@
 
 - Runs GRMSShutdown.sh and then powers off the machine. For use with a UPS when battery low.
 
-# merge_logs_to_excel.py
+# meteor_scan.py
+
+- I was trying to visually scan about 300 30sec mkv clips and got bored so I asked Chat-GPT to do it. I was limited to 20 files per upload and in the end it suggested it write me a python script to do the job on my own computer. This is the result. It didn't find any meteors in the 300 but did find a meteor viewed through trees in another clip. So I guess it is sort of tested.
