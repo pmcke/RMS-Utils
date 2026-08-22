@@ -82,8 +82,4 @@
 
 # meteor_scan.py
 
-- I was trying to visually scan about 300 30sec mkv clips and got bored so I asked Chat-GPT to do it. I was limited to 20 files per upload and in the end it suggested it write me a python script to do the job on my own computer. This is the result. It didn't find any meteors in the 300 but did find a meteor viewed through trees in another clip. So I guess it is sort of tested.
-
-# meteor_scan_masked.py
-
-- A version of meteor_scan.py that makes use of mask.bmp to elliminate areas of the video to not scan
+- Scans a folder of video files and looks for something that might be a meteor. Use with mask.bmp to avoid scanning areas that are not sky. If scanning videos from multiple cameras, rename the mask with the camera code. ie. If the video's name is NZ005C_20260819_065608_490671_video.mkv then rename mask.bmp to NZ0005C_mask.bmp and thise videos will be scanned with that mask.

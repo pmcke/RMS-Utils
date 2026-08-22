@@ -10,6 +10,7 @@ Features
     * a directory containing videos, or
     * a ZIP archive containing videos
 - Examines every frame
+- Uses <station>_mask.bmp when present, otherwise mask.bmp, and ignores black mask areas
 - Uses temporal background subtraction and contour analysis
 - Looks for short-lived bright, elongated, moving objects
 - Rejects:
@@ -343,11 +344,32 @@ def save_candidate_clip(
     return output_path.exists() and output_path.stat().st_size > 0
 
 
+
+def load_exclusion_mask(mask_path: Path) -> Optional[np.ndarray]:
+    """
+    Load mask.bmp as an 8-bit binary mask.
+
+    White pixels (255) are searched for candidates.
+    Black pixels (0) are ignored.
+    """
+    if not mask_path.is_file():
+        return None
+
+    mask = cv2.imread(str(mask_path), cv2.IMREAD_GRAYSCALE)
+    if mask is None:
+        raise RuntimeError(f"Could not read mask file: {mask_path}")
+
+    # Force a clean black/white mask even if the BMP contains intermediate values.
+    _, mask = cv2.threshold(mask, 127, 255, cv2.THRESH_BINARY)
+    return mask
+
+
 def scan_video(
     video_path: Path,
     image_dir: Path,
     clip_dir: Path,
     args: argparse.Namespace,
+    exclusion_mask: Optional[np.ndarray] = None,
 ) -> tuple[list[Detection], dict[str, object]]:
     cap = cv2.VideoCapture(str(video_path))
 
@@ -369,6 +391,14 @@ def scan_video(
     width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
     height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
     frame_area = max(1, width * height)
+
+    if exclusion_mask is not None and exclusion_mask.shape != (height, width):
+        cap.release()
+        raise RuntimeError(
+            f"Selected mask is {exclusion_mask.shape[1]}x{exclusion_mask.shape[0]}, "
+            f"but {video_path.name} is {width}x{height}. "
+            "The mask must have the same dimensions as the video."
+        )
 
     ok, first_frame = cap.read()
     if not ok:
@@ -418,6 +448,12 @@ def scan_video(
             diff_bg, args.threshold, 255, cv2.THRESH_BINARY
         )
         mask = cv2.bitwise_and(mask_prev, mask_bg)
+
+        # If mask.bmp is present, white pixels are searchable and black pixels
+        # are excluded.  Apply it before global-change measurement, morphology,
+        # contour finding, scoring, and candidate saving.
+        if exclusion_mask is not None:
+            mask = cv2.bitwise_and(mask, exclusion_mask)
 
         # Ignore frames dominated by global brightness/exposure changes.
         global_change_fraction = cv2.countNonZero(mask) / frame_area
@@ -808,11 +844,48 @@ def main() -> int:
 
         for index, video in enumerate(videos, start=1):
             print(f"[{index}/{len(videos)}] Scanning {video.name}", flush=True)
+
+            # Choose the exclusion mask for this video.
+            #
+            # Video filenames begin with a 6-character station ID, for example:
+            #     NZ005C_20260819_065608_490671_video.mkv
+            #
+            # Mask priority:
+            #   1. <station>_mask.bmp in the same folder as the video
+            #   2. mask.bmp in the same folder as the video
+            #   3. no mask
+            station = video.name[:6]
+            station_mask_path = video.parent / f"{station}_mask.bmp"
+            fallback_mask_path = video.parent / "mask.bmp"
+
+            if station_mask_path.is_file():
+                mask_path = station_mask_path
+                mask_description = "station mask"
+            elif fallback_mask_path.is_file():
+                mask_path = fallback_mask_path
+                mask_description = "fallback mask"
+            else:
+                mask_path = None
+                mask_description = ""
+
+            if mask_path is not None:
+                exclusion_mask = load_exclusion_mask(mask_path)
+                print(
+                    f"    Using {mask_description}: {mask_path.name} "
+                    f"({exclusion_mask.shape[1]}x{exclusion_mask.shape[0]}; "
+                    "black areas ignored)",
+                    flush=True,
+                )
+            else:
+                exclusion_mask = None
+                print("    No mask; scanning the full frame.", flush=True)
+
             detections, summary = scan_video(
                 video,
                 image_dir,
                 clip_dir,
                 args,
+                exclusion_mask,
             )
             all_detections.extend(detections)
             summaries.append(summary)
