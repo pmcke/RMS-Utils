@@ -46,20 +46,33 @@ CODENAME="$(. /etc/os-release && echo "${VERSION_CODENAME:-unknown}")"
 OS_ID="$(. /etc/os-release && echo "${ID:-unknown}")"
 
 if [ "$CODENAME" = "buster" ]; then
-    if grep -q "raspbian.raspberrypi.org" /etc/apt/sources.list; then
-        echo
-        echo "WARNING: Buster may require legacy repository URLs."
-        echo "If installation fails with 404 errors, change:"
-        echo
-        echo "/etc/apt/sources.list"
-        echo 
-        echo "to:"
-        echo "deb http://legacy.raspbian.org/raspbian/ buster main contrib non-free rpi"
-        echo "#deb-src http://legacy.raspbian.org/raspbian/ buster main contrib non-free rpi"
-        echo 
-        echo 
-        echo
+    echo "Buster detected. Configuring legacy Raspbian repository..."
+
+    SOURCES_FILE="/etc/apt/sources.list"
+
+    # Back up the original sources.list once
+    if [ ! -f "${SOURCES_FILE}.bak" ]; then
+        sudo cp "$SOURCES_FILE" "${SOURCES_FILE}.bak"
     fi
+
+    # Comment out obsolete active Raspbian repository lines
+    sudo sed -i \
+        '/^[[:space:]]*deb[[:space:]].*raspbian\.raspberrypi\.org/s/^/#/' \
+        "$SOURCES_FILE"
+
+    # Add the legacy Buster repository if it is not already present
+    if ! grep -qF "deb http://legacy.raspbian.org/raspbian/ buster main contrib non-free rpi" "$SOURCES_FILE"; then
+        sudo tee -a "$SOURCES_FILE" >/dev/null <<'EOF'
+
+# Legacy Raspbian Buster repository
+deb http://legacy.raspbian.org/raspbian/ buster main contrib non-free rpi
+#deb-src http://legacy.raspbian.org/raspbian/ buster main contrib non-free rpi
+EOF
+    fi
+
+    echo "Updating package lists using the legacy Buster repository..."
+    sudo apt-get update
+    echo "Buster repository configuration updated."
 fi
 
 if [ -f "$INI_FILE" ]; then
