@@ -302,21 +302,70 @@ PY
 echo "Starting RustDesk service..."
 sudo systemctl start rustdesk
 
-echo "Waiting for RustDesk service..."
-sleep 20
-
-echo "Setting RustDesk permanent password..."
-
-PASSWORD_SET=0
-for attempt in 1 2 3 4 5; do
-    if sudo rustdesk --password "$RD_PASSWORD"; then
-        PASSWORD_SET=1
+echo "Waiting for RustDesk to initialise..."
+RUSTDESK_READY=0
+for attempt in {1..12}; do
+    if sudo rustdesk --get-id >/dev/null 2>&1; then
+        RUSTDESK_READY=1
+        echo "RustDesk is ready."
         break
     fi
 
-    echo "Password set failed; retrying in 5 seconds..."
+    echo "RustDesk not ready yet; retrying in 5 seconds..."
     sleep 5
 done
+
+if [ "$RUSTDESK_READY" -ne 1 ]; then
+    echo "WARNING: RustDesk did not report ready status within 60 seconds."
+    echo "Continuing with password configuration anyway."
+fi
+
+set_rustdesk_password() {
+    local password_set=0
+
+    for attempt in 1 2 3 4 5; do
+        if sudo rustdesk --password "$RD_PASSWORD"; then
+            password_set=1
+            break
+        fi
+
+        echo "Password set failed; retrying in 5 seconds..."
+        sleep 5
+    done
+
+    if [ "$password_set" -eq 1 ]; then
+        echo "RustDesk password command completed successfully."
+        return 0
+    fi
+
+    return 1
+}
+
+echo "Setting RustDesk permanent password..."
+PASSWORD_SET=0
+
+if set_rustdesk_password; then
+    echo "Restarting RustDesk to ensure the password survives initial configuration..."
+    sudo systemctl restart rustdesk
+
+    echo "Waiting for RustDesk after restart..."
+    RUSTDESK_READY=0
+    for attempt in {1..12}; do
+        if sudo rustdesk --get-id >/dev/null 2>&1; then
+            RUSTDESK_READY=1
+            echo "RustDesk is ready after restart."
+            break
+        fi
+
+        echo "RustDesk not ready yet; retrying in 5 seconds..."
+        sleep 5
+    done
+
+    echo "Re-applying RustDesk permanent password after restart..."
+    if set_rustdesk_password; then
+        PASSWORD_SET=1
+    fi
+fi
 
 if [ "$PASSWORD_SET" -ne 1 ]; then
     echo "WARNING: Unable to set RustDesk password automatically."
