@@ -5,7 +5,7 @@ import os
 from datetime import datetime
 import argparse
 
-def load_and_plot(filepath, label, ax, stats, start_time, end_time, hide_lines):
+def load_and_plot(filepath, label, ax, stats, start_time, end_time, include_lines):
     if not os.path.exists(filepath):
         print(f"File not found: {filepath}")
         return False
@@ -33,11 +33,11 @@ def load_and_plot(filepath, label, ax, stats, start_time, end_time, hide_lines):
         print(f"{label}: No data in selected time range")
         return False
 
-    if 'lux' not in hide_lines:
+    if 'lux' in include_lines:
         ax.plot(df['timestamp'], df['lux'], label=f"{label} - Lux Data")
-    if 'visible' not in hide_lines:
+    if 'visible' in include_lines:
         ax.plot(df['timestamp'], df['visible'], label=f"{label} - Visible Light")
-    if 'infrared' not in hide_lines:
+    if 'infrared' in include_lines:
         ax.plot(df['timestamp'], df['infrared'], label=f"{label} - Infrared Light")
 
     def extract_stats(column):
@@ -85,8 +85,12 @@ def main():
     parser.add_argument("--end", help="End time in HH:MM", default=None)
     parser.add_argument("--input", help="Path to directory containing input data files", default=".")
     parser.add_argument("--output", help="Path to directory for output files", default=".")
-    parser.add_argument("--skip", nargs="+", help="Labels to skip (e.g. RAW MAX)", default=[])
-    parser.add_argument("--hide", nargs="+", help="Data lines to hide: lux, visible, infrared", default=[])
+    parser.add_argument("--add", nargs="+", choices=["LOW", "MED", "MAX", "RAW"],
+                        help="Graphs to include: LOW MED MAX RAW",
+                        default=["LOW", "MED", "MAX", "RAW"])
+    parser.add_argument("--include", nargs="+", choices=["INFRARED", "VISIBLE", "LUX"],
+                        help="Data lines to include: INFRARED VISIBLE LUX",
+                        default=["INFRARED", "VISIBLE", "LUX"])
 
     args = parser.parse_args()
 
@@ -94,8 +98,8 @@ def main():
     output_dir = args.output
     os.makedirs(output_dir, exist_ok=True)
 
-    hide_lines = [h.lower() for h in args.hide]
-    skip_keywords = [kw.lower() for kw in args.skip]
+    include_lines = [item.lower() for item in args.include]
+    add_keywords = [item.lower() for item in args.add]
     start_time = parse_time(args.start) if args.start else None
     end_time = parse_time(args.end) if args.end else None
 
@@ -109,8 +113,8 @@ def main():
     all_stats = []
 
     for label, filepath in files.items():
-        if any(skip_kw in label.lower() for skip_kw in skip_keywords):
-            print(f"Skipping {label}")
+        graph_key = label.split()[0].lower() if label != "RAW" else "raw"
+        if graph_key not in add_keywords:
             continue
 
         stats = []
@@ -119,7 +123,7 @@ def main():
         ax.set_xlabel("Timestamp")
         ax.set_ylabel("Lux Data")
 
-        success = load_and_plot(filepath, label, ax, stats, start_time, end_time, hide_lines)
+        success = load_and_plot(filepath, label, ax, stats, start_time, end_time, include_lines)
 
         if success:
             ax.legend()
