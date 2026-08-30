@@ -83,3 +83,7 @@
 # meteor_scan.py
 
 - Scans a folder of video files and looks for something that might be a meteor. Use with mask.bmp to avoid scanning areas that are not sky. If scanning videos from multiple cameras, rename the mask with the camera code. ie. If the video's name is NZ005C_20260819_065608_490671_video.mkv then rename mask.bmp to NZ0005C_mask.bmp and thise videos will be scanned with that mask.
+
+# get_emails.py
+
+-Scans a folder of saved emails and extracts any email addresses after the 'To:' line. Writes the result to a txt file in the same folder
