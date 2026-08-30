@@ -86,4 +86,4 @@
 
 # get_emails.py
 
--Scans a folder of saved emails and extracts any email addresses after the 'To:' line. Writes the result to a txt file in the same folder
+- Scans a folder of saved emails and extracts any email addresses after the 'To:' line. Writes the result to a txt file in the same folder
