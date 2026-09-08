@@ -91,3 +91,7 @@
 # get_emails.py
 
 - Scans a folder of saved emails and extracts any email addresses after the 'To:' line. Writes the result to a txt file in the same folder
+
+# archive_maxpixel_events.py
+
+- I used this to extract and archive specific events in the CapturedFiles folder. I marked the events I wanted by viewing the FF file in CMN_binViewer and the created a jpg file of the event. Then ran this script which will find the jpg file and then extract the jpg, FF & FR files relating to the event and add them to a zip archive.
