@@ -88,6 +88,10 @@
 
 - Simplified for of meteor_scan.py that displays only the candidate files at the end
 
+# meteor_scan_local,py
+
+- This version of meteor scan is designed to run on the RMS Pi or PC that is capturing the video. It takes the arguements. camera ids then start date/time and end date/time. Copies the candidate mkv files to a zip archive
+
 # get_emails.py
 
 - Scans a folder of saved emails and extracts any email addresses after the 'To:' line. Writes the result to a txt file in the same folder
