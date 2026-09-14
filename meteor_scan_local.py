@@ -5,7 +5,7 @@ Examples:
     python3 meteor_scan_local.py NZ005A 20260913_210000 20260913_220000
     python3 meteor_scan_local.py 20260913_210000 20260913_220000
 
-When STATION is omitted, every station found in ~/source/Stations/*/.config is
+When STATION is omitted, every stationID found in ~/source/Stations/*/.config is
 scanned sequentially.  On a single-camera installation, ~/source/RMS/.config
 and ~/RMS_data/VideoFiles are used.
 """
@@ -30,7 +30,10 @@ VIDEO_NAME_RE = re.compile(
     re.IGNORECASE,
 )
 STATION_CONFIG_RE = re.compile(
-    r"^\s*station_id\s*:\s*['\"]?([^\s#'\"]+)", re.IGNORECASE | re.MULTILINE
+    # RMS normally uses "stationID:".  Also accept "station_id:" for
+    # compatibility with installations that use the alternative spelling.
+    r"^\s*station_?id\s*:\s*['\"]?([^\s#;'\"]+)",
+    re.IGNORECASE | re.MULTILINE,
 )
 
 
@@ -284,7 +287,7 @@ def main() -> int:
     else:
         stations = discover_stations(home)
         if not stations:
-            print("ERROR: No station_id entries found in ~/source/Stations/*/.config or ~/source/RMS/.config", file=sys.stderr)
+            print("ERROR: No stationID entry found in ~/source/Stations/*/.config or ~/source/RMS/.config", file=sys.stderr)
             return 2
 
     all_candidates: list[Path] = []
