@@ -3,6 +3,7 @@
 
 Examples:
     python3 meteor_scan_local.py NZ005A 20260913_210000 20260913_220000
+    python3 meteor_scan_local.py NZ005A,NZ005B 20260913_210000 20260913_220000
     python3 meteor_scan_local.py 20260913_210000 20260913_220000
 
 When STATION is omitted, every stationID found in ~/source/Stations/*/.config is
@@ -16,6 +17,7 @@ import argparse
 import math
 import re
 import sys
+import zipfile
 from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
@@ -59,7 +61,7 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument(
         "values", nargs="+", metavar="ARG",
-        help="[STATION] START END, with times formatted YYYYMMDD_HHMMSS",
+        help="[STATION[,STATION...]] START END; times use YYYYMMDD_HHMMSS",
     )
     parser.add_argument("--threshold", type=int, default=22)
     parser.add_argument("--min-area", type=float, default=5.0)
@@ -73,13 +75,21 @@ def parse_args() -> argparse.Namespace:
     args = parser.parse_args()
 
     if len(args.values) == 2:
-        args.station = None
+        args.stations = None
         start_text, end_text = args.values
     elif len(args.values) == 3:
-        args.station = args.values[0].upper()
+        args.stations = [
+            station.strip().upper()
+            for station in args.values[0].split(",")
+            if station.strip()
+        ]
+        if not args.stations:
+            parser.error("the station list is empty")
+        if len(args.stations) != len(set(args.stations)):
+            parser.error("the station list contains duplicate station IDs")
         start_text, end_text = args.values[1:]
     else:
-        parser.error("supply START END, or STATION START END")
+        parser.error("supply START END, or STATION[,STATION...] START END")
 
     args.start = parse_timestamp(start_text)
     args.end = parse_timestamp(end_text)
@@ -279,11 +289,25 @@ def contains_candidate(video_path: Path, args: argparse.Namespace,
     return False, "ok"
 
 
+def create_candidate_archive(candidates: list[Path], start: datetime,
+                             output_dir: Path) -> Path:
+    archive_path = output_dir / f"candidates_{start.strftime('%Y%m%d_%H%M%S')}.zip"
+    # MKV video is already compressed, so storing it without recompression is
+    # substantially faster and normally produces nearly the same size.
+    with zipfile.ZipFile(archive_path, "w", compression=zipfile.ZIP_STORED) as archive:
+        for video in candidates:
+            archive.write(video, arcname=video.name)
+    return archive_path
+
+
 def main() -> int:
     args = parse_args()
     home = Path.home()
-    if args.station:
-        stations = [resolve_requested_station(home, args.station)]
+    if args.stations:
+        stations = [
+            resolve_requested_station(home, station_id)
+            for station_id in args.stations
+        ]
     else:
         stations = discover_stations(home)
         if not stations:
@@ -329,9 +353,17 @@ def main() -> int:
     else:
         print("No candidate files found.")
     print(f"\nCandidate files: {len(all_candidates)}")
+
+    try:
+        archive_path = create_candidate_archive(all_candidates, args.start, Path.cwd())
+        print(f"Archive: {archive_path}")
+    except OSError as exc:
+        print(f"ERROR: Could not create candidate archive: {exc}", file=sys.stderr)
+        errors += 1
+
     if errors:
         print(f"Warnings/errors: {errors}")
-    return 0
+    return 1 if errors else 0
 
 
 if __name__ == "__main__":
