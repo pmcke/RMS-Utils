@@ -289,9 +289,11 @@ def contains_candidate(video_path: Path, args: argparse.Namespace,
     return False, "ok"
 
 
-def create_candidate_archive(candidates: list[Path], start: datetime,
-                             output_dir: Path) -> Path:
-    archive_path = output_dir / f"candidates_{start.strftime('%Y%m%d_%H%M%S')}.zip"
+def create_candidate_archive(candidates: list[Path], station_id: str,
+                             start: datetime, output_dir: Path) -> Path:
+    archive_path = output_dir / (
+        f"{station_id}_candidates_{start.strftime('%Y%m%d_%H%M%S')}.zip"
+    )
     # MKV video is already compressed, so storing it without recompression is
     # substantially faster and normally produces nearly the same size.
     with zipfile.ZipFile(archive_path, "w", compression=zipfile.ZIP_STORED) as archive:
@@ -355,7 +357,10 @@ def main() -> int:
     print(f"\nCandidate files: {len(all_candidates)}")
 
     try:
-        archive_path = create_candidate_archive(all_candidates, args.start, Path.cwd())
+        lowest_station_id = min(station.station_id for station in stations)
+        archive_path = create_candidate_archive(
+            all_candidates, lowest_station_id, args.start, Path.cwd()
+        )
         print(f"Archive: {archive_path}")
     except OSError as exc:
         print(f"ERROR: Could not create candidate archive: {exc}", file=sys.stderr)
