@@ -321,22 +321,31 @@ if [ "$RUSTDESK_READY" -ne 1 ]; then
 fi
 
 set_rustdesk_password() {
-    local password_set=0
+    local output
+    local rc
 
-    for attempt in 1 2 3 4 5; do
-        if sudo rustdesk --password "$RD_PASSWORD"; then
-            password_set=1
-            break
+    for attempt in 1 2 3 4 5 6 7 8 9 10; do
+        echo "Password attempt $attempt of 10..."
+
+        # Some RustDesk builds can return a successful shell status even when
+        # the local IPC connection fails.  Capture and verify the output rather
+        # than trusting the exit status alone.
+        set +e
+        output="$(sudo rustdesk --password "$RD_PASSWORD" 2>&1)"
+        rc=$?
+        set -e
+
+        echo "$output"
+
+        if [ "$rc" -eq 0 ] && echo "$output" | grep -q "Done! 0"; then
+            echo "RustDesk permanent password successfully set."
+            return 0
         fi
 
-        echo "Password set failed; retrying in 5 seconds..."
+        echo "RustDesk password was not confirmed as set."
+        echo "Waiting 5 seconds before retrying..."
         sleep 5
     done
-
-    if [ "$password_set" -eq 1 ]; then
-        echo "RustDesk password command completed successfully."
-        return 0
-    fi
 
     return 1
 }
@@ -368,9 +377,10 @@ if set_rustdesk_password; then
 fi
 
 if [ "$PASSWORD_SET" -ne 1 ]; then
-    echo "WARNING: Unable to set RustDesk password automatically."
+    echo "ERROR: RustDesk installed, but the permanent password could not be confirmed."
     echo "You can set it manually with:"
     echo "sudo rustdesk --password '<password>'"
+    exit 1
 fi
 
 echo "RustDesk install/config complete."
