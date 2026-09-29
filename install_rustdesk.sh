@@ -61,7 +61,7 @@ if [ "$CODENAME" = "buster" ]; then
         "$SOURCES_FILE"
 
     # Add the legacy Buster repository if it is not already present
-    if ! grep -qF "deb http://legacy.raspbian.org/raspbian/ buster main contrib non-free rpi" "$SOURCES_FILE"; then
+    if ! grep -Eq '^[[:space:]]*deb[[:space:]]+http://legacy\.raspbian\.org/raspbian/[[:space:]]+buster[[:space:]]+main[[:space:]]+contrib[[:space:]]+non-free[[:space:]]+rpi([[:space:]]|$)' "$SOURCES_FILE"; then
         sudo tee -a "$SOURCES_FILE" >/dev/null <<'EOF'
 
 # Legacy Raspbian Buster repository
@@ -163,13 +163,33 @@ fi
 TMPDIR="$(mktemp -d)"
 cd "$TMPDIR"
 
-# Current RustDesk ARMv7 .deb packages require dependencies that are not
-# available in Raspberry Pi OS Buster. RustDesk published a Raspberry
-# Pi-specific ARMHF build of 1.1.9, so use that legacy package on Buster.
-# Newer operating systems continue to use the latest release automatically.
+# Raspberry Pi OS Buster ARMHF needs a Buster-compatible RustDesk 1.4.8
+# build plus PipeWire 0.2 packages. These known-good packages are retained
+# in RMS-Utils because current RustDesk ARMv7 packages require dependencies
+# that are not available from the Buster repositories.
+BUSTER_PACKAGE_BASE="https://raw.githubusercontent.com/pmcke/RMS-Utils/main/Rustdesk_packages_for_Buster"
+
 if [ "$CODENAME" = "buster" ] && [ "$ARCH" = "armhf" ]; then
-    echo "Buster ARMHF detected. Using RustDesk 1.1.9 Raspberry Pi build..."
-    ASSET_URL="https://github.com/rustdesk/rustdesk/releases/download/1.1.9/rustdesk-1.1.9-raspberry-armhf.deb"
+    echo "Buster ARMHF detected. Using known-good RustDesk 1.4.8 packages..."
+
+    BUSTER_PACKAGES=(
+        "libpipewire-0.2-1_0.2.5-1_armhf.deb"
+        "gstreamer1.0-pipewire_0.2.5-1_armhf.deb"
+        "rustdesk_1.4.8_buster_armhf.deb"
+    )
+
+    for pkg in "${BUSTER_PACKAGES[@]}"; do
+        echo "Downloading $pkg..."
+        curl -fL --retry 3 --retry-delay 2 -o "$pkg" "$BUSTER_PACKAGE_BASE/$pkg"
+    done
+
+    echo "Installing Buster-compatible RustDesk packages..."
+    sudo apt install -y \
+        ./libpipewire-0.2-1_0.2.5-1_armhf.deb \
+        ./gstreamer1.0-pipewire_0.2.5-1_armhf.deb \
+        ./rustdesk_1.4.8_buster_armhf.deb
+
+    ASSET_URL=""
 else
     echo "Finding latest RustDesk release..."
     ASSET_URL="$(
@@ -193,17 +213,19 @@ PY
     )"
 fi
 
-if [ -z "$ASSET_URL" ]; then
-    echo "Could not find a RustDesk $PKG_EXT package for architecture $ARCH."
-    exit 1
+if [ "$CODENAME" != "buster" ] || [ "$ARCH" != "armhf" ]; then
+    if [ -z "$ASSET_URL" ]; then
+        echo "Could not find a RustDesk $PKG_EXT package for architecture $ARCH."
+        exit 1
+    fi
+
+    PKG_FILE="$(basename "$ASSET_URL")"
+    echo "Downloading $PKG_FILE..."
+    curl -fL --retry 3 --retry-delay 2 -o "$PKG_FILE" "$ASSET_URL"
+
+    echo "Installing RustDesk..."
+    $INSTALL_CMD "./$PKG_FILE"
 fi
-
-PKG_FILE="$(basename "$ASSET_URL")"
-echo "Downloading $PKG_FILE..."
-curl -L -o "$PKG_FILE" "$ASSET_URL"
-
-echo "Installing RustDesk..."
-$INSTALL_CMD "./$PKG_FILE"
 
 USER_CONFIG_DIR="$HOME/.config/rustdesk"
 ROOT_CONFIG_DIR="/root/.config/rustdesk"
