@@ -163,9 +163,17 @@ fi
 TMPDIR="$(mktemp -d)"
 cd "$TMPDIR"
 
-echo "Finding latest RustDesk release..."
-ASSET_URL="$(
-python3 - <<PY
+# Current RustDesk ARMv7 .deb packages require dependencies that are not
+# available in Raspberry Pi OS Buster. RustDesk published a Raspberry
+# Pi-specific ARMHF build of 1.1.9, so use that legacy package on Buster.
+# Newer operating systems continue to use the latest release automatically.
+if [ "$CODENAME" = "buster" ] && [ "$ARCH" = "armhf" ]; then
+    echo "Buster ARMHF detected. Using RustDesk 1.1.9 Raspberry Pi build..."
+    ASSET_URL="https://github.com/rustdesk/rustdesk/releases/download/1.1.9/rustdesk-1.1.9-raspberry-armhf.deb"
+else
+    echo "Finding latest RustDesk release..."
+    ASSET_URL="$(
+    python3 - <<PY
 import json, re, urllib.request
 
 arch_re = re.compile(r"$WANT_ARCH_REGEX", re.I)
@@ -182,7 +190,8 @@ for asset in data["assets"]:
             print(asset["browser_download_url"])
             break
 PY
-)"
+    )"
+fi
 
 if [ -z "$ASSET_URL" ]; then
     echo "Could not find a RustDesk $PKG_EXT package for architecture $ARCH."
