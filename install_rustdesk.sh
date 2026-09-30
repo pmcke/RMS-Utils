@@ -368,7 +368,7 @@ set_rustdesk_password() {
 
         echo "$output"
 
-        if [ "$rc" -eq 0 ] && echo "$output" | grep -q "Done! 0"; then
+        if [ "$rc" -eq 0 ] && echo "$output" | grep -q "Done!"; then
             echo "RustDesk permanent password successfully set."
             return 0
         fi
