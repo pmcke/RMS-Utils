@@ -184,7 +184,7 @@ if [ "$CODENAME" = "buster" ] && [ "$ARCH" = "armhf" ]; then
     done
 
     echo "Installing Buster-compatible RustDesk packages..."
-    sudo apt install -y \
+    sudo apt install -y --allow-downgrades \
         ./libpipewire-0.2-1_0.2.5-1_armhf.deb \
         ./gstreamer1.0-pipewire_0.2.5-1_armhf.deb \
         ./rustdesk_1.4.8_buster_armhf.deb
