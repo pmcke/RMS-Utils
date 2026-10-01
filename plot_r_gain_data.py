@@ -80,7 +80,15 @@ def clean_label(label):
 
 def main():
     parser = argparse.ArgumentParser(description="Plot R Gain data for a given date.")
-    parser.add_argument("date", help="Date in format YYYYMMDD")
+    parser.add_argument(
+        "station_or_date",
+        help="Station name (e.g. NZ005A) or date in format YYYYMMDD"
+    )
+    parser.add_argument(
+        "date",
+        nargs="?",
+        help="Date in format YYYYMMDD when a station name is supplied"
+    )
     parser.add_argument("--start", help="Start time in HH:MM", default=None)
     parser.add_argument("--end", help="End time in HH:MM", default=None)
     parser.add_argument("--input", help="Path to directory containing input data files", default=".")
@@ -94,6 +102,23 @@ def main():
 
     args = parser.parse_args()
 
+    # Support either:
+    #   python plot_r_gain_data.py 20260930
+    # or:
+    #   python plot_r_gain_data.py NZ005A 20260930
+    if args.date is None:
+        station_name = None
+        plot_date = args.station_or_date
+    else:
+        station_name = args.station_or_date
+        plot_date = args.date
+
+    # Validate the date.
+    try:
+        datetime.strptime(plot_date, "%Y%m%d")
+    except ValueError:
+        parser.error("Date must be in YYYYMMDD format")
+
     input_dir = args.input
     output_dir = args.output
     os.makedirs(output_dir, exist_ok=True)
@@ -103,11 +128,13 @@ def main():
     start_time = parse_time(args.start) if args.start else None
     end_time = parse_time(args.end) if args.end else None
 
+    prefix = f"{station_name}_" if station_name else ""
+
     files = {
-        "LOW GAIN": os.path.join(input_dir, f"R_GAIN_LOW_{args.date}.csv"),
-        "MED GAIN": os.path.join(input_dir, f"R_GAIN_MED_{args.date}.csv"),
-        "MAX GAIN": os.path.join(input_dir, f"R_GAIN_MAX_{args.date}.csv"),
-        "RAW":      os.path.join(input_dir, f"R{args.date}.csv")
+        "LOW GAIN": os.path.join(input_dir, f"{prefix}R_GAIN_LOW_{plot_date}.csv"),
+        "MED GAIN": os.path.join(input_dir, f"{prefix}R_GAIN_MED_{plot_date}.csv"),
+        "MAX GAIN": os.path.join(input_dir, f"{prefix}R_GAIN_MAX_{plot_date}.csv"),
+        "RAW":      os.path.join(input_dir, f"{prefix}R{plot_date}.csv")
     }
 
     all_stats = []
@@ -119,7 +146,7 @@ def main():
 
         stats = []
         fig, ax = plt.subplots(figsize=(12, 6))
-        ax.set_title(f"{label} Readings for {args.date}")
+        ax.set_title(f"{label} Readings for {plot_date}")
         ax.set_xlabel("Timestamp")
         ax.set_ylabel("Lux Data")
 
@@ -133,7 +160,7 @@ def main():
             label_clean = clean_label(label)
             plot_filename = os.path.join(
                 output_dir,
-                f"r_gain_plot_{args.date}_{label_clean}.png"
+                f"{prefix}r_gain_plot_{plot_date}_{label_clean}.png"
             )
             plt.savefig(plot_filename)
             plt.close()
@@ -147,7 +174,7 @@ def main():
         stats_df = pd.DataFrame(all_stats)
         stats_filename = os.path.join(
             output_dir,
-            f"r_gain_stats_{args.date}.csv"
+            f"{prefix}r_gain_stats_{plot_date}.csv"
         )
         stats_df.to_csv(stats_filename, index=False)
         print(f"Combined stats saved to: {stats_filename}")
