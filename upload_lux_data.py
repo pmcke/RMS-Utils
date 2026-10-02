@@ -136,51 +136,37 @@ def create_archive(files, date_string):
 
 
 def upload_archive(archive_path):
-    """Upload archive to GMN server using SFTP."""
+    """Create remote directory if necessary and upload archive using SFTP only."""
 
     if not SSH_PRIVATE_KEY.exists():
         print()
-        print(f"ERROR: SSH private key not found:")
+        print("ERROR: SSH private key not found:")
         print(f"       {SSH_PRIVATE_KEY}")
         sys.exit(1)
 
     print()
-    print("Uploading archive")
-    print("=================")
+    print("Uploading archive using SFTP")
+    print("============================")
     print(f"Server : {GMN_USER}@{GMN_HOST}")
     print(f"Remote : {GMN_REMOTE_DIR}/{archive_path.name}")
 
-    # First ensure the remote lux_data directory exists.
+    # Everything on the GMN server is done through SFTP.
     #
-    # We use SSH for mkdir because SFTP itself does not provide a convenient
-    # mkdir -p operation in batch mode.
-    mkdir_command = [
-        "ssh",
-        "-i",
-        str(SSH_PRIVATE_KEY),
-        "-o",
-        "BatchMode=yes",
-        "-o",
-        "StrictHostKeyChecking=accept-new",
-        f"{GMN_USER}@{GMN_HOST}",
-        f"mkdir -p {shlex.quote(GMN_REMOTE_DIR)}",
-    ]
-
-    run_command(
-        mkdir_command,
-        f"Could not create {GMN_REMOTE_DIR} on {GMN_HOST}",
-    )
-
-    # Create a temporary SFTP batch file.
+    # The leading '-' tells sftp batch mode to ignore an error from mkdir.
+    # This is useful when lux_data already exists.
     with tempfile.NamedTemporaryFile(
         mode="w",
         delete=False,
         prefix="lux_sftp_",
         suffix=".txt",
     ) as batch:
-        batch.write(f"cd {GMN_REMOTE_DIR}\n")
+
+        batch.write("cd /home/rmsuser/files\n")
+        batch.write("-mkdir lux_data\n")
+        batch.write("cd lux_data\n")
         batch.write(f'put "{archive_path}"\n')
         batch.write("quit\n")
+
         batch_filename = batch.name
 
     try:
@@ -190,6 +176,8 @@ def upload_archive(archive_path):
             str(SSH_PRIVATE_KEY),
             "-o",
             "BatchMode=yes",
+            "-o",
+            "ConnectTimeout=30",
             "-o",
             "StrictHostKeyChecking=accept-new",
             "-b",
