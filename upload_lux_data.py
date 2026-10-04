@@ -3,12 +3,13 @@
 import json
 import logging
 import os
+import re
 import subprocess
 import sys
 import tarfile
 import tempfile
 import time
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timezone
 from pathlib import Path
 
 
@@ -17,6 +18,10 @@ from pathlib import Path
 # ============================================================
 
 STATION_NAME = "NZ005A"
+
+# Earliest UTC date that this installation is allowed to send.
+# Format: YYYYMMDD
+START_DATE = "20261001"
 
 # Pi Zero
 PI_HOST = "192.168.6.50"
@@ -32,12 +37,12 @@ GMN_HOST = "gmn.uwo.ca"
 GMN_USER = STATION_NAME.lower()
 GMN_REMOTE_DIR = "/home/rmsuser/files/lux_data"
 
-# SSH private key for GMN SFTP
+# SSH PRIVATE key used by SFTP
 SSH_PRIVATE_KEY = Path.home() / ".ssh" / "id_rsa"
 
-# Logging/state
+# Persistent files
 LOG_FILE = LOCAL_DATA_DIR / "lux_transfer.log"
-PENDING_FILE = LOCAL_DATA_DIR / "pending_dates.json"
+UPLOADED_FILE = LOCAL_DATA_DIR / "uploaded_dates.json"
 
 # Retry settings
 MAX_RETRIES = 3
@@ -62,44 +67,55 @@ def setup_logging():
         ],
     )
 
-    # Force logging timestamps to UTC
     logging.Formatter.converter = time.gmtime
 
 
 # ============================================================
-# Pending-date management
+# Uploaded-date management
 # ============================================================
 
-def load_pending_dates():
-    if not PENDING_FILE.exists():
+def load_uploaded_dates():
+    if not UPLOADED_FILE.exists():
         return []
 
     try:
-        with open(PENDING_FILE, "r") as f:
+        with open(UPLOADED_FILE, "r") as f:
             data = json.load(f)
 
         if isinstance(data, list):
             return data
 
     except Exception as exc:
-        logging.error("Could not read pending date file: %s", exc)
+        logging.error(
+            "Could not read uploaded dates file: %s",
+            exc,
+        )
 
     return []
 
 
-def save_pending_dates(dates):
+def save_uploaded_dates(dates):
+    """
+    Safely save uploaded dates.
+
+    Write to a temporary file first and then replace the real file,
+    reducing the chance of corrupting the JSON if the machine loses
+    power while writing it.
+    """
+
+    temp_file = UPLOADED_FILE.with_suffix(".tmp")
+
     try:
-        with open(PENDING_FILE, "w") as f:
+        with open(temp_file, "w") as f:
             json.dump(sorted(set(dates)), f, indent=2)
 
+        os.replace(temp_file, UPLOADED_FILE)
+
     except Exception as exc:
-        logging.error("Could not save pending date file: %s", exc)
-
-
-def get_previous_utc_date():
-    now_utc = datetime.now(timezone.utc)
-    previous_date = now_utc.date() - timedelta(days=1)
-    return previous_date.strftime("%Y%m%d")
+        logging.error(
+            "Could not save uploaded dates file: %s",
+            exc,
+        )
 
 
 # ============================================================
@@ -116,32 +132,31 @@ def wait_before_retry(attempt):
 
 
 # ============================================================
-# Check whether source file exists
+# Find available dates on Pi
 # ============================================================
 
-def remote_file_exists(filename):
+def get_available_dates():
     """
-    Check whether a file exists on the Pi.
+    Get filenames from the Pi and determine which UTC dates have
+    radiometer data available.
 
-    Returns:
-        True  = file exists
-        False = file definitely does not exist
-        None  = could not communicate with Pi
+    Recognised filenames:
+
+        R_GAIN_LOW_YYYYMMDD.csv
+        R_GAIN_MED_YYYYMMDD.csv
+        R_GAIN_MAX_YYYYMMDD.csv
+        RYYYYMMDD.csv
+
+    Returns a sorted list of dates, or None if the Pi could not
+    be contacted.
     """
 
-    remote_path = f"{PI_DATA_DIR}/{filename}"
-
-    remote_command = (
-        f'if [ -f "{remote_path}" ]; '
-        f'then echo EXISTS; '
-        f'else echo MISSING; fi'
-    )
+    command_on_pi = f"ls -1 {PI_DATA_DIR}"
 
     for attempt in range(1, MAX_RETRIES + 1):
 
         logging.info(
-            "Checking for %s on Pi (attempt %d/%d)",
-            filename,
+            "Checking available dates on Pi (attempt %d/%d)",
             attempt,
             MAX_RETRIES,
         )
@@ -156,7 +171,7 @@ def remote_file_exists(filename):
             "-o",
             "StrictHostKeyChecking=accept-new",
             f"{PI_USER}@{PI_HOST}",
-            remote_command,
+            command_on_pi,
         ]
 
         try:
@@ -164,33 +179,46 @@ def remote_file_exists(filename):
                 command,
                 text=True,
                 capture_output=True,
-                timeout=CONNECT_TIMEOUT + 10,
+                timeout=CONNECT_TIMEOUT + 30,
             )
 
-            output = result.stdout.strip()
+            if result.returncode == 0:
 
-            if output == "EXISTS":
-                return True
+                dates = set()
 
-            if output == "MISSING":
-                return False
+                patterns = [
+                    r"^R_GAIN_LOW_(\d{8})\.csv$",
+                    r"^R_GAIN_MED_(\d{8})\.csv$",
+                    r"^R_GAIN_MAX_(\d{8})\.csv$",
+                    r"^R(\d{8})\.csv$",
+                ]
+
+                for filename in result.stdout.splitlines():
+
+                    filename = filename.strip()
+
+                    for pattern in patterns:
+                        match = re.match(pattern, filename)
+
+                        if match:
+                            dates.add(match.group(1))
+                            break
+
+                return sorted(dates)
 
             logging.warning(
-                "Could not determine whether %s exists: %s",
-                filename,
+                "Could not list Pi data directory: %s",
                 result.stderr.strip(),
             )
 
         except subprocess.TimeoutExpired:
             logging.warning(
-                "Timeout checking %s on Pi",
-                filename,
+                "Timeout while checking Pi data directory"
             )
 
         except Exception as exc:
             logging.warning(
-                "Error checking %s: %s",
-                filename,
+                "Error checking Pi data directory: %s",
                 exc,
             )
 
@@ -200,10 +228,90 @@ def remote_file_exists(filename):
 
 
 # ============================================================
-# Download one file
+# Determine exactly which files exist for a date
+# ============================================================
+
+def get_files_for_date(date_string):
+    """
+    Determine which of the four possible files actually exist.
+
+    Returns:
+        list = filenames that exist
+        None = communication failure
+    """
+
+    possible_files = [
+        f"R_GAIN_LOW_{date_string}.csv",
+        f"R_GAIN_MED_{date_string}.csv",
+        f"R_GAIN_MAX_{date_string}.csv",
+        f"R{date_string}.csv",
+    ]
+
+    command_on_pi = f"ls -1 {PI_DATA_DIR}"
+
+    for attempt in range(1, MAX_RETRIES + 1):
+
+        command = [
+            "sshpass",
+            "-p",
+            PI_PASSWORD,
+            "ssh",
+            "-o",
+            f"ConnectTimeout={CONNECT_TIMEOUT}",
+            "-o",
+            "StrictHostKeyChecking=accept-new",
+            f"{PI_USER}@{PI_HOST}",
+            command_on_pi,
+        ]
+
+        try:
+            result = subprocess.run(
+                command,
+                text=True,
+                capture_output=True,
+                timeout=CONNECT_TIMEOUT + 30,
+            )
+
+            if result.returncode == 0:
+
+                existing_files = set(
+                    line.strip()
+                    for line in result.stdout.splitlines()
+                )
+
+                return [
+                    filename
+                    for filename in possible_files
+                    if filename in existing_files
+                ]
+
+            logging.warning(
+                "Could not obtain file list from Pi: %s",
+                result.stderr.strip(),
+            )
+
+        except subprocess.TimeoutExpired:
+            logging.warning(
+                "Timeout obtaining file list from Pi"
+            )
+
+        except Exception as exc:
+            logging.warning(
+                "Error obtaining file list: %s",
+                exc,
+            )
+
+        wait_before_retry(attempt)
+
+    return None
+
+
+# ============================================================
+# Download a file
 # ============================================================
 
 def download_file(filename):
+
     remote_file = f"{PI_DATA_DIR}/{filename}"
 
     local_filename = f"{STATION_NAME}_{filename}"
@@ -240,10 +348,12 @@ def download_file(filename):
             )
 
             if result.returncode == 0:
+
                 logging.info(
                     "Downloaded: %s",
                     local_file.name,
                 )
+
                 return local_file
 
             logging.warning(
@@ -276,63 +386,18 @@ def download_file(filename):
 
 
 # ============================================================
-# Download files for one date
-# ============================================================
-
-def download_date(date_string):
-
-    filenames = [
-        f"R_GAIN_LOW_{date_string}.csv",
-        f"R_GAIN_MED_{date_string}.csv",
-        f"R_GAIN_MAX_{date_string}.csv",
-        f"R{date_string}.csv",
-    ]
-
-    downloaded_files = []
-
-    logging.info(
-        "Looking for data files for %s",
-        date_string,
-    )
-
-    for filename in filenames:
-
-        exists = remote_file_exists(filename)
-
-        if exists is False:
-            logging.info(
-                "File does not exist on Pi: %s",
-                filename,
-            )
-            continue
-
-        if exists is None:
-            logging.error(
-                "Unable to check %s because communication with Pi failed",
-                filename,
-            )
-            return None
-
-        local_file = download_file(filename)
-
-        if local_file is None:
-            # File exists but we could not download it.
-            # Treat this as a genuine failure.
-            return None
-
-        downloaded_files.append(local_file)
-
-    return downloaded_files
-
-
-# ============================================================
 # Create archive
 # ============================================================
 
 def create_archive(files, date_string):
 
-    archive_name = f"Lux_{STATION_NAME}_{date_string}.bz2"
-    archive_path = LOCAL_DATA_DIR / archive_name
+    archive_name = (
+        f"Lux_{STATION_NAME}_{date_string}.bz2"
+    )
+
+    archive_path = (
+        LOCAL_DATA_DIR / archive_name
+    )
 
     logging.info(
         "Creating archive %s containing %d file(s)",
@@ -341,11 +406,14 @@ def create_archive(files, date_string):
     )
 
     try:
-        # Although the extension is .bz2, this is a tar archive
-        # compressed using bzip2 so it can contain multiple files.
-        with tarfile.open(archive_path, mode="w:bz2") as archive:
+
+        with tarfile.open(
+            archive_path,
+            mode="w:bz2",
+        ) as archive:
 
             for file_path in files:
+
                 logging.info(
                     "Adding to archive: %s",
                     file_path.name,
@@ -364,6 +432,7 @@ def create_archive(files, date_string):
         return archive_path
 
     except Exception as exc:
+
         logging.error(
             "Failed to create archive: %s",
             exc,
@@ -373,22 +442,25 @@ def create_archive(files, date_string):
 
 
 # ============================================================
-# Upload archive using SFTP ONLY
+# Upload using SFTP ONLY
 # ============================================================
 
 def upload_archive(archive_path):
 
     if not SSH_PRIVATE_KEY.exists():
+
         logging.error(
             "SSH private key not found: %s",
             SSH_PRIVATE_KEY,
         )
+
         return False
 
     for attempt in range(1, MAX_RETRIES + 1):
 
         logging.info(
-            "Uploading %s to %s@%s (attempt %d/%d)",
+            "Uploading %s to %s@%s "
+            "(attempt %d/%d)",
             archive_path.name,
             GMN_USER,
             GMN_HOST,
@@ -399,6 +471,7 @@ def upload_archive(archive_path):
         batch_filename = None
 
         try:
+
             with tempfile.NamedTemporaryFile(
                 mode="w",
                 delete=False,
@@ -406,14 +479,19 @@ def upload_archive(archive_path):
                 suffix=".txt",
             ) as batch:
 
-                # SFTP ONLY - no SSH command is used on gmn.uwo.ca
+                # GMN permits SFTP only.
+                batch.write(
+                    "cd /home/rmsuser/files\n"
+                )
 
-                batch.write("cd /home/rmsuser/files\n")
+                # Ignore failure if lux_data already exists.
+                batch.write(
+                    "-mkdir lux_data\n"
+                )
 
-                # Ignore error if directory already exists
-                batch.write("-mkdir lux_data\n")
-
-                batch.write("cd lux_data\n")
+                batch.write(
+                    "cd lux_data\n"
+                )
 
                 batch.write(
                     f'put "{archive_path}"\n'
@@ -492,7 +570,7 @@ def upload_archive(archive_path):
 
 
 # ============================================================
-# Process one date
+# Process one UTC date
 # ============================================================
 
 def process_date(date_string):
@@ -506,35 +584,32 @@ def process_date(date_string):
         date_string,
     )
 
-    files = download_date(date_string)
+    filenames = get_files_for_date(date_string)
 
-    # None means a real communications/download failure.
-    if files is None:
+    if filenames is None:
 
         logging.error(
-            "Could not obtain data for %s - keeping date pending",
+            "Could not obtain file list for %s",
             date_string,
         )
 
         return False
 
-    # Zero files is different from an incomplete day.
-    # There is nothing that can usefully be archived.
-    if len(files) == 0:
+    if len(filenames) == 0:
 
         logging.warning(
-            "No data files found for %s - keeping date pending",
+            "No files found for %s",
             date_string,
         )
 
         return False
 
-    if len(files) < 4:
+    if len(filenames) < 4:
 
         logging.warning(
             "Only %d of 4 files exist for %s - "
-            "archiving and sending available files",
-            len(files),
+            "sending available files",
+            len(filenames),
             date_string,
         )
 
@@ -545,26 +620,34 @@ def process_date(date_string):
             date_string,
         )
 
+    downloaded_files = []
+
+    for filename in filenames:
+
+        local_file = download_file(filename)
+
+        if local_file is None:
+
+            logging.error(
+                "Could not download all available "
+                "files for %s",
+                date_string,
+            )
+
+            return False
+
+        downloaded_files.append(local_file)
+
     archive_path = create_archive(
-        files,
+        downloaded_files,
         date_string,
     )
 
     if archive_path is None:
 
-        logging.error(
-            "Archive creation failed for %s - keeping date pending",
-            date_string,
-        )
-
         return False
 
     if not upload_archive(archive_path):
-
-        logging.error(
-            "Upload failed for %s - keeping date pending",
-            date_string,
-        )
 
         return False
 
@@ -585,63 +668,137 @@ def main():
     setup_logging()
 
     logging.info("")
-    logging.info("Lux automatic transfer started")
-    logging.info("Station: %s", STATION_NAME)
-
-    previous_date = get_previous_utc_date()
-
-    pending_dates = load_pending_dates()
-
-    # Always add the just-completed UTC date.
-    if previous_date not in pending_dates:
-        pending_dates.append(previous_date)
-
-    pending_dates = sorted(set(pending_dates))
-
-    # Save immediately so even an unexpected crash does not lose
-    # the date we intended to process.
-    save_pending_dates(pending_dates)
-
     logging.info(
-        "Dates awaiting processing: %s",
-        ", ".join(pending_dates),
+        "Lux automatic transfer started"
     )
 
-    completed_dates = []
+    logging.info(
+        "Station: %s",
+        STATION_NAME,
+    )
 
-    # Oldest dates are processed first.
-    for date_string in pending_dates:
+    logging.info(
+        "Start date: %s",
+        START_DATE,
+    )
 
-        success = process_date(date_string)
+    # Current UTC date must never be sent because it
+    # has not finished yet.
+    today_utc = datetime.now(
+        timezone.utc
+    ).strftime("%Y%m%d")
 
-        if success:
-            completed_dates.append(date_string)
+    logging.info(
+        "Current UTC date: %s",
+        today_utc,
+    )
 
-    # Remove only dates which were successfully uploaded.
-    remaining_dates = [
+    # --------------------------------------------------------
+    # Ask the Pi which dates actually exist.
+    # --------------------------------------------------------
+
+    available_dates = get_available_dates()
+
+    if available_dates is None:
+
+        logging.error(
+            "Unable to contact Pi after retries. "
+            "Nothing will be processed this run."
+        )
+
+        logging.info(
+            "Lux automatic transfer finished"
+        )
+
+        return
+
+    logging.info(
+        "Pi contains %d relevant date(s)",
+        len(available_dates),
+    )
+
+    # --------------------------------------------------------
+    # Read dates that have already been successfully sent.
+    # --------------------------------------------------------
+
+    uploaded_dates = load_uploaded_dates()
+
+    uploaded_set = set(uploaded_dates)
+
+    # --------------------------------------------------------
+    # Determine what actually needs sending.
+    #
+    # Must:
+    #   - be on the Pi
+    #   - be START_DATE or later
+    #   - be earlier than today UTC
+    #   - not already have been successfully uploaded
+    # --------------------------------------------------------
+
+    dates_to_send = [
         date_string
-        for date_string in pending_dates
-        if date_string not in completed_dates
+        for date_string in available_dates
+        if date_string >= START_DATE
+        and date_string < today_utc
+        and date_string not in uploaded_set
     ]
 
-    save_pending_dates(remaining_dates)
+    dates_to_send.sort()
+
+    if not dates_to_send:
+
+        logging.info(
+            "No data awaiting upload"
+        )
+
+        logging.info(
+            "Lux automatic transfer finished"
+        )
+
+        return
+
+    logging.info(
+        "Dates awaiting upload: %s",
+        ", ".join(dates_to_send),
+    )
+
+    # --------------------------------------------------------
+    # Process oldest unsent date first.
+    # --------------------------------------------------------
+
+    for date_string in dates_to_send:
+
+        success = process_date(
+            date_string
+        )
+
+        if success:
+
+            uploaded_set.add(
+                date_string
+            )
+
+            # Save immediately after every successful upload.
+            # If the machine subsequently crashes, we still
+            # know this date was successfully sent.
+            save_uploaded_dates(
+                uploaded_set
+            )
+
+        else:
+
+            logging.error(
+                "Date %s was not successfully sent. "
+                "It will be tried again on the next run.",
+                date_string,
+            )
+
+            # Continue with other dates rather than allowing
+            # one failed date to prevent later dates being sent.
 
     logging.info(
         "============================================================"
     )
-
-    if remaining_dates:
-
-        logging.warning(
-            "Dates still pending: %s",
-            ", ".join(remaining_dates),
-        )
-
-    else:
-
-        logging.info(
-            "No dates remain pending"
-        )
 
     logging.info(
         "Lux automatic transfer finished"
