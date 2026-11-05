@@ -99,3 +99,8 @@
 # archive_maxpixel_events.py
 
 - I used this to extract and archive specific events in the CapturedFiles folder. I marked the events I wanted by viewing the FF file in CMN_binViewer and the created a jpg file of the event. Then ran this script which will find the jpg file and then extract the jpg, FF & FR files relating to the event and add them to a zip archive.
+# upload_lux_data.py
+
+- Uploads the Fireballs360 lux meter data from the Pi Zero to the GMN server once a day, as Lux_STATION_YYYYMMDD.tar.bz2 in the station's lux_data directory. Days that fail (e.g. machine or Pi Zero offline) are retried on the next run.
+- With --clock (run every 10 minutes from cron) it records the Pi Zero clock synchronization reported by chrony. The daily archive includes this log and a summary flagging days where the lux timestamps may be wrong (NOMINAL / DEGRADED / UNSYNCED / UNKNOWN).
+- Uses the existing RMS SSH key for both the Pi Zero and the GMN server, no passwords. See the top of the script for the one-time setup (SSH key on the Pi Zero, chrony, crontab).
