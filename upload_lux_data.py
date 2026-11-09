@@ -300,10 +300,7 @@ def logClockStatus():
             clock["status"], clock["max_error_s"], clock["system_offset_s"], clock["root_delay_s"],
             clock["root_dispersion_s"], clock["stratum"], clock["leap_status"], clock["reference"]))
 
-    if clock["status"] == "NOMINAL":
-        log.info("Pi Zero clock NOMINAL, max error {:.4f} s".format(clock["max_error_s"]))
-
-    else:
+    if clock["status"] != "NOMINAL":
         log.warning("Pi Zero clock {:s}".format(clock["status"]))
 
     # Delete old clock logs
