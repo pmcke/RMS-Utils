@@ -414,6 +414,72 @@ if [ "$PASSWORD_SET" -ne 1 ]; then
     exit 1
 fi
 
+# On Raspberry Pi OS Trixie with labwc/Wayland, avoid the interactive
+# screen chooser which blocks unattended RustDesk access on headless Pis.
+# Only configure this when an active Wayland output can be identified.
+configure_wayland_screencast() {
+    local output_info output_name portal_dir portal_file
+
+    if [ "$CODENAME" != "trixie" ]; then
+        return 0
+    fi
+    if ! command -v wlr-randr >/dev/null 2>&1; then
+        echo "Wayland capture: wlr-randr not installed; skipping automatic configuration."
+        return 0
+    fi
+
+    # SSH and non-graphical shells often lack these session variables.
+    # Use the usual per-user runtime directory to query the running compositor.
+    if [ -z "${XDG_RUNTIME_DIR:-}" ] && [ -d "/run/user/$(id -u)" ]; then
+        export XDG_RUNTIME_DIR="/run/user/$(id -u)"
+    fi
+    if [ -z "${WAYLAND_DISPLAY:-}" ]; then
+        for socket in "${XDG_RUNTIME_DIR:-/nonexistent}"/wayland-*; do
+            [ -S "$socket" ] || continue
+            export WAYLAND_DISPLAY="${socket##*/}"
+            break
+        done
+    fi
+
+    output_info="$(wlr-randr 2>/dev/null)" || {
+        echo "Wayland capture: cannot query an active Wayland display; skipping."
+        echo "Once the desktop is running, configure the portal manually."
+        return 0
+    }
+
+    # Prefer an enabled headless output, otherwise the first enabled output.
+    output_name="$(printf '%s\n' "$output_info" | awk '
+        /^[^[:space:]]/ { name=$1 }
+        /^[[:space:]]+Enabled: yes/ {
+            if (name ~ /^NOOP-/) { selected=name; exit }
+            if (first == "") first=name
+        }
+        END { if (selected != "") print selected; else if (first != "") print first }
+    ' | head -n 1)"
+    if [ -z "$output_name" ]; then
+        echo "Wayland capture: no enabled output found; skipping configuration."
+        return 0
+    fi
+
+    portal_dir="$HOME/.config/xdg-desktop-portal-wlr"
+    portal_file="$portal_dir/config"
+    mkdir -p "$portal_dir"
+    if [ -f "$portal_file" ]; then
+        cp -p "$portal_file" "${portal_file}.bak.$(date +%Y%m%d%H%M%S)"
+    fi
+    printf '[screencast]\nchooser_type=none\noutput_name=%s\n' "$output_name" > "$portal_file"
+    echo "Wayland capture: configured automatic selection of $output_name in $portal_file"
+
+    # Restart only the portal services, never the desktop or camera software.
+    if systemctl --user restart xdg-desktop-portal-wlr xdg-desktop-portal; then
+        echo "Wayland capture: portal services restarted."
+    else
+        echo "WARNING: Could not restart user portal services; configuration will apply when they next start."
+    fi
+}
+
+configure_wayland_screencast
+
 echo "RustDesk install/config complete."
 echo "Station: $STATION"
 echo "ID server: $ID_SERVER"
